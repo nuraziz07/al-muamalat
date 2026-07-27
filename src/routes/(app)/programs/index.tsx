@@ -1,39 +1,40 @@
 import {createFileRoute} from '@tanstack/react-router'
-import Header from './-sections/Header'
-import Summary from "@/routes/(app)/programs/-sections/Summary";
-import BriefInformation from "@/routes/(app)/programs/-sections/BriefInformation";
-import PopularCource from "@/routes/(app)/programs/-sections/PopularCource";
-import ServicePayment from "@/routes/(app)/programs/-sections/Payment";
-import Services from "@/routes/(app)/programs/-sections/Services";
-import Consultation from "@/routes/(app)/programs/-sections/Consultation";
-
+import {Fragment, lazy} from "react";
+import PageHead from "@/components/PageHead";
 
 export const Route = createFileRoute('/(app)/programs/')({
   component: ProgramsPage,
 })
 
-function ProgramsPage() {
+// const Summary = lazy(() => import('@/routes/(app)/programs'))
 
+const LearningPoints = lazy(() => import('@/routes/(app)/programs/-sections/LearningPoints'))
+const BriefInfo = lazy(() => import('@/components/Sections/BriefInformation'))
+const Courses = lazy(() => import('@/routes/(app)/programs/-sections/Courses'))
+const Payment = lazy(() => import('@/components/Cards/Payment'))
+const Services = lazy(() => import('@/routes/(app)/programs/-sections/Services'))
+const ConsultationForm = lazy(() => import('@/components/ConsultationForm'))
+
+function ProgramsPage() {
 
     return (
        <section className={'mt-20 w-full bg-white'}>
-           <div className={'mx-auto'}>
-               <Header title={'International educational programs'} subtitle={'Al Muamalat Education\'s international study programs offer an in-depth learning experience at leading Islamic financial institutions around the world.'} />
-
+           <div className={'mx-auto flex flex-col gap-20'}>
+               <PageHead title={'International educational programs'} subtitle={'Al Muamalat Education\'s international study programs offer an in-depth learning experience at leading Islamic financial institutions around the world.'} />
                <div className={'py-10'}>
-                   <Summary />
+                   <LearningPoints />
                </div>
 
                <div className={'py-10'}>
-                   <BriefInformation />
+                   <BriefInfo />
                </div>
 
                <div className={'py-10'}>
-                   <PopularCource />
+                   <Courses />
                </div>
 
                <div className={'py-10'}>
-                   <ServicePayment />
+                   <Payment />
                </div>
 
                <div className={'py-10'}>
@@ -41,7 +42,7 @@ function ProgramsPage() {
                </div>
 
                <div className={'pt-10 pb-40'}>
-                   <Consultation />
+                   <ConsultationForm />
                </div>
            </div>
        </section>

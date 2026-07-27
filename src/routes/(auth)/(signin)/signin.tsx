@@ -1,19 +1,14 @@
 import { createFileRoute } from '@tanstack/react-router'
 import AskQuestionsBadge from "@/components/Shared/AskQuestionsBadge";
-import SignInForm from "@/routes/(auth)/(signin)/-components/SignInForm";
 import {Auth_Photo, Rating_3} from '@/assets/Images/Png'
 import {Logo} from '@/assets/Images/Svg'
-import {useAuth} from "@/hooks/custom/useAuth.ts";
+import AuthForm from "@/components/Form/Auth_Form";
 
 export const Route = createFileRoute('/(auth)/(signin)/signin')({
   component: RouteComponent,
 })
 
-
 function RouteComponent() {
-
-
-
 
   return (
       <div className="grid min-h-screen w-full grid-cols-1 lg:grid-cols-2">
@@ -26,18 +21,18 @@ function RouteComponent() {
                       <span className="text-lg font-bold tracking-wide text-teal-600">AL MUAMALAT</span>
                   </div>
 
-                  <AskQuestionsBadge name="Diyor" avatarSrc={Rating_3} />
+                  <AskQuestionsBadge name="Nuraziz" avatarSrc={Rating_3} />
               </div>
 
               {/* Middle: sign in form */}
               <div className="flex justify-center items-center">
-                  <SignInForm />
+                  <AuthForm type={'signin'} />
               </div>
 
               <div className="hidden lg:block" />
           </div>
 
-          <div className="relative hidden overflow-hidden bg-teal-600 p-10 lg:flex lg:flex-col lg:justify-between">
+          <div className="relative hidden overflow-hidden bg-teal-600 m-4 rounded-[40px] p-10 lg:flex lg:flex-col lg:justify-between">
 
               <div className="flex flex-1 items-center justify-center">
                   <img src={Auth_Photo} alt="Sign up illustration" className="max-h-[70vh] w-auto object-contain"/>

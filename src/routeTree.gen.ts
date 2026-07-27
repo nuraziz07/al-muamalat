@@ -9,45 +9,31 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as authRouteRouteImport } from './routes/(auth)/route'
 import { Route as appRouteRouteImport } from './routes/(app)/route'
-import { Route as authsignupRouteRouteImport } from './routes/(auth)/(signup)/route'
-import { Route as authsigninRouteRouteImport } from './routes/(auth)/(signin)/route'
-import { Route as appProgramsRouteRouteImport } from './routes/(app)/programs/route'
-import { Route as appFinanceRouteRouteImport } from './routes/(app)/finance/route'
-import { Route as appContactRouteRouteImport } from './routes/(app)/contact/route'
+import { Route as authRouteRouteImport } from './routes/(auth)/route'
 import { Route as apphomeRouteRouteImport } from './routes/(app)/(home)/route'
-import { Route as appProgramsIndexRouteImport } from './routes/(app)/programs/index'
-import { Route as appFinanceIndexRouteImport } from './routes/(app)/finance/index'
-import { Route as appContactIndexRouteImport } from './routes/(app)/contact/index'
+import { Route as appContactRouteRouteImport } from './routes/(app)/contact/route'
+import { Route as appFinanceRouteRouteImport } from './routes/(app)/finance/route'
+import { Route as appProgramsRouteRouteImport } from './routes/(app)/programs/route'
+import { Route as authsigninRouteRouteImport } from './routes/(auth)/(signin)/route'
+import { Route as authsignupRouteRouteImport } from './routes/(auth)/(signup)/route'
 import { Route as apphomeIndexRouteImport } from './routes/(app)/(home)/index'
-import { Route as authsignupSignupRouteImport } from './routes/(auth)/(signup)/signup'
+import { Route as appContactIndexRouteImport } from './routes/(app)/contact/index'
+import { Route as appFinanceIndexRouteImport } from './routes/(app)/finance/index'
+import { Route as appProgramsIndexRouteImport } from './routes/(app)/programs/index'
 import { Route as authsigninSigninRouteImport } from './routes/(auth)/(signin)/signin'
+import { Route as authsignupSignupRouteImport } from './routes/(auth)/(signup)/signup'
 
-const authRouteRoute = authRouteRouteImport.update({
-  id: '/(auth)',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const appRouteRoute = appRouteRouteImport.update({
   id: '/(app)',
   getParentRoute: () => rootRouteImport,
 } as any)
-const authsignupRouteRoute = authsignupRouteRouteImport.update({
-  id: '/(signup)',
-  getParentRoute: () => authRouteRoute,
+const authRouteRoute = authRouteRouteImport.update({
+  id: '/(auth)',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const authsigninRouteRoute = authsigninRouteRouteImport.update({
-  id: '/(signin)',
-  getParentRoute: () => authRouteRoute,
-} as any)
-const appProgramsRouteRoute = appProgramsRouteRouteImport.update({
-  id: '/programs',
-  path: '/programs',
-  getParentRoute: () => appRouteRoute,
-} as any)
-const appFinanceRouteRoute = appFinanceRouteRouteImport.update({
-  id: '/finance',
-  path: '/finance',
+const apphomeRouteRoute = apphomeRouteRouteImport.update({
+  id: '/(home)',
   getParentRoute: () => appRouteRoute,
 } as any)
 const appContactRouteRoute = appContactRouteRouteImport.update({
@@ -55,39 +41,53 @@ const appContactRouteRoute = appContactRouteRouteImport.update({
   path: '/contact',
   getParentRoute: () => appRouteRoute,
 } as any)
-const apphomeRouteRoute = apphomeRouteRouteImport.update({
-  id: '/(home)',
+const appFinanceRouteRoute = appFinanceRouteRouteImport.update({
+  id: '/finance',
+  path: '/finance',
   getParentRoute: () => appRouteRoute,
 } as any)
-const appProgramsIndexRoute = appProgramsIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => appProgramsRouteRoute,
+const appProgramsRouteRoute = appProgramsRouteRouteImport.update({
+  id: '/programs',
+  path: '/programs',
+  getParentRoute: () => appRouteRoute,
 } as any)
-const appFinanceIndexRoute = appFinanceIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => appFinanceRouteRoute,
+const authsigninRouteRoute = authsigninRouteRouteImport.update({
+  id: '/(signin)',
+  getParentRoute: () => authRouteRoute,
 } as any)
-const appContactIndexRoute = appContactIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => appContactRouteRoute,
+const authsignupRouteRoute = authsignupRouteRouteImport.update({
+  id: '/(signup)',
+  getParentRoute: () => authRouteRoute,
 } as any)
 const apphomeIndexRoute = apphomeIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => apphomeRouteRoute,
 } as any)
-const authsignupSignupRoute = authsignupSignupRouteImport.update({
-  id: '/signup',
-  path: '/signup',
-  getParentRoute: () => authsignupRouteRoute,
+const appContactIndexRoute = appContactIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => appContactRouteRoute,
+} as any)
+const appFinanceIndexRoute = appFinanceIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => appFinanceRouteRoute,
+} as any)
+const appProgramsIndexRoute = appProgramsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => appProgramsRouteRoute,
 } as any)
 const authsigninSigninRoute = authsigninSigninRouteImport.update({
   id: '/signin',
   path: '/signin',
   getParentRoute: () => authsigninRouteRoute,
+} as any)
+const authsignupSignupRoute = authsignupSignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => authsignupRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -165,13 +165,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/(auth)': {
-      id: '/(auth)'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof authRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/(app)': {
       id: '/(app)'
       path: ''
@@ -179,32 +172,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/(auth)/(signup)': {
-      id: '/(auth)/(signup)'
+    '/(auth)': {
+      id: '/(auth)'
       path: ''
       fullPath: ''
-      preLoaderRoute: typeof authsignupRouteRouteImport
-      parentRoute: typeof authRouteRoute
+      preLoaderRoute: typeof authRouteRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/(auth)/(signin)': {
-      id: '/(auth)/(signin)'
+    '/(app)/(home)': {
+      id: '/(app)/(home)'
       path: ''
       fullPath: ''
-      preLoaderRoute: typeof authsigninRouteRouteImport
-      parentRoute: typeof authRouteRoute
-    }
-    '/(app)/programs': {
-      id: '/(app)/programs'
-      path: '/programs'
-      fullPath: '/programs'
-      preLoaderRoute: typeof appProgramsRouteRouteImport
-      parentRoute: typeof appRouteRoute
-    }
-    '/(app)/finance': {
-      id: '/(app)/finance'
-      path: '/finance'
-      fullPath: '/finance'
-      preLoaderRoute: typeof appFinanceRouteRouteImport
+      preLoaderRoute: typeof apphomeRouteRouteImport
       parentRoute: typeof appRouteRoute
     }
     '/(app)/contact': {
@@ -214,33 +193,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appContactRouteRouteImport
       parentRoute: typeof appRouteRoute
     }
-    '/(app)/(home)': {
-      id: '/(app)/(home)'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof apphomeRouteRouteImport
+    '/(app)/finance': {
+      id: '/(app)/finance'
+      path: '/finance'
+      fullPath: '/finance'
+      preLoaderRoute: typeof appFinanceRouteRouteImport
       parentRoute: typeof appRouteRoute
     }
-    '/(app)/programs/': {
-      id: '/(app)/programs/'
-      path: '/'
-      fullPath: '/programs/'
-      preLoaderRoute: typeof appProgramsIndexRouteImport
-      parentRoute: typeof appProgramsRouteRoute
+    '/(app)/programs': {
+      id: '/(app)/programs'
+      path: '/programs'
+      fullPath: '/programs'
+      preLoaderRoute: typeof appProgramsRouteRouteImport
+      parentRoute: typeof appRouteRoute
     }
-    '/(app)/finance/': {
-      id: '/(app)/finance/'
-      path: '/'
-      fullPath: '/finance/'
-      preLoaderRoute: typeof appFinanceIndexRouteImport
-      parentRoute: typeof appFinanceRouteRoute
+    '/(auth)/(signin)': {
+      id: '/(auth)/(signin)'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof authsigninRouteRouteImport
+      parentRoute: typeof authRouteRoute
     }
-    '/(app)/contact/': {
-      id: '/(app)/contact/'
-      path: '/'
-      fullPath: '/contact/'
-      preLoaderRoute: typeof appContactIndexRouteImport
-      parentRoute: typeof appContactRouteRoute
+    '/(auth)/(signup)': {
+      id: '/(auth)/(signup)'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof authsignupRouteRouteImport
+      parentRoute: typeof authRouteRoute
     }
     '/(app)/(home)/': {
       id: '/(app)/(home)/'
@@ -249,12 +228,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof apphomeIndexRouteImport
       parentRoute: typeof apphomeRouteRoute
     }
-    '/(auth)/(signup)/signup': {
-      id: '/(auth)/(signup)/signup'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof authsignupSignupRouteImport
-      parentRoute: typeof authsignupRouteRoute
+    '/(app)/contact/': {
+      id: '/(app)/contact/'
+      path: '/'
+      fullPath: '/contact/'
+      preLoaderRoute: typeof appContactIndexRouteImport
+      parentRoute: typeof appContactRouteRoute
+    }
+    '/(app)/finance/': {
+      id: '/(app)/finance/'
+      path: '/'
+      fullPath: '/finance/'
+      preLoaderRoute: typeof appFinanceIndexRouteImport
+      parentRoute: typeof appFinanceRouteRoute
+    }
+    '/(app)/programs/': {
+      id: '/(app)/programs/'
+      path: '/'
+      fullPath: '/programs/'
+      preLoaderRoute: typeof appProgramsIndexRouteImport
+      parentRoute: typeof appProgramsRouteRoute
     }
     '/(auth)/(signin)/signin': {
       id: '/(auth)/(signin)/signin'
@@ -262,6 +255,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/signin'
       preLoaderRoute: typeof authsigninSigninRouteImport
       parentRoute: typeof authsigninRouteRoute
+    }
+    '/(auth)/(signup)/signup': {
+      id: '/(auth)/(signup)/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof authsignupSignupRouteImport
+      parentRoute: typeof authsignupRouteRoute
     }
   }
 }

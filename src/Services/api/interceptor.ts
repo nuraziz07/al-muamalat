@@ -3,7 +3,7 @@ import axios from "axios";
 
 const request = axios.create({
     headers: {
-        "Content-Type": "multipart/form-data"
+        "Content-Type": "application/json"
     },
     baseURL: 'https://api.al-muamalat.uz/api',
     params: {}
@@ -11,7 +11,7 @@ const request = axios.create({
 
 request.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem('userToken')
         if(token) {
             config.headers['Authorization'] = `Bearer ${token}`
         }

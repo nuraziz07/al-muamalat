@@ -1,0 +1,1 @@
+export { default as USA } from './Usa.png';
