@@ -10,6 +10,8 @@ const defaultProvider = {
     },
     login: () => Promise.resolve(),
     register: () => Promise.reject(),
+    smsCode: () => Promise.resolve(),
+    loginSmsCode: () => Promise.resolve()
 };
 
 const AuthContext = createContext(defaultProvider);
@@ -24,14 +26,13 @@ const AuthProvider = ({children}) => {
         return request
             .post("/v2/auth/signup/init", params)
             .then((response) => {
-                window.localStorage.setItem("token", response.data.userId);
+                window.localStorage.setItem("userToken", response?.data?.data?.accessToken);
                 setUser(response.data.user);
                 message.success("Siz muvaffaqiyatli ro'yxatdan o'tdingiz");
-                // if (callback) callback(null, response.data);
-                return response
+                console.log(response);
+                return response?.data
             })
             .catch((error) => {
-                console.error(error);
                 throw error
             })
             .finally(() => setLoading(true));
@@ -43,24 +44,46 @@ const AuthProvider = ({children}) => {
         return request
             .post("/v2/auth/signin/init", params)
             .then((response) => {
-                console.log(response)
-                window.localStorage.setItem("token", response.data.userId);
-                setUser(response.data.user);
                 message.success("Siz muvaffaqiyatli ro'yxatdan o'tdingiz");
                 return response
             })
             .catch((error) => {
-                console.error(error);
                 throw error
             })
             .finally(() => setLoading(true));
     };
 
+    const handleSmsCode = (params) => {
+        return request.post('/v2/auth/signup/verify', params)
+            .then((res) => {
+                console.log(res)
+                window.localStorage.setItem("userToken", res?.data?.data?.accessToken);
+                setUser(res.data.user);
+                return res
+            }).catch((error) => {
+                throw error
+            })
+    }
+
+    const handleLoginSmsCode = (params) => {
+        return request.post('/v2/auth/signin/verify', params)
+            .then((res) => {
+                console.log(res)
+                window.localStorage.setItem("userToken", res?.data?.data?.accessToken);
+                setUser(res.data.user);
+                return res
+            }).catch((error) => {
+                throw error
+            })
+    }
+
     const values = {
         user,
         loading,
         register: handleRegister,
-        login: handleLogin
+        login: handleLogin,
+        smsCode: handleSmsCode,
+        loginSmsCode: handleLoginSmsCode,
     };
 
     return (
