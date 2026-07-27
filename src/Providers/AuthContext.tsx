@@ -16,6 +16,8 @@ const defaultProvider = {
 
 const AuthContext = createContext(defaultProvider);
 
+console.log('something')
+
 const AuthProvider = ({children}) => {
     const [user, setUser] = useState(defaultProvider.user);
     const [loading, setLoading] = useState(defaultProvider.loading);
