@@ -5,24 +5,35 @@ import {useForm} from "react-hook-form";
 import cls from "classnames";
 import classes from '../Form.module.scss'
 import VerifyCode from "@/components/Form/Auth_Form/components/Verify_Code";
+import {useTranslation} from "react-i18next";
+import {LoadingOutlined} from "@ant-design/icons";
 
 const SignUpForm = () => {
 
     const useAuth = () => useContext(AuthContext)
+    const {t} = useTranslation()
 
     const auth = useAuth()
     const navigate = useNavigate()
     const [email, setEmail] = useState(null)
     const [success, setSuccess] = useState<boolean>(true)
+    const [loading, setLoading] = useState<boolean>(false)
 
     const {register, handleSubmit, formState: {errors}, watch} = useForm()
 
     const onSubmit = (data) => {
+        setLoading(true)
         auth.register(data).then(res => {
-            setEmail(res?.data?.data?.email)
+            setEmail(res?.email ?? res?.data?.data?.email)
+            console.log(res)
+        }).catch(() => {
             setSuccess(false)
+        }).finally(() => {
+            setSuccess(true)
+            setLoading(false)
         })
     }
+
 
     const handleVerifyOTP = (data) => {
         const submitData = {
@@ -38,12 +49,12 @@ const SignUpForm = () => {
         <div className="flex text-center w-full max-w-md flex-col gap-5">
             <div>
                 <h1 className="mb-3 text-[70px] font-black uppercase tracking-tight text-gray-900">
-                    Get started
+                    {t('register.title')}
                 </h1>
                 <p className="text-[26px] text-[#8F8F8F]">
-                    Already have an account?{" "}
+                    {t('register.alreadyAccount')}{" "}
                     <Link to={'/signin'} className="font-semibold text-[#009688] hover:text-teal-700">
-                        Sign In
+                        {t('register.signIn')}
                     </Link>
                 </p>
             </div>
@@ -54,32 +65,32 @@ const SignUpForm = () => {
                     <div className={'flex flex-row gap-5'}>
                         <input type={'text'} {...register('first_name', {required: 'Enter your name'})}
                                className={cls(classes['input'])}
-                               placeholder={'First name'}/>
+                               placeholder={t('register.firstName')}/>
 
                         <input type={'text'} {...register('last_name', {required: true})}
                                className={cls(classes['input'])}
-                               placeholder={'Last name'}/>
+                               placeholder={t('register.lastName')}/>
                     </div>
 
                     <input type={'email'} {...register('email', {required: true})}
                            className={cls(classes['input'])}
-                           placeholder={'Enter your email'}/>
+                           placeholder={t('register.email')}/>
 
                     <input type={'password'} {...register('password', {required: true})}
                            className={cls(classes['input'])}
-                           placeholder={'Password'}/>
+                           placeholder={t('register.password')}/>
 
                     <input type={'text'} {...register('phone_number', {required: true})}
                            className={cls(classes['input'])}
-                           placeholder={'Enter your phone number'}/>
+                           placeholder={t('register.phone')}/>
 
                 </div>
 
                 <button
                     className={cls(classes['form_button'])}
-                    type={'submit'}>Sign Up
+                    type={'submit'}>{loading ? <LoadingOutlined /> : t('register.signUp')}
                 </button>
-            </form> : <VerifyCode handleVerifyOTP={() => handleVerifyOTP} />}
+            </form> : <VerifyCode handleVerifyOTP={handleVerifyOTP} />}
 
         </div>
     );

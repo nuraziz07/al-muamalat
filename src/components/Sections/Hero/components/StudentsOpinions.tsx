@@ -1,7 +1,10 @@
 import React from 'react';
 import Rating from "@/components/Sections/Hero/components/Rating.tsx";
+import {useTranslation} from "react-i18next";
 
 const StudentsOpinions = () => {
+
+    const {t} = useTranslation()
 
     const students = [
         {name: "Amina K.", initials: "AK", color: "bg-orange-400"},
@@ -14,7 +17,7 @@ const StudentsOpinions = () => {
     return (
         <div className="flex mt-5 flex-wrap items-center gap-4">
             <button className="rounded-[10px] bg-[#FD661F] px-6 py-3 text-[16px] font-bold tracking-wide text-white shadow-md">
-                STUDENTS' OPINION
+                {t('hero.studentsOpinion')}
             </button>
 
             <div className="flex -space-x-3">

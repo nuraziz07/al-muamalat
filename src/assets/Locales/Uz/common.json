@@ -1,45 +1,71 @@
 {
-    "header": {
+  "header": {
     "home": "Bosh sahifa",
-        "programs": "Dasturlar",
-        "financeTools": "Moliyaviy vositalar",
-        "contact": "Aloqa",
-        "signIn": "Kirish"
-},
-    "hero": {
+    "programs": "Dasturlar",
+    "financeTools": "Moliyaviy vositalar",
+    "contact": "Aloqa",
+    "signIn": "Kirish"
+  },
+  "hero": {
     "badge": "Ilm izlash Islomda farzdir",
-        "title": "Al-Muamalat bilan Islom axloqi haqidagi bilimingizni oshiring",
-        "studentsOpinion": "TALABALAR FIKRI",
-        "reviews": "(10 ming+ sharh)",
-        "assistedStudent": "Ko'maklashilgan talaba"
-},
-    "services": {
+    "title": "Al-Muamalat bilan Islom axloqi haqidagi bilimingizni oshiring",
+    "studentsOpinion": "TALABALAR FIKRI",
+    "reviews": "(10 ming+ sharh)",
+    "assistedStudent": "Ko'maklashilgan talaba"
+  },
+  "services": {
     "title": "Bizning xizmatlarimiz",
-        "subtitle": "Islom tamoyillariga mos ravishda mablag'larni boshqarish bo'yicha mutaxassis maslahati, sizga xalol investitsiya qarorlarini qabul qilishga yordam beradi.",
-        "learnMore": "Batafsil",
-        "islamicFundManagement": {
-        "title": "Islomiy fondlarni boshqarish",
-            "description": "Biz jismoniy va yuridik mijozlarga Islom tamoyillariga muvofiq mablag'larini boshqarishda yordam beramiz va xalol investitsiya qilish bo'yicha amaliy maslahatlar beramiz."
+    "subtitle": "Islom tamoyillariga mos ravishda mablag'larni boshqarish bo'yicha mutaxassis maslahati, sizga xalol investitsiya qarorlarini qabul qilishga yordam beradi.",
+    "learnMore": "Batafsil",
+    "islamicFundManagement": {
+      "title": "Islomiy fondlarni boshqarish",
+      "description": "Biz jismoniy va yuridik mijozlarga Islom tamoyillariga muvofiq mablag'larini boshqarishda yordam beramiz va xalol investitsiya qilish bo'yicha amaliy maslahatlar beramiz."
     },
     "internationalRelations": {
-        "title": "Xalqaro aloqalar",
-            "description": "Biz mahalliy va xalqaro tashkilotlar bilan aloqalar o'rnatamiz, Islom moliya tizimlarini rivojlantirish va moliyaviy inklyuzivlikni qo'llab-quvvatlovchi hamkorliklarni yaratamiz."
+      "title": "Xalqaro aloqalar",
+      "description": "Biz mahalliy va xalqaro tashkilotlar bilan aloqalar o'rnatamiz, Islom moliya tizimlarini rivojlantirish va moliyaviy inklyuzivlikni qo'llab-quvvatlovchi hamkorliklarni yaratamiz."
     },
     "educationAndTraining": {
-        "title": "Ta'lim va treninglar",
-            "description": "Biz mutaxassislar tomonidan o'tkaziladigan qisqa muddatli o'quv kurslari, seminarlar va konferensiyalarni, shuningdek yetakchi Islom moliya institutlariga o'quv safarlarini taklif etamiz."
+      "title": "Ta'lim va treninglar",
+      "description": "Biz mutaxassislar tomonidan o'tkaziladigan qisqa muddatli o'quv kurslari, seminarlar va konferensiyalarni, shuningdek yetakchi Islom moliya institutlariga o'quv safarlarini taklif etamiz."
     },
     "forIslamicBanks": {
-        "title": "Islom banklari uchun",
-            "description": "Biz Islom banklari va filiallarini tashkil etish va boshqarish bo'yicha tajribali konsalting xizmatlarini taqdim etamiz. Biz Shariat tamoyillariga asoslangan raqobatbardosh moliyaviy mahsulot va xizmatlarni rivojlantirishni qo'llab-quvvatlaymiz."
+      "title": "Islom banklari uchun",
+      "description": "Biz Islom banklari va filiallarini tashkil etish va boshqarish bo'yicha tajribali konsalting xizmatlarini taqdim etamiz. Biz Shariat tamoyillariga asoslangan raqobatbardosh moliyaviy mahsulot va xizmatlarni rivojlantirishni qo'llab-quvvatlaymiz."
     },
     "islamicCapitalMarket": {
-        "title": "Islom kapital bozori",
-            "description": "Biz Islom kapital bozori bo'yicha, jumladan Shariatga mos investitsiya mahsulotlari, sukuk chiqarish va axloqiy portfel boshqaruvi bo'yicha mutaxassis maslahatlarini beramiz."
+      "title": "Islom kapital bozori",
+      "description": "Biz Islom kapital bozori bo'yicha, jumladan Shariatga mos investitsiya mahsulotlari, sukuk chiqarish va axloqiy portfel boshqaruvi bo'yicha mutaxassis maslahatlarini beramiz."
     },
     "shariahComplianceAudit": {
-        "title": "Shariatga muvofiqlik auditi",
-            "description": "Biz biznes modellarining Shariat tamoyillariga muvofiqligini tekshiruvchi Shariat nazorati va audit xizmatlarini taqdim etamiz."
+      "title": "Shariatga muvofiqlik auditi",
+      "description": "Biz biznes modellarining Shariat tamoyillariga muvofiqligini tekshiruvchi Shariat nazorati va audit xizmatlarini taqdim etamiz."
     }
-}
+  },
+  "login": {
+    "questions": "Savollaringiz bormi?",
+    "ask": "Nurazizdan so'rang",
+    "title": "BOSHLASH",
+    "description": "Hisobingizga kirish uchun quyida elektron pochtangizni kiriting",
+    "email": "Elektron pochtangizni kiriting",
+    "password": "Parolingiz",
+    "signIn": "Kirish",
+    "createAccount": "Yangi hisob yaratish!",
+    "welcome": "AI Muamalatga xush kelibsiz — Islom moliyasi yo'lingizni ishonch bilan boshlang"
+  },
+  "register": {
+    "questions": "Savollaringiz bormi?",
+    "ask": "Nurazizdan so'rang",
+    "title": "RO'YXATDAN O'TISH",
+    "alreadyAccount": "Hisobingiz bormi?",
+    "signIn": "Kirish",
+    "firstName": "Ismingizni kiriting",
+    "lastName": "Familiyangizni kiriting",
+    "email": "Elektron pochtangizni kiriting",
+    "password": "Parolingizni kiriting",
+    "phone": "Telefon raqamingizni kiriting",
+    "signUp": "Ro'yxatdan o'tish",
+    "verify": "Tasdiqlash",
+    "welcome": "AI Muamalatga xush kelibsiz — Islom moliyasi yo'lingizni ishonch bilan boshlang"
+  }
 }

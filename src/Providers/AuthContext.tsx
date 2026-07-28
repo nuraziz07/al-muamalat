@@ -29,16 +29,13 @@ const AuthProvider = ({children}) => {
         return request
             .post("/v2/auth/signup/init", params)
             .then((response) => {
-                window.localStorage.setItem("userToken", response?.data?.data?.tokens?.accessToken);
-                setUser(response.data.user);
-                message.success("Siz muvaffaqiyatli ro'yxatdan o'tdingiz");
-                console.log(response);
+                message.success("OTP jo'natildi");
                 return response?.data
             })
             .catch((error) => {
-                throw error
+                message.error(error?.response?.data?.message)
             })
-            .finally(() => setLoading(true));
+            .finally(() => setLoading(false));
     };
 
     const handleLogin = (params) => {
@@ -47,20 +44,20 @@ const AuthProvider = ({children}) => {
         return request
             .post("/v2/auth/signin/init", params)
             .then((response) => {
-                message.success("Siz muvaffaqiyatli ro'yxatdan o'tdingiz");
+                message.success("OTP jo'natildi");
                 return response
             })
             .catch((error) => {
-                throw error
+                message.error(error?.response?.data?.message)
             })
-            .finally(() => setLoading(true));
+            .finally(() => setLoading(false));
     };
 
     const handleSmsCode = (params) => {
         return request.post('/v2/auth/signup/verify', params)
             .then((res) => {
-                console.log(res)
                 window.localStorage.setItem("userToken", res?.data?.data?.tokens?.accessToken);
+                message.success("Muvaffaqiyatli ro'yhatdan o'tdingiz");
                 setUser(res.data.user);
                 return res
             }).catch((error) => {
@@ -71,8 +68,8 @@ const AuthProvider = ({children}) => {
     const handleLoginSmsCode = (params) => {
         return request.post('/v2/auth/signin/verify', params)
             .then((res) => {
-                console.log(res)
                 window.localStorage.setItem("userToken", res?.data?.data?.tokens?.accessToken);
+                message.success("Muvaffaqiyatli ro'yhatdan o'tdingiz");
                 setUser(res.data.user);
                 return res
             }).catch((error) => {

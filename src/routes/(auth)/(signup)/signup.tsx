@@ -3,12 +3,15 @@ import AskQuestionsBadge from "@/components/Shared/AskQuestionsBadge";
 import {Rating_3, Auth_Photo} from '@/assets/Images/Png'
 import {Logo} from '@/assets/Images/Svg'
 import AuthForm from "@/components/Form/Auth_Form/Auth_Form.tsx";
+import {useTranslation} from "react-i18next";
 
 export const Route = createFileRoute('/(auth)/(signup)/signup')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
+
+  const {t} = useTranslation()
 
   return (
       <div>
@@ -44,7 +47,7 @@ function RouteComponent() {
             </div>
 
             <h2 className="mx-auto max-w-xl pb-8 text-center text-3xl font-bold leading-snug text-white">
-              Welcome to Al Muamalat – Empowering Your Journey in Islamic Finance
+              {t('register.welcome')}
             </h2>
           </div>
         </div></div>
