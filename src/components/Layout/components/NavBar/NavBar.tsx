@@ -1,27 +1,62 @@
 import {Logo} from '@/assets/Images/Svg';
-import {ChevronDown, Menu, X} from "lucide-react";
+import {ChevronDown, Divide, LogOut, Menu, X} from "lucide-react";
 import {Link, useNavigate} from "@tanstack/react-router";
 import {useState} from "react";
 import {USA} from '@/assets/Images/Png/Flags'
-import {Select} from "antd";
+import {useTranslation} from 'react-i18next'
+import {Avatar, Divider, Popover, Select} from "antd";
 import LanguageSelect from "@/components/Layout/components/NavBar/components";
-
-const navItems = [
-    {label: "Home", path: "/"},
-    {label: "Programs", path: "/programs", hasDropdown: true},
-    {label: "Finance tools", path: "/finance"},
-    {label: "Contact", path: "/contact"},
-];
-
+import {useAuth} from "@/hooks/custom/useAuth.ts";
+import { Button } from "@/components/ui/button";
 
 export const NavBar = () => {
+
+    const navItems = [
+        {label: "Home", path: "/"},
+        {label: "Programs", path: "/programs", hasDropdown: true},
+        {label: "Finance tools", path: "/finance"},
+        {label: "Contact", path: "/contact"},
+    ];
+
     const navigate = useNavigate()
     const [mobileOpen, setMobileOpen] = useState(false);
     const [lang, setLang] = useState("en");
 
-    const token = localStorage.getItem('userToken')
+    const {user} = useAuth()
+    const handleLogout = () => {
+        window.localStorage.removeItem('userToken')
+        navigate({to: '/signin'})
+    }
 
-    console.log(token)
+    const content = (
+        <div className="min-w-[250px]">
+            <div className="flex items-center gap-3">
+                <Avatar style={{backgroundColor: "teal"}} shape="square" size={48}>
+                    {user?.full_name?.[0]?.toUpperCase()}
+                </Avatar>
+
+                <div>
+                    <p className="font-semibold text-gray-900">
+                        {user?.full_name}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                        {user?.phone_number}
+                    </p>
+                </div>
+            </div>
+
+            <Divider  className="my-3" />
+
+            <Button
+                variant="destructive"
+                icon={<LogOut size={18} />}
+                className="flex w-full items-center justify-start"
+                onClick={handleLogout}
+            >
+                Logout
+            </Button>
+        </div>
+    )
 
     return (
         <nav className="fixed top-0 z-50 w-full border-b border-gray-100 bg-white/95 backdrop-blur-sm">
@@ -45,10 +80,10 @@ export const NavBar = () => {
 
                     <div className="h-6 w-px bg-gray-200"/>
 
-                    <button onClick={() => navigate({to: '/signin'})}
-                            className="rounded-lg bg-teal-600 px-6 py-2.5 text-base font-medium text-white transition-colors hover:bg-teal-700">
+                    {user?.user_id ? <Popover content={content}><Avatar onClick={() => navigate({to: '/profile'})} style={{backgroundColor: "teal"}} shape={'square'} size={40}>{user?.full_name[0]}</Avatar></Popover> : <button onClick={() => navigate({to: '/signin'})}
+                                                                   className="rounded-lg bg-teal-600 px-6 py-2.5 text-base font-medium text-white transition-colors hover:bg-teal-700">
                         Sign in
-                    </button>
+                    </button>}
                 </div>
             </div>
         </nav>

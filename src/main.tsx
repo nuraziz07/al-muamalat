@@ -1,5 +1,6 @@
 import { createRoot } from 'react-dom/client'
 import './index.css'
+import '../i18n.ts'
 
 import {routeTree} from "./routeTree.gen.ts";
 import {createRouter} from "@tanstack/react-router";

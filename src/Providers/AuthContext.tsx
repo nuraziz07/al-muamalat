@@ -1,4 +1,4 @@
-import {createContext, useState} from "react";
+import {createContext, useEffect, useState} from "react";
 import {request} from "@/Services/api/interceptor";
 import {message} from "antd";
 
@@ -11,12 +11,13 @@ const defaultProvider = {
     login: () => Promise.resolve(),
     register: () => Promise.reject(),
     smsCode: () => Promise.resolve(),
-    loginSmsCode: () => Promise.resolve()
+    loginSmsCode: () => Promise.resolve(),
+    handleGetUser: () => Promise.resolve(),
+    handleUpdateUser: () => Promise.resolve()
 };
 
 const AuthContext = createContext(defaultProvider);
 
-console.log('something')
 
 const AuthProvider = ({children}) => {
     const [user, setUser] = useState(defaultProvider.user);
@@ -28,7 +29,7 @@ const AuthProvider = ({children}) => {
         return request
             .post("/v2/auth/signup/init", params)
             .then((response) => {
-                window.localStorage.setItem("userToken", response?.data?.data?.accessToken);
+                window.localStorage.setItem("userToken", response?.data?.data?.tokens?.accessToken);
                 setUser(response.data.user);
                 message.success("Siz muvaffaqiyatli ro'yxatdan o'tdingiz");
                 console.log(response);
@@ -59,7 +60,7 @@ const AuthProvider = ({children}) => {
         return request.post('/v2/auth/signup/verify', params)
             .then((res) => {
                 console.log(res)
-                window.localStorage.setItem("userToken", res?.data?.data?.accessToken);
+                window.localStorage.setItem("userToken", res?.data?.data?.tokens?.accessToken);
                 setUser(res.data.user);
                 return res
             }).catch((error) => {
@@ -71,9 +72,49 @@ const AuthProvider = ({children}) => {
         return request.post('/v2/auth/signin/verify', params)
             .then((res) => {
                 console.log(res)
-                window.localStorage.setItem("userToken", res?.data?.data?.accessToken);
+                window.localStorage.setItem("userToken", res?.data?.data?.tokens?.accessToken);
                 setUser(res.data.user);
                 return res
+            }).catch((error) => {
+                throw error
+            })
+    }
+
+   const handleGetUser = async () => {
+       setLoading(true)
+       return request.get('/users/me')
+           .then((response) => {
+               const userData = response?.data?.data ?? response?.data
+               setUser(userData)
+               return userData
+           }).catch((error) => {
+               console.log(error)
+               throw error
+           }).finally(() => setLoading(false))
+   }
+
+   useEffect(() => {
+       const initAuth = async () => {
+           const token = localStorage.getItem('userToken')
+           if(token) {
+               try {
+                   await handleGetUser()
+               }
+               catch {
+                   localStorage.removeItem('userToken')
+               }
+           } else {
+               setLoading(false)
+           }
+       }
+       initAuth()
+   }, [user])
+
+    const handleUpdateUser = (params, id) => {
+        return request.put(`/users/${id}`, params)
+            .then((response) => {
+                setUser(response.data.data)
+                return response
             }).catch((error) => {
                 throw error
             })
@@ -86,6 +127,9 @@ const AuthProvider = ({children}) => {
         login: handleLogin,
         smsCode: handleSmsCode,
         loginSmsCode: handleLoginSmsCode,
+        handleGetUser: handleGetUser,
+        handleUpdateUser: handleUpdateUser,
+
     };
 
     return (

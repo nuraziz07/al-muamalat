@@ -14,12 +14,14 @@ import { Route as authRouteRouteImport } from './routes/(auth)/route'
 import { Route as apphomeRouteRouteImport } from './routes/(app)/(home)/route'
 import { Route as appContactRouteRouteImport } from './routes/(app)/contact/route'
 import { Route as appFinanceRouteRouteImport } from './routes/(app)/finance/route'
+import { Route as appProfileRouteRouteImport } from './routes/(app)/profile/route'
 import { Route as appProgramsRouteRouteImport } from './routes/(app)/programs/route'
 import { Route as authsigninRouteRouteImport } from './routes/(auth)/(signin)/route'
 import { Route as authsignupRouteRouteImport } from './routes/(auth)/(signup)/route'
 import { Route as apphomeIndexRouteImport } from './routes/(app)/(home)/index'
 import { Route as appContactIndexRouteImport } from './routes/(app)/contact/index'
 import { Route as appFinanceIndexRouteImport } from './routes/(app)/finance/index'
+import { Route as appProfileIndexRouteImport } from './routes/(app)/profile/index'
 import { Route as appProgramsIndexRouteImport } from './routes/(app)/programs/index'
 import { Route as authsigninSigninRouteImport } from './routes/(auth)/(signin)/signin'
 import { Route as authsignupSignupRouteImport } from './routes/(auth)/(signup)/signup'
@@ -44,6 +46,11 @@ const appContactRouteRoute = appContactRouteRouteImport.update({
 const appFinanceRouteRoute = appFinanceRouteRouteImport.update({
   id: '/finance',
   path: '/finance',
+  getParentRoute: () => appRouteRoute,
+} as any)
+const appProfileRouteRoute = appProfileRouteRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => appRouteRoute,
 } as any)
 const appProgramsRouteRoute = appProgramsRouteRouteImport.update({
@@ -74,6 +81,11 @@ const appFinanceIndexRoute = appFinanceIndexRouteImport.update({
   path: '/',
   getParentRoute: () => appFinanceRouteRoute,
 } as any)
+const appProfileIndexRoute = appProfileIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => appProfileRouteRoute,
+} as any)
 const appProgramsIndexRoute = appProgramsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -93,12 +105,14 @@ const authsignupSignupRoute = authsignupSignupRouteImport.update({
 export interface FileRoutesByFullPath {
   '/contact': typeof appContactRouteRouteWithChildren
   '/finance': typeof appFinanceRouteRouteWithChildren
+  '/profile': typeof appProfileRouteRouteWithChildren
   '/programs': typeof appProgramsRouteRouteWithChildren
   '/signin': typeof authsigninSigninRoute
   '/signup': typeof authsignupSignupRoute
   '/': typeof apphomeIndexRoute
   '/contact/': typeof appContactIndexRoute
   '/finance/': typeof appFinanceIndexRoute
+  '/profile/': typeof appProfileIndexRoute
   '/programs/': typeof appProgramsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -107,6 +121,7 @@ export interface FileRoutesByTo {
   '/': typeof apphomeIndexRoute
   '/contact': typeof appContactIndexRoute
   '/finance': typeof appFinanceIndexRoute
+  '/profile': typeof appProfileIndexRoute
   '/programs': typeof appProgramsIndexRoute
 }
 export interface FileRoutesById {
@@ -116,6 +131,7 @@ export interface FileRoutesById {
   '/(app)/(home)': typeof apphomeRouteRouteWithChildren
   '/(app)/contact': typeof appContactRouteRouteWithChildren
   '/(app)/finance': typeof appFinanceRouteRouteWithChildren
+  '/(app)/profile': typeof appProfileRouteRouteWithChildren
   '/(app)/programs': typeof appProgramsRouteRouteWithChildren
   '/(auth)/(signin)': typeof authsigninRouteRouteWithChildren
   '/(auth)/(signup)': typeof authsignupRouteRouteWithChildren
@@ -124,6 +140,7 @@ export interface FileRoutesById {
   '/(app)/(home)/': typeof apphomeIndexRoute
   '/(app)/contact/': typeof appContactIndexRoute
   '/(app)/finance/': typeof appFinanceIndexRoute
+  '/(app)/profile/': typeof appProfileIndexRoute
   '/(app)/programs/': typeof appProgramsIndexRoute
 }
 export interface FileRouteTypes {
@@ -131,15 +148,24 @@ export interface FileRouteTypes {
   fullPaths:
     | '/contact'
     | '/finance'
+    | '/profile'
     | '/programs'
     | '/signin'
     | '/signup'
     | '/'
     | '/contact/'
     | '/finance/'
+    | '/profile/'
     | '/programs/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/signin' | '/signup' | '/' | '/contact' | '/finance' | '/programs'
+  to:
+    | '/signin'
+    | '/signup'
+    | '/'
+    | '/contact'
+    | '/finance'
+    | '/profile'
+    | '/programs'
   id:
     | '__root__'
     | '/(app)'
@@ -147,6 +173,7 @@ export interface FileRouteTypes {
     | '/(app)/(home)'
     | '/(app)/contact'
     | '/(app)/finance'
+    | '/(app)/profile'
     | '/(app)/programs'
     | '/(auth)/(signin)'
     | '/(auth)/(signup)'
@@ -155,6 +182,7 @@ export interface FileRouteTypes {
     | '/(app)/(home)/'
     | '/(app)/contact/'
     | '/(app)/finance/'
+    | '/(app)/profile/'
     | '/(app)/programs/'
   fileRoutesById: FileRoutesById
 }
@@ -200,6 +228,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appFinanceRouteRouteImport
       parentRoute: typeof appRouteRoute
     }
+    '/(app)/profile': {
+      id: '/(app)/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof appProfileRouteRouteImport
+      parentRoute: typeof appRouteRoute
+    }
     '/(app)/programs': {
       id: '/(app)/programs'
       path: '/programs'
@@ -241,6 +276,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/finance/'
       preLoaderRoute: typeof appFinanceIndexRouteImport
       parentRoute: typeof appFinanceRouteRoute
+    }
+    '/(app)/profile/': {
+      id: '/(app)/profile/'
+      path: '/'
+      fullPath: '/profile/'
+      preLoaderRoute: typeof appProfileIndexRouteImport
+      parentRoute: typeof appProfileRouteRoute
     }
     '/(app)/programs/': {
       id: '/(app)/programs/'
@@ -302,6 +344,18 @@ const appFinanceRouteRouteWithChildren = appFinanceRouteRoute._addFileChildren(
   appFinanceRouteRouteChildren,
 )
 
+interface appProfileRouteRouteChildren {
+  appProfileIndexRoute: typeof appProfileIndexRoute
+}
+
+const appProfileRouteRouteChildren: appProfileRouteRouteChildren = {
+  appProfileIndexRoute: appProfileIndexRoute,
+}
+
+const appProfileRouteRouteWithChildren = appProfileRouteRoute._addFileChildren(
+  appProfileRouteRouteChildren,
+)
+
 interface appProgramsRouteRouteChildren {
   appProgramsIndexRoute: typeof appProgramsIndexRoute
 }
@@ -317,6 +371,7 @@ interface appRouteRouteChildren {
   apphomeRouteRoute: typeof apphomeRouteRouteWithChildren
   appContactRouteRoute: typeof appContactRouteRouteWithChildren
   appFinanceRouteRoute: typeof appFinanceRouteRouteWithChildren
+  appProfileRouteRoute: typeof appProfileRouteRouteWithChildren
   appProgramsRouteRoute: typeof appProgramsRouteRouteWithChildren
 }
 
@@ -324,6 +379,7 @@ const appRouteRouteChildren: appRouteRouteChildren = {
   apphomeRouteRoute: apphomeRouteRouteWithChildren,
   appContactRouteRoute: appContactRouteRouteWithChildren,
   appFinanceRouteRoute: appFinanceRouteRouteWithChildren,
+  appProfileRouteRoute: appProfileRouteRouteWithChildren,
   appProgramsRouteRoute: appProgramsRouteRouteWithChildren,
 }
 
