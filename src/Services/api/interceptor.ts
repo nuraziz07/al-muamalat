@@ -3,7 +3,7 @@ import axios from "axios";
 
 const request = axios.create({
     headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "multipart/form-data"
     },
     baseURL: 'https://api.al-muamalat.uz/api',
     params: {}

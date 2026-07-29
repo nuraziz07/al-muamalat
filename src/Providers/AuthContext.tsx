@@ -102,10 +102,12 @@ const AuthProvider = ({children}) => {
             }
         }
         initAuth()
-    }, [user])
+    }, [])
 
     const handleUpdateUser = (params, id) => {
-        return request.put(`/users/${id}`, params)
+        return request.put(`/users/${id}`, params, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        })
             .then((response) => {
                 setUser(response.data.data)
                 return response

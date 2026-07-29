@@ -11,13 +11,13 @@ const ProfileInfo = () => {
     const {register, handleSubmit} = useForm()
     const [updatedUser, setUpdatedUser] = useState(null)
     const fileInputRef = useRef(null)
-    const [image, setImage] = useState<string | null>(null)
+    const [image, setImage] = useState<File | null>(null)
     const [loading, setLoading] = useState(false)
 
     const onSubmit = (data) => {
 
         const submitData = {
-            image_src: image,
+            images: image,
             ...data
         }
         setLoading(true)
@@ -33,8 +33,6 @@ const ProfileInfo = () => {
             setLoading(false)
         })
     }
-
-    console.log(updatedUser?.data)
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="my-10 border mx-50 rounded-[24px] bg-white p-[48px] shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
@@ -98,19 +96,6 @@ const ProfileInfo = () => {
                     />
                 </div>
 
-                {/* Last Name */}
-                <div>
-                    <label className="mb-4 block text-[16px] font-normal text-[#333]">
-                        Last Name
-                    </label>
-
-                    <input
-                        {...register('last_name', {required: true})}
-                        type="text"
-                        placeholder="Your Last Name"
-                        className="h-[58px] w-full rounded-2xl bg-[#F7F7F7] px-8 text-[16px] text-[#333] outline-none placeholder:text-[#A6A6A6]"
-                    />
-                </div>
 
                 {/* Address */}
                 <div>
