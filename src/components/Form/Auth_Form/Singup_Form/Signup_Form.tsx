@@ -18,18 +18,21 @@ const SignUpForm = () => {
     const [email, setEmail] = useState(null)
     const [success, setSuccess] = useState<boolean>(true)
     const [loading, setLoading] = useState<boolean>(false)
+    const [verifyLoading, setVerifyLoading] = useState<boolean>(false)
 
     const {register, handleSubmit, formState: {errors}, watch} = useForm()
 
     const onSubmit = (data) => {
         setLoading(true)
         auth.register(data).then(res => {
-            setEmail(res?.email ?? res?.data?.data?.email)
-            console.log(res)
+            if(res) {
+                setEmail(res?.email ?? res?.data?.data?.email)
+                setLoading(false)
+                setSuccess(false)
+            }
         }).catch(() => {
-            setSuccess(false)
-        }).finally(() => {
             setSuccess(true)
+        }).finally(() => {
             setLoading(false)
         })
     }
@@ -40,8 +43,14 @@ const SignUpForm = () => {
             email: email,
             ...data
         }
-        auth.smsCode(submitData).then((res) => {
-            navigate({to: '/'})
+        setVerifyLoading(true)
+        auth.registerSmsCode(submitData).then((res) => {
+            setVerifyLoading(false)
+            if(res) {
+                navigate({to: '/'})
+            }
+        }).finally(() => {
+            setVerifyLoading(false)
         })
     }
 
@@ -90,7 +99,7 @@ const SignUpForm = () => {
                     className={cls(classes['form_button'])}
                     type={'submit'}>{loading ? <LoadingOutlined /> : t('register.signUp')}
                 </button>
-            </form> : <VerifyCode handleVerifyOTP={handleVerifyOTP} />}
+            </form> : <VerifyCode loading={verifyLoading} handleVerifyOTP={handleVerifyOTP} />}
 
         </div>
     );

@@ -8,6 +8,10 @@ import {Avatar, Divider, Popover, Select} from "antd";
 import LanguageSelect from "@/components/Layout/components/NavBar/components";
 import {useAuth} from "@/hooks/custom/useAuth.ts";
 import {Button} from "@/components/ui/button";
+import {useQuery} from "@tanstack/react-query";
+import axios from "axios";
+import {request} from "@/Services/api/interceptor.ts";
+
 
 export const NavBar = () => {
 
@@ -21,6 +25,20 @@ export const NavBar = () => {
     ];
 
     const navigate = useNavigate()
+
+    const {data} = useQuery({
+        queryKey: ['courses'],
+        queryFn: async () => {
+            const response = await request.get('/courses/main')
+            return response?.data?.data ?? []
+        }
+    })
+
+    const selectItems = data?.map((item) => ({
+        key: item.course_id,
+        label: item.name_uz,
+        value: item.name_uz,
+    }))
 
     const {user} = useAuth()
     const handleLogout = () => {
@@ -70,8 +88,7 @@ export const NavBar = () => {
                     {navItems.map((item) => (
                         <Link key={item.label} to={item.path}
                               className="flex items-center gap-1 text-base font-semibold text-gray-700 transition-colors hover:text-teal-600 [&.active]:text-teal-600">
-                            {item.label}
-                            {item.hasDropdown && <ChevronDown className="h-4 w-4"/>}
+                            {item.hasDropdown ? <Select className={'w-30'} defaultValue={item.label} options={selectItems} /> : item.label}
                         </Link>
                     ))}
                 </div>

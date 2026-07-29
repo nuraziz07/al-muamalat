@@ -10,14 +10,13 @@ const defaultProvider = {
     },
     login: () => Promise.resolve(),
     register: () => Promise.reject(),
-    smsCode: () => Promise.resolve(),
+    registerSmsCode: () => Promise.resolve(),
     loginSmsCode: () => Promise.resolve(),
     handleGetUser: () => Promise.resolve(),
     handleUpdateUser: () => Promise.resolve()
 };
 
 const AuthContext = createContext(defaultProvider);
-
 
 const AuthProvider = ({children}) => {
     const [user, setUser] = useState(defaultProvider.user);
@@ -29,7 +28,7 @@ const AuthProvider = ({children}) => {
         return request
             .post("/v2/auth/signup/init", params)
             .then((response) => {
-                message.success("OTP jo'natildi");
+                message.success(response?.data?.message);
                 return response?.data
             })
             .catch((error) => {
@@ -44,7 +43,7 @@ const AuthProvider = ({children}) => {
         return request
             .post("/v2/auth/signin/init", params)
             .then((response) => {
-                message.success("OTP jo'natildi");
+                message.success(response?.data?.message);
                 return response
             })
             .catch((error) => {
@@ -53,7 +52,7 @@ const AuthProvider = ({children}) => {
             .finally(() => setLoading(false));
     };
 
-    const handleSmsCode = (params) => {
+    const handleRegisterSmsCode = (params) => {
         return request.post('/v2/auth/signup/verify', params)
             .then((res) => {
                 window.localStorage.setItem("userToken", res?.data?.data?.tokens?.accessToken);
@@ -61,7 +60,7 @@ const AuthProvider = ({children}) => {
                 setUser(res.data.user);
                 return res
             }).catch((error) => {
-                throw error
+                message.error(error?.response?.data?.message || 'Xatolik yuz berdi')
             })
     }
 
@@ -73,39 +72,37 @@ const AuthProvider = ({children}) => {
                 setUser(res.data.user);
                 return res
             }).catch((error) => {
-                throw error
+                message.error(error?.response?.data?.message || 'Xatolik yuz berdi')
             })
     }
 
-   const handleGetUser = async () => {
-       setLoading(true)
-       return request.get('/users/me')
-           .then((response) => {
-               const userData = response?.data?.data ?? response?.data
-               setUser(userData)
-               return userData
-           }).catch((error) => {
-               console.log(error)
-               throw error
-           }).finally(() => setLoading(false))
-   }
+    const handleGetUser = async () => {
+        setLoading(true)
+        return request.get('/users/me')
+            .then((response) => {
+                const userData = response?.data?.data ?? response?.data
+                setUser(userData)
+                return userData
+            }).catch((error) => {
+                throw error
+            }).finally(() => setLoading(false))
+    }
 
-   useEffect(() => {
-       const initAuth = async () => {
-           const token = localStorage.getItem('userToken')
-           if(token) {
-               try {
-                   await handleGetUser()
-               }
-               catch {
-                   localStorage.removeItem('userToken')
-               }
-           } else {
-               setLoading(false)
-           }
-       }
-       initAuth()
-   }, [user])
+    useEffect(() => {
+        const initAuth = async () => {
+            const token = localStorage.getItem('userToken')
+            if (token) {
+                try {
+                    await handleGetUser()
+                } catch {
+                    localStorage.removeItem('userToken')
+                }
+            } else {
+                setLoading(false)
+            }
+        }
+        initAuth()
+    }, [user])
 
     const handleUpdateUser = (params, id) => {
         return request.put(`/users/${id}`, params)
@@ -122,7 +119,7 @@ const AuthProvider = ({children}) => {
         loading,
         register: handleRegister,
         login: handleLogin,
-        smsCode: handleSmsCode,
+        registerSmsCode: handleRegisterSmsCode,
         loginSmsCode: handleLoginSmsCode,
         handleGetUser: handleGetUser,
         handleUpdateUser: handleUpdateUser,

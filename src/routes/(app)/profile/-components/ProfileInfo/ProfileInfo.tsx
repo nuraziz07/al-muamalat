@@ -10,44 +10,19 @@ const ProfileInfo = () => {
     const {handleUpdateUser, user} = useAuth()
     const {register, handleSubmit} = useForm()
     const [updatedUser, setUpdatedUser] = useState(null)
-
-    // const [avatarFile, setAvatarFile] = useState(null);
-    // const [avatarPreview, setAvatarPreview] = useState(null);
-    // const fileInputRef = useRef(null);
-    //
-    // const handleAvatarClick = () => {
-    //     fileInputRef.current?.click();
-    // };
-    //
-    // const handleAvatarChange = (e) => {
-    //     const file = e.target.files?.[0];
-    //     if (!file) return;
-    //
-    //     // (ixtiyoriy) fayl turi va hajmini tekshirish
-    //     if (!file.type.startsWith("image/")) {
-    //         message.error("Faqat rasm fayllarini yuklash mumkin");
-    //         return;
-    //     }
-    //     if (file.size > 5 * 1024 * 1024) {
-    //         message.error("Rasm hajmi 5MB dan oshmasligi kerak");
-    //         return;
-    //     }
-    //
-    //     setAvatarFile(file);
-    //     setAvatarPreview(URL.createObjectURL(file)); // vaqtinchalik preview
-    // };
+    const fileInputRef = useRef(null)
+    const [image, setImage] = useState<string | null>(null)
 
     const onSubmit = (data) => {
-        // const formData = new FormData();
-        // Object.entries(data).forEach(([key, value]) => {
-        //     formData.append(key, value);
-        // });
-        // if (avatarFile) {
-        //     formData.append("avatar", avatarFile); // backend qanday kalit kutayotganiga qarab nom o'zgarishi mumkin
-        // }
 
-        handleUpdateUser(data, user?.user_id).then(res => {
+        const submitData = {
+            images: image,
+            ...data
+        }
+
+        handleUpdateUser(submitData, user?.user_id).then(res => {
             setUpdatedUser(res?.data);
+            console.log(res)
             message.success("Muvaffaqiyatli yuklandi");
         }).catch(() => {
             message.error("Xatolik yuz berdi");
@@ -62,18 +37,20 @@ const ProfileInfo = () => {
                 <div className="flex items-center gap-8">
                     <div className="relative h-[80px] w-[80px]">
                         <img
-                            src={"https://i.pravatar.cc/120"}
+                            src={updatedUser?.data?.img}
                             alt="avatar"
                             className="h-[80px] w-[80px] rounded-full object-cover"
                         />
                         <button
                             type="button"
-                            // onClick={handleAvatarClick}
+                            onClick={() => fileInputRef.current?.click()}
                             className="absolute bottom-0 right-0 flex h-7 w-7 items-center justify-center rounded-full bg-[#009688] text-white"
                         >
                             <Camera size={14} />
                         </button>
                         <input
+                            ref={fileInputRef}
+                            onChange={(e) => setImage(e.target.files[0])}
                             type="file"
                             accept="image/*"
                             className="hidden"
