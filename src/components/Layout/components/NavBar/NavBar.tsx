@@ -1,30 +1,27 @@
 import {Logo} from '@/assets/Images/Svg';
-import {ChevronDown, Divide, LogOut, Menu, X} from "lucide-react";
-import {Link, useNavigate} from "@tanstack/react-router";
-import {useState} from "react";
-import {USA} from '@/assets/Images/Png/Flags'
+import {LogOut} from "lucide-react";
+import {Link,  useNavigate, useSearch} from "@tanstack/react-router";
 import {useTranslation} from 'react-i18next'
 import {Avatar, Divider, Popover, Select} from "antd";
 import LanguageSelect from "@/components/Layout/components/NavBar/components";
-import {useAuth} from "@/hooks/custom/useAuth.ts";
+import {useAuth, useGetUser} from "@/hooks/custom/useAuth.ts";
 import {Button} from "@/components/ui/button";
 import {useQuery} from "@tanstack/react-query";
-import axios from "axios";
 import {request} from "@/Services/api/interceptor.ts";
 
 
 export const NavBar = () => {
 
     const {t} = useTranslation()
+    const navigate = useNavigate()
 
     const navItems = [
         {label: t('header.home'), path: "/"},
-        {label: t('header.programs'), path: "/programs", hasDropdown: true},
+        {label: t('header.programs'), path: "/programs/$courseId", hasDropdown: true},
         {label: t('header.financeTools'), path: "/finance"},
         {label: t('header.contact'), path: "/contact"},
     ];
 
-    const navigate = useNavigate()
 
     const {data} = useQuery({
         queryKey: ['courses'],
@@ -37,10 +34,18 @@ export const NavBar = () => {
     const selectItems = data?.map((item) => ({
         key: item.course_id,
         label: item.name_uz,
-        value: item.name_uz,
+        value: item.course_id,
     }))
+    //
+    // const currentCourseId =   params.courseId
+    //
+    // const handleChange = (value: string) => {
+    //     navigate({
+    //         search: (prev) => ({ ...prev, courseId: value }),
+    //     })
+    // }
 
-    const {user} = useAuth()
+    const {data: user} = useGetUser()
     const handleLogout = () => {
         window.localStorage.removeItem('userToken')
         navigate({to: '/signin'})
@@ -88,13 +93,14 @@ export const NavBar = () => {
                     {navItems.map((item) => (
                         <Link key={item.label} to={item.path}
                               className="flex items-center gap-1 text-base font-semibold text-gray-700 transition-colors hover:text-teal-600 [&.active]:text-teal-600">
-                            {item.hasDropdown ? <Select className={'w-30'} defaultValue={item.label} options={selectItems} /> : item.label}
+                            {item.hasDropdown ? <Select  placeholder={'Programs'} className={'w-30'}
+                                                        options={selectItems}/> : item.label}
                         </Link>
                     ))}
                 </div>
 
                 <div className="hidden items-center gap-5 md:flex">
-                    <LanguageSelect />
+                    <LanguageSelect/>
 
                     <div className="h-6 w-px bg-gray-200"/>
 

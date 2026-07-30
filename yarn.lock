@@ -2834,6 +2834,7 @@ __metadata:
     typescript: "npm:~6.0.2"
     typescript-eslint: "npm:^8.62.0"
     vite: "npm:^8.1.1"
+    zod: "npm:^4.4.3"
   languageName: unknown
   linkType: soft
 

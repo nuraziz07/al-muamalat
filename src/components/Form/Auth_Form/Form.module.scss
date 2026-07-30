@@ -65,3 +65,28 @@
     color: #9ca3af;
   }
 }
+
+.form_button_resend {
+  width: 100%;
+  margin-top: 12px;
+  padding: 10px 0;
+  background: transparent;
+  border: none;
+  color: #1677ff; // asosiy rangingizga moslang
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease, opacity 0.2s ease;
+
+  &:hover:not(:disabled) {
+    color: darken(#1677ff, 10%);
+    text-decoration: underline;
+  }
+
+  &:disabled {
+    color: #999;
+    cursor: not-allowed;
+    opacity: 0.6;
+    text-decoration: none;
+  }
+}

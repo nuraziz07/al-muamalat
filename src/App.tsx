@@ -1,7 +1,6 @@
 import {Suspense} from "react";
 import {Router} from "./router";
-import {QueryClientProvider} from "@tanstack/react-query";
-import {queryClient} from "@/Services/react-query";
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import {AuthProvider} from "@/Providers/AuthContext";
 
@@ -15,14 +14,17 @@ const PageLoader = () => (
 );
 
 const App = () => {
+
+    const queryClient = new QueryClient()
+
     return (
         <Suspense fallback={<PageLoader />}>
-            <AuthProvider>
-                <QueryClientProvider client={queryClient}>
+            <QueryClientProvider client={queryClient}>
+                <AuthProvider>
                     <Router />
                     <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-right" />
-                </QueryClientProvider>
-            </AuthProvider>
+                </AuthProvider>
+            </QueryClientProvider>
         </Suspense>
     );
 };

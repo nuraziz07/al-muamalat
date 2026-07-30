@@ -1,9 +1,15 @@
 import {createFileRoute} from '@tanstack/react-router'
 import {Fragment, lazy} from "react";
 import PageHead from "@/components/PageHead";
+import {z} from "zod";
+
+const searchParams = z.object({
+    courseId: z.string().optional()
+})
 
 export const Route = createFileRoute('/(app)/programs/')({
-  component: ProgramsPage,
+    validateSearch: searchParams,
+    component: ProgramsPage,
 })
 
 // const Summary = lazy(() => import('@/routes/(app)/programs'))
@@ -17,34 +23,36 @@ const ConsultationForm = lazy(() => import('@/components/ConsultationForm'))
 
 function ProgramsPage() {
 
+    const {courseId} = Route.useSearch()
+
     return (
-       <section className={'mt-20 w-full bg-white'}>
-           <div className={'mx-auto flex flex-col gap-20'}>
-               <PageHead title={'International educational programs'} subtitle={'Al Muamalat Education\'s international study programs offer an in-depth learning experience at leading Islamic financial institutions around the world.'} />
-               <div className={'py-10'}>
-                   <LearningPoints />
-               </div>
+        <section className={'mt-20 w-full bg-white'}>
+            <div className={'mx-auto flex flex-col gap-20'}>
+                <PageHead courseId={courseId}/>
+                <div className={'py-10'}>
+                    <LearningPoints/>
+                </div>
 
-               <div className={'py-10'}>
-                   <BriefInfo />
-               </div>
+                <div className={'py-10'}>
+                    <BriefInfo/>
+                </div>
 
-               <div className={'py-10'}>
-                   <Courses />
-               </div>
+                <div className={'py-10'}>
+                    <Courses/>
+                </div>
 
-               <div className={'py-10'}>
-                   <Payment />
-               </div>
+                <div className={'py-10'}>
+                    <Payment/>
+                </div>
 
-               <div className={'py-10'}>
-                   <Services />
-               </div>
+                <div className={'py-10'}>
+                    <Services/>
+                </div>
 
-               <div className={'pt-10 pb-40'}>
-                   <ConsultationForm />
-               </div>
-           </div>
-       </section>
+                <div className={'pt-10 pb-40'}>
+                    <ConsultationForm/>
+                </div>
+            </div>
+        </section>
     );
 }

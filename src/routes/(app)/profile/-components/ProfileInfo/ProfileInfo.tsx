@@ -34,6 +34,7 @@ const ProfileInfo = () => {
         })
     }
 
+
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="my-10 border mx-50 rounded-[24px] bg-white p-[48px] shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
             {/* Header */}
@@ -67,9 +68,9 @@ const ProfileInfo = () => {
                         <h1 className="text-[30px] font-semibold leading-none text-black">
                             {user?.full_name}
                         </h1>
-                        <h1 className="text-[30px] font-semibold leading-none text-black">
-                            {user?.last_name}
-                        </h1>
+                        {/*<h1 className="text-[30px] font-semibold leading-none text-black">*/}
+                        {/*    {user?.last_name}*/}
+                        {/*</h1>*/}
                     </div>
                 </div>
 

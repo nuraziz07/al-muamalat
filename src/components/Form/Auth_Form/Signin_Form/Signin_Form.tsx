@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Link, useNavigate} from "@tanstack/react-router";
 import {useForm} from "react-hook-form";
-import {useAuth} from "@/hooks/custom/useAuth.ts";
+import {useAuth, useLogin, useResendOTP, useVerifyLoginOTP} from "@/hooks/custom/useAuth.ts";
 import classes from '../Form.module.scss'
 import cls from 'classnames'
 import VerifyCode from "@/components/Form/Auth_Form/components/Verify_Code";
@@ -12,47 +12,47 @@ import {message} from "antd";
 const SignInForm = () => {
 
     const {handleSubmit, register} = useForm()
+    const loginMutation = useLogin()
+    const verifyMutation = useVerifyLoginOTP()
+    const resendMutation = useResendOTP('login')
     const {t} = useTranslation()
+    const [step, setStep] = useState<'login' | 'verify'>('login')
+    const [resendStep, setResendStep] = useState<boolean>(false)
 
-    const auth = useAuth()
+
     const navigate = useNavigate()
     const [email, setEmail] = useState(null)
-    const [success, setSuccess] = useState<boolean>(true)
-    const [loading, setLoading] = useState<boolean>(false)
-    const [verifyLoading, setVerifyLoading] = useState<boolean>(false)
 
-
-    const onSubmit = (data) => {
-        setLoading(true)
-        auth.login(data).then(res => {
-            if (res) {
-                setEmail(res?.email ?? res?.data?.data?.email)
-                setLoading(false)
-                setSuccess(false)
+    const handleLogin = (data) => {
+        loginMutation.mutate(data, {
+            onSuccess: (res) => {
+                setEmail(res?.data?.email ?? res?.data?.data?.email)
+                setStep('verify')
+                setResendStep(true)
             }
-        }).catch(() => {
-            setSuccess(true)
-        }).finally(() => {
-            setLoading(false)
         })
     }
 
-    const handleVerifyOTP = (data) => {
+    const handleVerifyLoginOTP = () => {
+        const submitData = {
+            email: email,
+        }
+        verifyMutation.mutate(submitData, {
+            onSuccess: () => {
+                navigate({to: '/'})
+            }
+        })
+    }
+
+    const handleResendOTP = (data) => {
         const submitData = {
             email: email,
             ...data
         }
-        setVerifyLoading(true)
-        auth.loginSmsCode(submitData).then((res) => {
-            setVerifyLoading(false)
-            if (res) {
-                navigate({to: '/'})
-            }
-        }).finally(() => {
-            setVerifyLoading(false)
+        resendMutation.mutate(submitData, {
+            onSuccess: (res) => message.success(res?.data?.message)
         })
     }
-
 
     return (
         <div className="flex w-full max-w-md flex-col gap-5">
@@ -61,7 +61,7 @@ const SignInForm = () => {
                 <p className={'text-[16px] text-[#8F8F8F]'}>{t('login.description')}</p>
             </div>
             {/* Email field */}
-            {success ? <form onSubmit={handleSubmit(onSubmit)} className="relative flex flex-col gap-5">
+            {step === 'login' ? <form onSubmit={handleSubmit(handleLogin)} className="relative flex flex-col gap-5">
 
                 <div className={'relative flex flex-col gap-5'}>
                     <input {...register('email')} className={cls(classes['input'])} placeholder={t('login.email')}/>
@@ -72,14 +72,16 @@ const SignInForm = () => {
                 </div>
 
                 <button type={'submit'} className={cls(classes['form_button'])}>
-                    {loading ? <LoadingOutlined/> : t('login.signIn')}
+                    {loginMutation.isPending ? <LoadingOutlined/> : t('login.signIn')}
                 </button>
 
                 <Link to={'/signup'} className="text-center text-base text-gray-500 hover:text-gray-700">
                     {t('login.createAccount')}
                 </Link>
 
-            </form> : <VerifyCode loading={verifyLoading} handleVerifyOTP={handleVerifyOTP}/>}
+            </form> : <VerifyCode resendStep={resendStep} handleLoginResendOTP={handleResendOTP}
+                                  resendLoading={resendMutation.isPending} loading={verifyMutation.isPending}
+                                  handleVerifyOTP={handleVerifyLoginOTP}/>}
 
         </div>
     );

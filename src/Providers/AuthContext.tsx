@@ -1,6 +1,7 @@
 import {createContext, useEffect, useState} from "react";
 import {request} from "@/Services/api/interceptor";
 import {message} from "antd";
+import {useGetUser} from "@/hooks/custom/useAuth.ts";
 
 const defaultProvider = {
     user: null,
@@ -13,7 +14,9 @@ const defaultProvider = {
     registerSmsCode: () => Promise.resolve(),
     loginSmsCode: () => Promise.resolve(),
     handleGetUser: () => Promise.resolve(),
-    handleUpdateUser: () => Promise.resolve()
+    handleUpdateUser: () => Promise.resolve(),
+    handleLoginResendOTP: () => Promise.resolve(),
+    handleRegisterResendOTP: () => Promise.resolve(),
 };
 
 const AuthContext = createContext(defaultProvider);
@@ -102,17 +105,40 @@ const AuthProvider = ({children}) => {
             }
         }
         initAuth()
-    }, [])
+    }, [user])
 
     const handleUpdateUser = (params, id) => {
         return request.put(`/users/${id}`, params, {
-            headers: { 'Content-Type': 'multipart/form-data' }
+            headers: {'Content-Type': 'multipart/form-data'}
         })
             .then((response) => {
                 setUser(response.data.data)
                 return response
             }).catch((error) => {
                 throw error
+            })
+    }
+
+    const handleLoginResendOTP = (params) => {
+        return request.post('/v2/auth/signin/resend', params)
+            .then((res) => {
+                window.localStorage.setItem("userToken", res?.data?.data?.tokens?.accessToken);
+                message.success(res?.data?.message);
+                setUser(res.data.user);
+                return res
+            }).catch((error) => {
+                message.error(error?.response?.data?.message || 'Xatolik yuz berdi')
+            })
+    }
+
+    const handleRegisterResendOTP = (params) => {
+        return request.post('/v2/auth/signup/resend', params)
+            .then((res) => {
+                const token = res?.data?.data?.tokens?.accessToken
+                if (token) window.localStorage.setItem('userToken', token)
+                message.success(res?.data?.message)
+            }).catch((error) => {
+                message.error(error?.response?.data?.message || 'Xatolik yuz berdi')
             })
     }
 
@@ -125,8 +151,12 @@ const AuthProvider = ({children}) => {
         loginSmsCode: handleLoginSmsCode,
         handleGetUser: handleGetUser,
         handleUpdateUser: handleUpdateUser,
+        handleLoginResendOTP: handleLoginResendOTP,
+        handleRegisterResendOTP: handleRegisterResendOTP,
 
     };
+
+    const {data} = useGetUser()
 
     return (
         <AuthContext.Provider value={values}>
