@@ -7,50 +7,60 @@ import classes from '../Form.module.scss'
 import VerifyCode from "@/components/Form/Auth_Form/components/Verify_Code";
 import {useTranslation} from "react-i18next";
 import {LoadingOutlined} from "@ant-design/icons";
+import {useRegister, useResendOTP, useVerifyRegisterOTP} from "@/hooks/custom/useAuth.ts";
+import {message} from "antd";
+import {VerifyRegisterParams} from "@/Services/auth/auth.types.ts";
 
 const SignUpForm = () => {
 
     const useAuth = () => useContext(AuthContext)
+    const registerMutation = useRegister()
+    const verifyRegisterOTP = useVerifyRegisterOTP()
+    const resendMutation = useResendOTP('signup')
+
     const {t} = useTranslation()
+    const [step, setStep] = useState<'signup' | 'verify'>('signup')
 
     const auth = useAuth()
     const navigate = useNavigate()
     const [email, setEmail] = useState(null)
-    const [success, setSuccess] = useState<boolean>(true)
-    const [loading, setLoading] = useState<boolean>(false)
-    const [verifyLoading, setVerifyLoading] = useState<boolean>(false)
+    const [resendStep, setResendStep] = useState<boolean>(false)
 
     const {register, handleSubmit, formState: {errors}, watch} = useForm()
 
-    const onSubmit = (data) => {
-        setLoading(true)
-        auth.register(data).then(res => {
-            if(res) {
-                setEmail(res?.email ?? res?.data?.data?.email)
-                setLoading(false)
-                setSuccess(false)
-            }
-        }).catch(() => {
-            setSuccess(true)
-        }).finally(() => {
-            setLoading(false)
+
+    const handleRegister = (data) => {
+        return registerMutation.mutate(data, {
+            onSuccess: (res) => {
+                if (res) {
+                    setEmail(res?.data?.email ?? res?.data?.data?.email)
+                    setStep('verify')
+                    setResendStep(true)
+                }
+            },
+            onError: (err) => message.error(err?.response?.data?.message ?? err?.message)
         })
     }
 
+    const handleVerifyRegisterOTP = () => {
+        const submitData: VerifyRegisterParams = {
+            email: email,
+        }
+        return  verifyRegisterOTP.mutate(submitData, {
+            onSuccess: () => {
+                navigate({to: '/'})
+            },
+            onError: (err) => message.error(err?.response?.data?.message ?? err?.message)
+        })
+    }
 
-    const handleVerifyOTP = (data) => {
+    const handleRegisterResendOTP = () => {
         const submitData = {
             email: email,
-            ...data
         }
-        setVerifyLoading(true)
-        auth.registerSmsCode(submitData).then((res) => {
-            setVerifyLoading(false)
-            if(res) {
-                navigate({to: '/'})
-            }
-        }).finally(() => {
-            setVerifyLoading(false)
+        return resendMutation.mutate(submitData, {
+            onSuccess: (res) => message.success(res?.data?.message),
+            onError: (err) => message.error(err?.response?.data?.message ?? err?.message)
         })
     }
 
@@ -68,7 +78,7 @@ const SignUpForm = () => {
                 </p>
             </div>
 
-            {success ? <form onSubmit={handleSubmit(onSubmit)}>
+            {step === 'signup' ? <form onSubmit={handleSubmit(handleRegister)}>
                 <div className="relative flex flex-col mt-3 gap-5">
 
                     <div className={'flex flex-row gap-5'}>
@@ -97,9 +107,9 @@ const SignUpForm = () => {
 
                 <button
                     className={cls(classes['form_button'])}
-                    type={'submit'}>{loading ? <LoadingOutlined /> : t('register.signUp')}
+                    type={'submit'}>{registerMutation.isPending ? <LoadingOutlined/> : t('register.signUp')}
                 </button>
-            </form> : <VerifyCode loading={verifyLoading} handleVerifyOTP={handleVerifyOTP} />}
+            </form> : <VerifyCode resendStep={resendStep} resendLoading={resendMutation.isPending} handleResendOTP={handleRegisterResendOTP} loading={verifyRegisterOTP.isPending} handleVerifyOTP={handleVerifyRegisterOTP}/>}
 
         </div>
     );

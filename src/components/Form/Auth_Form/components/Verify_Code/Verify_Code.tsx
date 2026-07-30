@@ -4,31 +4,27 @@ import classes from "@/components/Form/Auth_Form/Form.module.scss";
 import {useForm} from "react-hook-form";
 import {useTranslation} from "react-i18next";
 import {LoadingOutlined} from "@ant-design/icons";
+import {useGetUser} from "@/hooks/custom/useAuth.ts";
 
 interface VerifyCodeProps {
     handleVerifyOTP: (data: any) => void
     loading: boolean;
-    handleLoginResendOTP: () => void,
+    handleResendOTP: () => void,
     resendLoading: boolean;
     resendStep: boolean
 }
 
-const VerifyCode = ({handleVerifyOTP, loading, handleLoginResendOTP, resendLoading, resendStep}: VerifyCodeProps) => {
+const VerifyCode = ({handleVerifyOTP, loading, handleResendOTP, resendLoading, resendStep}: VerifyCodeProps) => {
 
     const {register, handleSubmit, reset} = useForm()
     const {t} = useTranslation()
-
-    const handleResended = () => {
-        reset({ otp: '' })
-        handleLoginResendOTP()
-    }
+    const {data} = useGetUser()
 
     return (
         <form onSubmit={handleSubmit(handleVerifyOTP)}>
             <div  className={cls(classes['otpContainer'])}>
 
                 <input
-                    type="number"
                     inputMode={'numeric'}
                     {...register("otp", { required: true })}
                     className={cls(classes['otpInput'])}
@@ -46,8 +42,10 @@ const VerifyCode = ({handleVerifyOTP, loading, handleLoginResendOTP, resendLoadi
             {resendStep && (
                 <button
                     type="button"
-                    onClick={handleResended}
-                    disabled={resendLoading}
+                    onClick={() => {
+                        reset({ otp: '' })
+                        handleResendOTP()
+                    }}
                     className={cls(classes["form_button_resend"])}
                 >
                     {resendLoading ? <LoadingOutlined /> : 'Resend OTP'}

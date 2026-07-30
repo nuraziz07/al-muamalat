@@ -3,12 +3,17 @@ import {UserOutlined} from "@ant-design/icons";
 import ProfileInfo from "@/routes/(app)/profile/-components/ProfileInfo";
 import Courses from "@/routes/(app)/profile/-components/Courses/Courses.tsx";
 import {Tabs} from "antd";
-import {useAuth} from "@/hooks/custom/useAuth.ts";
+
+type ProfileSearch = {
+    tab?: string
+}
 
 export const Route = createFileRoute('/(app)/profile/')({
   component: RouteComponent,
-  validateSearch: (search) => {
-      tab: search.tab ?? undefined
+  validateSearch: (search: Record<string, unknown>): ProfileSearch => {
+     return {
+         tab: (search?.tab as string) ?? undefined
+     }
   }
 })
 
@@ -23,8 +28,6 @@ function RouteComponent() {
             navigate({search: {tab: key}, replace: true})
         }
     }
-
-    const {user} = useAuth()
 
     const items = [
         {

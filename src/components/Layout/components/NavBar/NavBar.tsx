@@ -1,6 +1,6 @@
 import {Logo} from '@/assets/Images/Svg';
 import {LogOut} from "lucide-react";
-import {Link,  useNavigate, useSearch} from "@tanstack/react-router";
+import {Link, useNavigate} from "@tanstack/react-router";
 import {useTranslation} from 'react-i18next'
 import {Avatar, Divider, Popover, Select} from "antd";
 import LanguageSelect from "@/components/Layout/components/NavBar/components";
@@ -9,6 +9,13 @@ import {Button} from "@/components/ui/button";
 import {useQuery} from "@tanstack/react-query";
 import {request} from "@/Services/api/interceptor.ts";
 
+interface SelectItem {
+    course_id: string;
+    name_uz: string;
+    name_en: string;
+    description_uz: string;
+    description_en: string;
+}
 
 export const NavBar = () => {
 
@@ -31,7 +38,7 @@ export const NavBar = () => {
         }
     })
 
-    const selectItems = data?.map((item) => ({
+    const selectItems = data?.map((item: SelectItem) => ({
         key: item.course_id,
         label: item.name_uz,
         value: item.course_id,
@@ -46,6 +53,7 @@ export const NavBar = () => {
     // }
 
     const {data: user} = useGetUser()
+
     const handleLogout = () => {
         window.localStorage.removeItem('userToken')
         navigate({to: '/signin'})
@@ -93,7 +101,7 @@ export const NavBar = () => {
                     {navItems.map((item) => (
                         <Link key={item.label} to={item.path}
                               className="flex items-center gap-1 text-base font-semibold text-gray-700 transition-colors hover:text-teal-600 [&.active]:text-teal-600">
-                            {item.hasDropdown ? <Select  placeholder={'Programs'} className={'w-30'}
+                            {item.hasDropdown ? <Select placeholder={'Programs'} className={'w-30'}
                                                         options={selectItems}/> : item.label}
                         </Link>
                     ))}
@@ -104,10 +112,9 @@ export const NavBar = () => {
 
                     <div className="h-6 w-px bg-gray-200"/>
 
-                    {user?.user_id ? <Popover content={content}><Avatar onClick={() => navigate({to: '/profile'})}
-                                                                        style={{backgroundColor: "teal"}}
-                                                                        shape={'square'}
-                                                                        size={40}>{user?.full_name[0]}</Avatar></Popover> :
+                    {user?.user_id ? <Popover content={content}>
+                            <Avatar onClick={() => navigate({to: '/profile'})} style={{backgroundColor: "teal"}}
+                                    shape={'square'} size={40}>{user?.full_name?.[0] ?? '?'}</Avatar></Popover> :
                         <button onClick={() => navigate({to: '/signin'})}
                                 className="rounded-lg bg-teal-600 px-6 py-2.5 text-base font-medium text-white transition-colors hover:bg-teal-700">
                             {t('header.signIn')}

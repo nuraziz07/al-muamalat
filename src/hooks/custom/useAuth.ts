@@ -66,7 +66,7 @@ export function useVerifyLoginOTP() {
 }
 
 
-export function useResendOTP(type) {
+export function useResendOTP(type: 'signin' | 'signup') {
     return useMutation({
         mutationKey: ['resend-otp'],
         mutationFn: (params) => authApi.resendOTP(type, params),

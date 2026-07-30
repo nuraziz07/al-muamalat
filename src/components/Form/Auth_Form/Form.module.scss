@@ -42,7 +42,7 @@
 }
 
 .otpInput {
-  width: 240px;
+  width: 280px;
   padding: 12px 0;
 
   border: none;
@@ -72,14 +72,14 @@
   padding: 10px 0;
   background: transparent;
   border: none;
-  color: #1677ff; // asosiy rangingizga moslang
+  color: #009688; // asosiy rangingizga moslang
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: color 0.2s ease, opacity 0.2s ease;
 
   &:hover:not(:disabled) {
-    color: darken(#1677ff, 10%);
+    color: darken(#009688, 10%);
     text-decoration: underline;
   }
 

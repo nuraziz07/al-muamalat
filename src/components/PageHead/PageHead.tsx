@@ -16,8 +16,6 @@ const PageHead = ({courseId}: PageHeadProps) => {
         },
     })
 
-    const course = data?.find((item) => item.course_id === courseId)
-
     return (
         <div className="mx-auto mb-14 max-w-2xl text-center">
             <h2 className="mb-4 text-[40px] font-[600] text-[#152032] sm:text-5xl">
