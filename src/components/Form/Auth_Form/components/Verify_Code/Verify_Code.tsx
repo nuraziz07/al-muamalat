@@ -20,8 +20,13 @@ const VerifyCode = ({handleVerifyOTP, loading, handleResendOTP, resendLoading, r
     const {t} = useTranslation()
     const {data} = useGetUser()
 
+    const handleVerifyWithReset = (data) => {
+        reset({otp: ''})
+        handleVerifyOTP(data)
+    }
+
     return (
-        <form onSubmit={handleSubmit(handleVerifyOTP)}>
+        <form onSubmit={handleSubmit(handleVerifyWithReset)}>
             <div  className={cls(classes['otpContainer'])}>
 
                 <input
@@ -42,10 +47,7 @@ const VerifyCode = ({handleVerifyOTP, loading, handleResendOTP, resendLoading, r
             {resendStep && (
                 <button
                     type="button"
-                    onClick={() => {
-                        reset({ otp: '' })
-                        handleResendOTP()
-                    }}
+                    onClick={handleResendOTP}
                     className={cls(classes["form_button_resend"])}
                 >
                     {resendLoading ? <LoadingOutlined /> : 'Resend OTP'}

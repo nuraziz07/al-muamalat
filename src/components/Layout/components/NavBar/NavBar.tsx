@@ -59,6 +59,7 @@ export const NavBar = () => {
         navigate({to: '/signin'})
     }
 
+
     const content = (
         <div className="min-w-[250px]">
             <div className="flex items-center gap-3">
@@ -98,13 +99,24 @@ export const NavBar = () => {
                 </Link>
 
                 <div className="hidden items-center gap-8 md:flex">
-                    {navItems.map((item) => (
-                        <Link key={item.label} to={item.path}
-                              className="flex items-center gap-1 text-base font-semibold text-gray-700 transition-colors hover:text-teal-600 [&.active]:text-teal-600">
-                            {item.hasDropdown ? <Select placeholder={'Programs'} className={'w-30'}
-                                                        options={selectItems}/> : item.label}
-                        </Link>
-                    ))}
+                    {
+                        data?.map((item: SelectItem) => (
+                            <Link
+                                key={item.course_id}
+                                to="/programs/$courseId"
+                                params={{ courseId: item.course_id }}
+                            >
+                                {item.name_uz}
+                            </Link>
+                        ))
+                    }
+                    {/*{navItems.map((item) => (*/}
+                    {/*    <Link key={item.label} to={item.path}*/}
+                    {/*          className="flex items-center gap-1 text-base font-semibold text-gray-700 transition-colors hover:text-teal-600 [&.active]:text-teal-600">*/}
+                    {/*        {item.hasDropdown ? <Select placeholder={'Programs'} className={'w-30'}*/}
+                    {/*                                    options={selectItems}/> : item.label}*/}
+                    {/*    </Link>*/}
+                    {/*))}*/}
                 </div>
 
                 <div className="hidden items-center gap-5 md:flex">

@@ -17,11 +17,18 @@ export const authApi = {
     resendOTP: (type: 'signin' | 'signup', params: VerifyRegisterParams) =>
         request.post(`/v2/auth/${type}/resend`, params),
 
-    getUser: () =>
-        request.get('/users/me'),
+    getUser: async () =>
+        await request.get('/users/me'),
 
-    updateUser: (params: any, id: string | number) =>
-        request.put(`/users/${id}`, params,  {
-           headers: {'Content-Type': 'multipart/form-data'}
-}),
+    updateUser: (params: any, id: any) =>
+        request.put(`/users/${id}`, params),
+
+    forgotPassword: (params) =>
+        request.post('/v2/auth/password/forgot/init', params),
+
+    forgotPasswordConfirm: (params) =>
+        request.post('/v2/auth/password/forgot/confirm', params),
+
+    forgorPasswordVerify: (params) =>
+        request.post('/v2/auth/password/forgot/verify')
 }

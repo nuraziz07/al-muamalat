@@ -7,21 +7,20 @@ export const Route = createFileRoute('/(app)/programs/$courseId')({
 })
 
 function RouteComponent() {
-
     const {courseId} = Route.useParams()
 
-    const {data, isLoading} = useQuery({
-        queryKey: ['courses', courseId],
+    const {data: course, isLoading} = useQuery({
+        queryKey: ['course', courseId],
         queryFn: async () => {
-            const response = await request.get('/courses/main')
-            return response?.data?.data ?? []
-        }
+            const response = await request.get(`/courses/${courseId}`)
+            return response?.data?.data
+        },
+        enabled: !!courseId,
     })
 
-    const course = data?.find((item) => String(item.course_id) === String(courseId))
+    console.log(course)
 
-    if (isLoading) return <div>Loading...</div>
-    if (!course) return <div>Course not found</div>
+    if (isLoading) return <div>Yuklanmoqda...</div>
 
-    return <div>{course.name_uz}</div>
+    return <div>{course?.name_uz}</div>
 }

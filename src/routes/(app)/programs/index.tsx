@@ -3,12 +3,8 @@ import {Fragment, lazy} from "react";
 import PageHead from "@/components/PageHead";
 import {z} from "zod";
 
-const searchParams = z.object({
-    courseId: z.string().optional()
-})
 
 export const Route = createFileRoute('/(app)/programs/')({
-    validateSearch: searchParams,
     component: ProgramsPage,
 })
 
@@ -23,12 +19,11 @@ const ConsultationForm = lazy(() => import('@/components/ConsultationForm'))
 
 function ProgramsPage() {
 
-    const {courseId} = Route.useSearch()
 
     return (
         <section className={'mt-20 w-full bg-white'}>
             <div className={'mx-auto flex flex-col gap-20'}>
-                <PageHead courseId={courseId}/>
+                {/*<PageHead courseId={courseId}/>*/}
                 <div className={'py-10'}>
                     <LearningPoints/>
                 </div>

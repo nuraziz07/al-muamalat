@@ -58,7 +58,7 @@ const SignUpForm = () => {
         const submitData = {
             email: email,
         }
-        return resendMutation.mutate(submitData, {
+        resendMutation.mutate(submitData, {
             onSuccess: (res) => message.success(res?.data?.message),
             onError: (err) => message.error(err?.response?.data?.message ?? err?.message)
         })

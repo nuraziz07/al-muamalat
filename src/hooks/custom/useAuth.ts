@@ -71,8 +71,6 @@ export function useResendOTP(type: 'signin' | 'signup') {
         mutationKey: ['resend-otp'],
         mutationFn: (params) => authApi.resendOTP(type, params),
         onSuccess: (res) => {
-            const token = res?.data?.data?.tokens?.accessToken
-            if (token) window.localStorage.setItem('userToken', token)
             message.success(res?.data?.message)
             return res
         },
@@ -81,6 +79,8 @@ export function useResendOTP(type: 'signin' | 'signup') {
         }
     })
 }
+
+
 
 
 export function useGetUser() {
@@ -100,12 +100,42 @@ export function useUpdateUser() {
 
     return useMutation({
         mutationKey: ['update-user'],
-        mutationFn: (params, id) => authApi.updateUser(params, id),
+        mutationFn: ({id, data}: {id: string | number, data: any}) => authApi.updateUser(data, id),
         onSuccess: (res) => {
-            queryClient.setQueryData(['currentUser'], res.data.data)
+            queryClient.setQueryData(['update-user'], res.data)
         },
         onError: (error: any) => {
             message.error(error?.response?.data?.message || 'Xatolik yuz berdi')
         },
+    })
+}
+
+export function useSubmitForgotEmail() {
+
+    return useMutation({
+        mutationKey: ['submit-forgot-email'],
+        mutationFn: (params) => authApi.forgotPassword(params),
+        onSuccess: (res) => {
+            message.success(res?.data?.message)
+        },
+        onError: (error: any) => {
+            message.error(error?.response?.data?.message || 'Xatolik yuz berdi')
+        }
+    })
+}
+
+export function useConfirmForgotPassword() {
+
+    return useMutation({
+        mutationKey: ['confirm-forgot-password'],
+        mutationFn: (params) => authApi.forgotPasswordConfirm(params),
+        onSuccess: (res) => {
+            window.localStorage.setItem("userToken", res?.data?.data?.tokens?.accessToken);
+            message.success(res?.data?.message);
+            return res
+        },
+        onError: (error: any) => {
+            message.error(error?.response?.data?.message || 'Xatolik yuz berdi')
+        }
     })
 }
