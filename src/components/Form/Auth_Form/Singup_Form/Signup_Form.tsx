@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
 import {Link, useNavigate} from "@tanstack/react-router";
-import {AuthContext} from "@/Providers/AuthContext.tsx";
+import {AuthContext} from "@/Context/AuthContext.tsx";
 import {useForm} from "react-hook-form";
 import cls from "classnames";
 import classes from '../Form.module.scss'

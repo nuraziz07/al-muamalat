@@ -9,7 +9,7 @@ const defaultProvider = {
 
 const AuthContext = createContext(defaultProvider);
 
-const AuthProvider = ({children}) => {
+const AuthProvider = ({children}: { children: any}) => {
 
     const {data} = useGetUser()
 

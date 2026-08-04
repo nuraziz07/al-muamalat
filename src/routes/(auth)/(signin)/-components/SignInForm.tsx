@@ -1,7 +1,7 @@
 import {Mail} from "lucide-react";
 import {Link, useNavigate} from "@tanstack/react-router";
 import {useContext, useState} from "react";
-import {AuthContext} from "@/Providers/AuthContext";
+import {AuthContext} from "@/Context/AuthContext";
 import {useForm} from "react-hook-form";
 import {message} from "antd";
 import {useAuth} from "@/hooks/custom/useAuth.ts";

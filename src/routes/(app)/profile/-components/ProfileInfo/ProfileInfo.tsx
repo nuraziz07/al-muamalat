@@ -1,19 +1,29 @@
-import React, {useRef, useState} from 'react';
+import React, {useState} from 'react';
 import {Camera} from "lucide-react";
 import {Button} from "@/components/ui/button";
-import {useAuth, useGetUser, useUpdateUser} from "@/hooks/custom/useAuth.ts";
+import {useAuth, useUpdateUser} from "@/hooks/custom/useAuth.ts";
 import {useForm} from "react-hook-form";
 import {message, Spin} from "antd";
+import {User_Icon} from '../../../../../assets/Images/Png'
 
 const ProfileInfo = () => {
 
+
     const {user} = useAuth()
     const {register, handleSubmit} = useForm()
+    const [avatar, setAvatar] = useState(null)
 
     const updateUserMutation = useUpdateUser()
 
     const handleUpdateUserMutation = (data) => {
-        updateUserMutation.mutate({id: user?.user_id, data}, {
+        const submitData = {
+            ...data,
+            images: avatar,
+        }
+        updateUserMutation.mutate({id: user?.user_id, submitData}, {
+            onSettled: () => {
+                console.log(submitData)
+            },
             onSuccess: (res) => {
                 message.success("Muvaffaqiyatli yuklandi");
             },
@@ -23,6 +33,7 @@ const ProfileInfo = () => {
         })
     }
 
+
     return (
         <form onSubmit={handleSubmit(handleUpdateUserMutation)}
               className="my-10 border mx-50 rounded-[24px] bg-white p-[48px] shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
@@ -31,7 +42,7 @@ const ProfileInfo = () => {
                 <div className="flex items-center gap-8">
                     <div className="relative h-[80px] w-[80px]">
                         <img
-                            src={''}
+                            src={User_Icon}
                             alt="avatar"
                             className="h-[80px] w-[80px] rounded-full object-cover"
                         />
@@ -42,6 +53,7 @@ const ProfileInfo = () => {
                             <Camera size={14}/>
                         </button>
                         <input
+                            onChange={(e) => setAvatar(e.target.files[0])}
                             type="file"
                             accept="image/*"
                             className="hidden"
@@ -123,5 +135,4 @@ const ProfileInfo = () => {
         </form>
     );
 };
-
 export default ProfileInfo;

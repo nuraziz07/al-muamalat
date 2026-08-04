@@ -22,7 +22,6 @@ import { Route as apphomeIndexRouteImport } from './routes/(app)/(home)/index'
 import { Route as appContactIndexRouteImport } from './routes/(app)/contact/index'
 import { Route as appFinanceIndexRouteImport } from './routes/(app)/finance/index'
 import { Route as appProfileIndexRouteImport } from './routes/(app)/profile/index'
-import { Route as appProgramsIndexRouteImport } from './routes/(app)/programs/index'
 import { Route as appProgramsCourseIdRouteImport } from './routes/(app)/programs/$courseId'
 import { Route as authsigninSigninRouteImport } from './routes/(auth)/(signin)/signin'
 import { Route as authsignupSignupRouteImport } from './routes/(auth)/(signup)/signup'
@@ -87,11 +86,6 @@ const appProfileIndexRoute = appProfileIndexRouteImport.update({
   path: '/',
   getParentRoute: () => appProfileRouteRoute,
 } as any)
-const appProgramsIndexRoute = appProgramsIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => appProgramsRouteRoute,
-} as any)
 const appProgramsCourseIdRoute = appProgramsCourseIdRouteImport.update({
   id: '/$courseId',
   path: '/$courseId',
@@ -120,9 +114,9 @@ export interface FileRoutesByFullPath {
   '/contact/': typeof appContactIndexRoute
   '/finance/': typeof appFinanceIndexRoute
   '/profile/': typeof appProfileIndexRoute
-  '/programs/': typeof appProgramsIndexRoute
 }
 export interface FileRoutesByTo {
+  '/programs': typeof appProgramsRouteRouteWithChildren
   '/programs/$courseId': typeof appProgramsCourseIdRoute
   '/signin': typeof authsigninSigninRoute
   '/signup': typeof authsignupSignupRoute
@@ -130,7 +124,6 @@ export interface FileRoutesByTo {
   '/contact': typeof appContactIndexRoute
   '/finance': typeof appFinanceIndexRoute
   '/profile': typeof appProfileIndexRoute
-  '/programs': typeof appProgramsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -150,7 +143,6 @@ export interface FileRoutesById {
   '/(app)/contact/': typeof appContactIndexRoute
   '/(app)/finance/': typeof appFinanceIndexRoute
   '/(app)/profile/': typeof appProfileIndexRoute
-  '/(app)/programs/': typeof appProgramsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -166,9 +158,9 @@ export interface FileRouteTypes {
     | '/contact/'
     | '/finance/'
     | '/profile/'
-    | '/programs/'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/programs'
     | '/programs/$courseId'
     | '/signin'
     | '/signup'
@@ -176,7 +168,6 @@ export interface FileRouteTypes {
     | '/contact'
     | '/finance'
     | '/profile'
-    | '/programs'
   id:
     | '__root__'
     | '/(app)'
@@ -195,7 +186,6 @@ export interface FileRouteTypes {
     | '/(app)/contact/'
     | '/(app)/finance/'
     | '/(app)/profile/'
-    | '/(app)/programs/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -296,13 +286,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appProfileIndexRouteImport
       parentRoute: typeof appProfileRouteRoute
     }
-    '/(app)/programs/': {
-      id: '/(app)/programs/'
-      path: '/'
-      fullPath: '/programs/'
-      preLoaderRoute: typeof appProgramsIndexRouteImport
-      parentRoute: typeof appProgramsRouteRoute
-    }
     '/(app)/programs/$courseId': {
       id: '/(app)/programs/$courseId'
       path: '/$courseId'
@@ -377,12 +360,10 @@ const appProfileRouteRouteWithChildren = appProfileRouteRoute._addFileChildren(
 
 interface appProgramsRouteRouteChildren {
   appProgramsCourseIdRoute: typeof appProgramsCourseIdRoute
-  appProgramsIndexRoute: typeof appProgramsIndexRoute
 }
 
 const appProgramsRouteRouteChildren: appProgramsRouteRouteChildren = {
   appProgramsCourseIdRoute: appProgramsCourseIdRoute,
-  appProgramsIndexRoute: appProgramsIndexRoute,
 }
 
 const appProgramsRouteRouteWithChildren =

@@ -4,6 +4,7 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import uz from '@/assets/Locales/Uz/common.json'
 import ru from '@/assets/Locales/Ru/common.json'
 import en from '@/assets/Locales/En/common.json'
+import {DEFAULT_LOCALE, STORED_KEY_LOCALE, SUPPORTED_LOCALES} from "@/Configs/config.ts";
 
 i18n
     .use(LanguageDetector)
@@ -14,8 +15,8 @@ i18n
             ru: { translation: ru },
             en: { translation: en },
         },
-        fallbackLng: "uz",
-        supportedLngs: ["uz", "ru", "en"],
+        fallbackLng: DEFAULT_LOCALE,
+        supportedLngs: SUPPORTED_LOCALES,
         debug: false,
 
         interpolation: {
@@ -24,7 +25,7 @@ i18n
 
         detection: {
             order: ["localStorage", "navigator", "htmlTag"],
-            caches: ["localStorage"],
+            lookupLocalStorage: STORED_KEY_LOCALE
         },
     });
 

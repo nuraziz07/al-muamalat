@@ -1,5 +1,5 @@
 import {useContext} from "react";
-import {AuthContext} from "@/Providers/AuthContext.tsx";
+import {AuthContext} from "@/Context/AuthContext.tsx";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {authApi} from "@/Services/auth/auth.api.ts";
 import {message} from "antd";
