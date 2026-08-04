@@ -9,8 +9,10 @@ export const HeroContent = () => {
 
     return (
        <div>
-           <HeroBadge badge={t('hero.badge')} title={t('hero.title')} />
-           <StudentsOpinions />
+           {/*<HeroBadge badge={t('hero.badge')} title={t('hero.title')} />*/}
+           {/*<StudentsOpinions />*/}
+           <h1>Your guide to islamic finance</h1>
+           <p>Strategic solutions. Ethical Excellence, Global Impact</p>
        </div>
     )
 }
