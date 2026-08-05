@@ -7,6 +7,8 @@ import classes from './hero.module.scss'
 import cls from 'classnames'
 
 const Hero = () => {
+
+    console.log(navigator.geolocation())
     return (
         <section className={cls(classes.hero_bg_img, `min-h-screen w-full flex justify-center items-center relative`)}>
             <div className="container mx-auto px-4">
@@ -19,6 +21,7 @@ const Hero = () => {
 
                     <p className="mt-8 max-w-3xl text-lg tracking-wide text-white/80 md:text-3xl">
                         Strategic Solutions. Ethical Excellence, Global Impact.
+                    </p>
                     </p>
 
                     <div className="mt-14 flex flex-col gap-6 md:flex-row">
@@ -39,7 +42,6 @@ const Hero = () => {
                         <span className="text-4xl text-white/70">↓</span>
                     </div>
                 </div>
-            </div>
         </section>
     );
 };
