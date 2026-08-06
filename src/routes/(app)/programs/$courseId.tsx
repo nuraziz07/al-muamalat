@@ -1,14 +1,15 @@
 import {createFileRoute} from '@tanstack/react-router'
-import {useQuery} from "@tanstack/react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import {request} from "@/Services/api/interceptor.ts";
 import LearningPoints from "@/routes/(app)/programs/-sections/LearningPoints";
 import BriefInfo from "@/components/Sections/BriefInformation";
 import Courses from "@/routes/(app)/programs/-sections/Courses";
-import Payment from "@/components/Cards/Payment";
-import {Service} from "@/assets/Images/Png";
+import Payment from './components'
 import Services from "@/routes/(app)/programs/-sections/Services";
 import ConsultationForm from "@/components/ConsultationForm";
 import PageHead from "@/components/PageHead";
+import {useGetUser} from "@/hooks/custom/useAuth.ts";
+import {message} from "antd";
 
 export const Route = createFileRoute('/(app)/programs/$courseId')({
   component: RouteComponent,
@@ -27,8 +28,39 @@ function RouteComponent() {
     })
 
 
-    if (isLoading) return <div>Yuklanmoqda...</div>
+    const {data: user} = useGetUser()
 
+
+
+    const {mutate} = useMutation({
+        mutationKey: ['courseUser'],
+        mutationFn: async (payload: {course_id: string, user_id: string}) => {
+             await request.post('/courses/user', payload).then((response) => {
+                if(response.data.success) {
+                    request.get(`/courses/purchase/${response?.data?.data?.id}`).then((res) => {
+                        if(res?.data?.success) {
+                            const aTag= document.createElement('a')
+                            aTag.href = res?.data?.data?.data
+                            aTag.target = '_blank'
+                            document.body.append(aTag)
+                            aTag.click()
+                        }
+                    })
+                }
+            }).catch((err) => {
+                message.error('Error ketdi ishlamadi')
+            })
+        }
+    })
+
+    const onSubmit = () => {
+        const submitData = {
+            course_id: courseId,
+            user_id: user?.user_id
+        }
+        console.log(submitData)
+        mutate(submitData)
+    }
 
     return (
         <section className={'mt-20 w-full bg-white'}>
@@ -47,7 +79,7 @@ function RouteComponent() {
                 </div>
 
                 <div className={'py-10'}>
-                    <Payment />
+                    <Payment onSubmit={onSubmit} />
                 </div>
 
                 <div className={'py-10'}>

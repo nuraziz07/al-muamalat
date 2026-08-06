@@ -2,12 +2,10 @@ import React from 'react';
 import {Check, Circle} from "lucide-react";
 
 interface PaymentProps {
-    id: number;
-    title: string;
-    description: string;
+    onSubmit: () => void
 }
 
-const Payment = () => {
+const Payment = ({onSubmit}: PaymentProps) => {
 
     const services: PaymentProps[] = [
         {
@@ -82,7 +80,7 @@ const Payment = () => {
                         ))}
                     </ul>
 
-                    <button className="mt-16 rounded-xl bg-[#0B9B93] px-12 py-5 text-[18px] font-semibold text-white transition hover:opacity-90">
+                    <button type={'submit'} onClick={onSubmit} className="mt-16 rounded-xl bg-[#0B9B93] px-12 py-5 text-[18px] font-semibold text-white transition hover:opacity-90">
                         Purchase Now
                     </button>
                 </div>

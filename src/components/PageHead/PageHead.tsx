@@ -23,7 +23,7 @@ const PageHead = ({courseName, courseDescription}: PageHeadProps) => {
     return (
         <div className="mx-auto mb-14 max-w-6xl">
             <h2 className="mb-4 text-[40px] font-[600] text-[#152032] sm:text-5xl">
-                {i18n.language === 'en' ? courseName.name_en : i18n.language === 'uz' ? courseName.name_uz: null}
+                {i18n.language === 'en' ? courseName?.name_en : i18n.language === 'uz' ? courseName?.name_uz: null}
             </h2>
             <p dangerouslySetInnerHTML={{
                 __html: i18n.language === 'en' ? courseDescription?.description_en?.replace(/\\n/g, "") : i18n.language === 'uz' ? courseDescription?.description_uz?.replace(/\\n/g, "") : null
