@@ -12,7 +12,7 @@ const ServiceCard = (props: ServiceCardProps) => {
     const { icon: Icon, title, description, bgColor = "bg-blue-100", iconBg = "bg-blue-400",} = props
 
     return (
-        <div className={`flex flex-col justify-between rounded-2xl p-8 ${bgColor}`}>
+        <div className={`flex flex-col justify-between rounded-2xl py-8 min-w-[400px] ${bgColor}`}>
             <div>
                 <div className="mb-5 flex items-center gap-4">
                     <span

@@ -47,8 +47,7 @@ const Services = () => {
             id: 5,
             icon: <ShoppingCartIcon />,
             title: "Islamic Capital Market",
-            description:
-                "We provide expert advice on the Islamic capital market, including Shariah-compliant investment products, sukuk issuance, and ethical portfolio management.",
+            description: "We provide expert advice on the Islamic capital market, including Shariah-compliant investment products, sukuk issuance, and ethical portfolio management.",
             bgColor: "bg-gray-100",
             iconBg: "bg-gray-400",
         },

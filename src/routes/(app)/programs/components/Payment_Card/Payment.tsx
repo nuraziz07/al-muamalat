@@ -7,7 +7,7 @@ interface PaymentProps {
 
 const Payment = ({onSubmit}: PaymentProps) => {
 
-    const services: PaymentProps[] = [
+    const services = [
         {
             id: 1,
             title: "Space for creative ideas",
