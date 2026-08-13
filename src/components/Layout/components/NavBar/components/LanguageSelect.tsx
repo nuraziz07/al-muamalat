@@ -1,26 +1,39 @@
-import React from 'react';
+import {Globe} from "lucide-react";
 import {Select} from "antd";
-import {USA, Uzb, Russian} from "@/assets/Images/Png/Flags";
 import {useTranslation} from "react-i18next";
+import styles from "./LanguageSelect.module.scss";
 
+const LANG_LABELS: Record<string, string> = {
+    en: "EN",
+    uz: "UZ",
+    ru: "RU",
+};
 
 const LanguageSelect = () => {
+    const {i18n} = useTranslation();
 
-    const {i18n} = useTranslation()
-    const onChangeLang = (value: string) => {
-        i18n.changeLanguage(value)
-    }
+    const currentLang = i18n.language?.split("-")[0] ?? "en";
 
     const languages = [
-        {value: "en", label: <div className={'flex gap-3'}><img src={USA} className={'w-6 h-6'} alt=""/><span>Eng</span></div>},
-        {value: "uz", label: <div className={'flex gap-3'}><img src={Uzb} className={'w-6 h-6'} alt=""/><span>O'zb</span></div>},
-        {value: "ru", label: <div className={'flex gap-3'}><img src={Russian} className={'w-6 h-6'} alt=""/><span>Рус</span></div>},
+        {value: "en", label: "EN"},
+        {value: "uz", label: "UZ"},
+        {value: "ru", label: "RU"},
     ];
 
-
     return (
-        <div>
-            <Select onChange={onChangeLang} defaultValue={i18n.language} options={languages} />
+        <div className={styles.wrapper}>
+            <Select
+                value={currentLang}
+                onChange={(value) => i18n.changeLanguage(value)}
+                options={languages}
+                classNames={{popup: {root: styles.dropdown}}}
+                labelRender={({value}) => (
+                    <span className={styles.trigger}>
+                        <Globe size={16} strokeWidth={1.75} />
+                        <span>{LANG_LABELS[String(value)] ?? "EN"}</span>
+                    </span>
+                )}
+            />
         </div>
     );
 };

@@ -1,6 +1,4 @@
 import React from 'react';
-import {useQuery} from "@tanstack/react-query";
-import {request} from "@/Services/api/interceptor.ts";
 import {useTranslation} from "react-i18next";
 
 interface PageHeadProps {
@@ -9,14 +7,6 @@ interface PageHeadProps {
 }
 
 const PageHead = ({courseName, courseDescription}: PageHeadProps) => {
-
-    // const { data, isLoading } = useQuery({
-    //     queryKey: ['courses'],
-    //     queryFn: async () => {
-    //         const response = await request.get('/courses/main')
-    //         return response?.data?.data ?? []
-    //     },
-    // })
 
     const {i18n} = useTranslation()
 

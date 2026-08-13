@@ -1,9 +1,18 @@
 {
   "header": {
     "home": "Bosh sahifa",
+    "services": "Xizmatlar",
+    "trainingPrograms": "O'quv dasturlari",
+    "islamicFinance": "Islom moliyasi",
+    "team": "Jamoa",
+    "careers": "Karyera",
+    "contact": "Aloqa",
+    "login": "Kirish",
+    "consulting": "CONSULTING",
+    "ourTeam": "Bizning jamoa",
+    "partners": "Hamkorlar",
     "programs": "Dasturlar",
     "financeTools": "Moliyaviy vositalar",
-    "contact": "Aloqa",
     "signIn": "Kirish"
   },
   "hero": {

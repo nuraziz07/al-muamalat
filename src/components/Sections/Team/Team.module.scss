@@ -1,0 +1,52 @@
+.experts-swiper-inner {
+  padding-bottom: 48px !important;
+  padding-top: 20px !important;
+ 
+  :global(.swiper-slide) {
+    transition: filter 0.35s ease, opacity 0.35s ease !important;
+    filter: blur(5px) !important;
+    opacity: 0.55 !important;
+  }
+ 
+  :global(.swiper-slide-active) {
+    filter: blur(0) !important;
+    opacity: 1 !important;
+  }
+ 
+  :global(.swiper-pagination) {
+    position: static !important;
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+}
+ 
+.team-slide {
+  width: 900px;
+  max-width: 88vw;
+}
+ 
+/* Custom pagination bullets */
+.experts-bullet {
+  display: inline-block;
+  height: 8px;
+  width: 8px;
+  border-radius: 999px;
+  background-color: #d1d5db;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  margin: 0 !important;
+}
+ 
+.experts-bullet--active {
+  width: 28px;
+  background-color: #0f766e; /* emerald/teal, rasmdagidek */
+}
+ 
+@media (max-width: 768px) {
+  .team-slide {
+    width: 90vw;
+  }
+}

@@ -1,0 +1,151 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0.875rem 2rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.logoIcon {
+  width: 3rem;
+  height: 3rem;
+  object-fit: contain;
+}
+
+.logoText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.logoTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #1f2937;
+}
+
+.logoSubtitle {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #ff6600;
+}
+
+.nav {
+  display: none;
+  align-items: center;
+  gap: 1.75rem;
+
+  @media (min-width: 1024px) {
+    display: flex;
+  }
+}
+
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #374151;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.2s;
+
+  &:hover,
+  &.active {
+    color: #ff6600;
+  }
+}
+
+.actions {
+  display: none;
+  align-items: center;
+  gap: 1rem;
+
+  @media (min-width: 1024px) {
+    display: flex;
+  }
+}
+
+.loginBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  border: none;
+  border-radius: 9999px;
+  background: #ff6600;
+  color: #fff;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #e55a00;
+  }
+}
+
+.mobileToggle {
+  display: flex;
+  padding: 0.5rem;
+  border: none;
+  background: transparent;
+  color: #374151;
+  cursor: pointer;
+
+  @media (min-width: 1024px) {
+    display: none;
+  }
+}
+
+.mobileMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem 2rem 1.25rem;
+  border-top: 1px solid #f0f0f0;
+  background: #fff;
+
+  @media (min-width: 1024px) {
+    display: none;
+  }
+}
+
+.mobileLink {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #374151;
+  text-decoration: none;
+
+  &:hover {
+    color: #ff6600;
+  }
+}
+
+.mobileLogin {
+  margin-top: 0.5rem;
+  width: 100%;
+}

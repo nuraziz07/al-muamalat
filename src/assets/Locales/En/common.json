@@ -1,9 +1,18 @@
 {
   "header": {
     "home": "Home",
+    "services": "Services",
+    "trainingPrograms": "Training Programs",
+    "islamicFinance": "Islamic Finance",
+    "team": "Team",
+    "careers": "Careers",
+    "contact": "Contact",
+    "login": "Login",
+    "consulting": "CONSULTING",
+    "ourTeam": "Our Team",
+    "partners": "Partners",
     "programs": "Programs",
     "financeTools": "Finance tools",
-    "contact": "Contact",
     "signIn": "Sign in"
   },
   "hero": {

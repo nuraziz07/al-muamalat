@@ -1,9 +1,18 @@
 {
   "header": {
     "home": "Главная",
+    "services": "Услуги",
+    "trainingPrograms": "Программы обучения",
+    "islamicFinance": "Исламские финансы",
+    "team": "Команда",
+    "careers": "Карьера",
+    "contact": "Контакты",
+    "login": "Войти",
+    "consulting": "CONSULTING",
+    "ourTeam": "Наша команда",
+    "partners": "Партнёры",
     "programs": "Программы",
     "financeTools": "Финансовые инструменты",
-    "contact": "Контакты",
     "signIn": "Войти"
   },
   "hero": {

@@ -1,1 +1,1 @@
-export {default} from './LanguageSelect.tsx'
+export {default} from './LanguageSelect'

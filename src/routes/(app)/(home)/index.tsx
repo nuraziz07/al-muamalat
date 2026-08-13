@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import {lazy} from "react";
 import Container from "@/components/Container";
 import QuoteBanner from "@/components/Sections/QuoteBanner/QuoteBanner.tsx";
+import ConsultationForm from "@/components/ConsultationForm";
 
 export const Route = createFileRoute('/(app)/(home)/')({
   component: RouteComponent,
@@ -25,6 +26,7 @@ function RouteComponent() {
           <Partners />
           <Media />
           <Faq />
+          <ConsultationForm />
       </main>
   )
 }

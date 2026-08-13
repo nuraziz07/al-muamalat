@@ -64,7 +64,7 @@ const ConsultationForm = () => {
     const [active, setActive] = useState(0);
 
     return (
-        <section className="mx-auto max-w-7xl overflow-hidden rounded-2xl shadow-xl">
+        <section className="mx-auto pb-15 max-w-7xl overflow-hidden rounded-2xl shadow-xl">
             <div className="grid lg:grid-cols-5">
 
                 {/* Left */}

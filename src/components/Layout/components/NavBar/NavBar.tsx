@@ -1,91 +1,211 @@
-import {Logo} from '@/assets/Images/Svg';
+import {Logo} from "@/assets/Images/Svg";
 import {Link, useNavigate} from "@tanstack/react-router";
-import {useTranslation} from 'react-i18next'
-import {App, Select} from "antd";
-import LanguageSelect from "@/components/Layout/components/NavBar/components";
-import {useAuth, useGetUser} from "@/hooks/custom/useAuth.ts";
+import {useTranslation} from "react-i18next";
+import {Dropdown} from "antd";
+import type {MenuProps} from "antd";
 import {useQuery} from "@tanstack/react-query";
 import {request} from "@/Services/api/interceptor.ts";
-import Avatar_User from '../../../Shared/Avatar'
-import {useEffect} from "react";
-import useApp from "antd/es/app/useApp";
+import {useGetUser} from "@/hooks/custom/useAuth.ts";
+import Avatar_User from "@/components/Shared/Avatar";
+import LanguageSelect from "@/components/Layout/components/NavBar/components/LanguageSelect";
+import {ArrowRight, ChevronDown, Menu, X} from "lucide-react";
+import {useMemo, useState} from "react";
+import styles from "./NavBar.module.scss";
 
-interface SelectItem {
+interface CourseItem {
     course_id: string;
     name_uz: string;
     name_en: string;
-    description_uz: string;
-    description_en: string;
 }
 
 export const NavBar = () => {
+    const {t, i18n} = useTranslation();
+    const navigate = useNavigate();
+    const [mobileOpen, setMobileOpen] = useState(false);
 
-    const {t} = useTranslation()
-    const navigate = useNavigate()
+    const {data: user} = useGetUser();
 
-    const navItems = [
-        {label: t('header.home'), path: "/"},
-        {label: t('header.programs'), path: "/programs", hasDropdown: true},
-        {label: t('header.financeTools'), path: "/finance"},
-        {label: t('header.contact'), path: "/contact"},
+    const {data: courses = []} = useQuery({
+        queryKey: ["courses"],
+        queryFn: async () => {
+            const response = await request.get("/courses/main");
+            return response?.data?.data ?? [];
+        },
+    });
+
+    const isUz = i18n.language?.startsWith("uz");
+
+    // const trainingMenuItems: MenuProps["items"] = useMemo(
+    //     () =>
+    //         (courses as CourseItem[]).map((course) => ({
+    //             key: course.course_id,
+    //             label: isUz ? course.name_uz : course.name_en,
+    //             onClick: () => {
+    //                 navigate({to: "/programs/$courseId", params: {courseId: course.course_id}});
+    //                 setMobileOpen(false);
+    //             },
+    //         })),
+    //     [courses, isUz, navigate],
+    // );
+
+    // const teamMenuItems: MenuProps["items"] = [
+    //     {
+    //         key: "team",
+    //         label: t("header.ourTeam"),
+    //         onClick: () => {
+    //             navigate({to: "/"});
+    //             setMobileOpen(false);
+    //         },
+    //     },
+    //     {
+    //         key: "partners",
+    //         label: t("header.partners"),
+    //         onClick: () => {
+    //             navigate({to: "/"});
+    //             setMobileOpen(false);
+    //         },
+    //     },
+    // ];
+
+    const navLinks = [
+        {label: t("header.home"), path: "/"},
+        {label: t("header.services"), path: "/services"},
+        // {label: t("header.islamicFinance"), path: "/finance"},
+        {label: t("header.careers"), path: "/careers"},
+        {label: t("header.contact"), path: "/contact"},
     ];
 
-
-    const {data} = useQuery({
-        queryKey: ['courses'],
-        queryFn: async () => {
-            const response = await request.get('/courses/main')
-            return response?.data?.data ?? []
-        }
-    })
-
-    const selectItems = data?.map((item: SelectItem) => ({
-        key: item.course_id,
-        label: item.name_uz,
-        value: item.course_id,
-    }))
-
-    const handleCourseChange = (value: string) => {
-        navigate({
-            to: '/programs/$courseId',
-            params: {courseId: value}
-        })
-    }
-
-    const {data: user} = useGetUser()
-
+    const handleLogin = () => {
+        navigate({to: "/signin"});
+        setMobileOpen(false);
+    };
 
     return (
-        <nav className="fixed top-0 z-50 w-full border-b border-gray-100 bg-white/95 backdrop-blur-sm">
-            <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-                <Link to="/" className="flex items-center gap-3">
-                    <img src={Logo} alt="Al Muamalat" className="h-12 w-12 object-contain"/>
-                    <span className="text-xl font-bold tracking-wide text-teal-600">AL MUAMALAT</span>
+        <nav className={styles.navbar}>
+            <div className={styles.inner}>
+                <Link to="/" className={styles.logo}>
+                    <img src={Logo} alt="Al Muamalat" className={styles.logoIcon} />
+                    <div className={styles.logoText}>
+                        <span className={styles.logoTitle}>AL MUAMALAT</span>
+                        <span className={styles.logoSubtitle}>{t("header.consulting")}</span>
+                    </div>
                 </Link>
 
-                <div className="hidden items-center gap-8 md:flex">
-                    {navItems.map((item) => (
-                        <Link key={item.label} to={item.path}
-                              className="flex items-center gap-1 text-base font-semibold text-gray-700 transition-colors hover:text-teal-600 [&.active]:text-teal-600">
-                            {item.hasDropdown ? true : item.label}
+                <div className={styles.nav}>
+                    {navLinks.slice(0, 2).map((item) => (
+                        <Link
+                            key={item.label}
+                            to={item.path}
+                            className={`${styles.navLink} [&.active]:text-[#ff6600]`}
+                        >
+                            {item.label}
                         </Link>
                     ))}
-                    <Select onChange={handleCourseChange} placeholder={'Programs'} className={'w-30'}
-                            options={selectItems}/>
+
+                    {/*<Dropdown menu={{items: trainingMenuItems}} trigger={["hover"]} placement="bottom">*/}
+                    {/*    <span className={styles.navLink}>*/}
+                    {/*        {t("header.trainingPrograms")}*/}
+                    {/*        <ChevronDown size={14} />*/}
+                    {/*    </span>*/}
+                    {/*</Dropdown>*/}
+
+                    {navLinks.slice(2, 3).map((item) => (
+                        <Link
+                            key={item.label}
+                            to={item.path}
+                            className={`${styles.navLink} [&.active]:text-[#ff6600]`}
+                        >
+                            {item.label}
+                        </Link>
+                    ))}
+
+                    {/*<Dropdown menu={{items: teamMenuItems}} trigger={["hover"]} placement="bottom">*/}
+                    {/*    <span className={styles.navLink}>*/}
+                    {/*        {t("header.team")}*/}
+                    {/*        <ChevronDown size={14} />*/}
+                    {/*    </span>*/}
+                    {/*</Dropdown>*/}
+
+                    {navLinks.slice(3).map((item) => (
+                        <Link
+                            key={item.label}
+                            to={item.path}
+                            className={`${styles.navLink} [&.active]:text-[#ff6600]`}
+                        >
+                            {item.label}
+                        </Link>
+                    ))}
                 </div>
 
-                <div className="hidden items-center gap-5 md:flex">
-                    <LanguageSelect/>
+                <div className={styles.actions}>
+                    <LanguageSelect />
 
-                    <div className="h-6 w-px bg-gray-200"/>
-
-                    {user?.user_id ? <Avatar_User user={user} /> :
-                        <button onClick={() => navigate({to: '/signin'})}
-                                className="rounded-lg bg-teal-600 px-6 py-2.5 text-base font-medium text-white transition-colors hover:bg-teal-700">
-                            {t('header.signIn')}
-                        </button>}
+                    {user?.user_id ? (
+                        <Avatar_User user={user} />
+                    ) : (
+                        <button type="button" className={styles.loginBtn} onClick={handleLogin}>
+                            {t("header.login")}
+                            <ArrowRight size={18} />
+                        </button>
+                    )}
                 </div>
+
+                <button
+                    type="button"
+                    className={styles.mobileToggle}
+                    onClick={() => setMobileOpen((prev) => !prev)}
+                    aria-label="Toggle menu"
+                >
+                    {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+                </button>
             </div>
+
+            {mobileOpen && (
+                <div className={styles.mobileMenu}>
+                    {navLinks.map((item) => (
+                        <Link
+                            key={item.label}
+                            to={item.path}
+                            className={styles.mobileLink}
+                            onClick={() => setMobileOpen(false)}
+                        >
+                            {item.label}
+                        </Link>
+                    ))}
+
+                    <span className={styles.mobileLink}>{t("header.trainingPrograms")}</span>
+                    {(courses as CourseItem[]).slice(0, 5).map((course) => (
+                        <Link
+                            key={course.course_id}
+                            to="/programs/$courseId"
+                            params={{courseId: course.course_id}}
+                            className={`${styles.mobileLink} pl-4 text-sm text-gray-500`}
+                            onClick={() => setMobileOpen(false)}
+                        >
+                            {isUz ? course.name_uz : course.name_en}
+                        </Link>
+                    ))}
+
+                    <div className="mt-2">
+                        <LanguageSelect />
+                    </div>
+
+                    {user?.user_id ? (
+                        <div className="mt-2">
+                            <Avatar_User user={user} />
+                        </div>
+                    ) : (
+                        <button
+                            type="button"
+                            className={`${styles.loginBtn} ${styles.mobileLogin}`}
+                            onClick={handleLogin}
+                        >
+                            {t("header.login")}
+                            <ArrowRight size={18} />
+                        </button>
+                    )}
+                </div>
+            )}
         </nav>
     );
 };
