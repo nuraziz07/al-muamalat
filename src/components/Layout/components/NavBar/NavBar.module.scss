@@ -149,3 +149,49 @@
   margin-top: 0.5rem;
   width: 100%;
 }
+
+
+.programSelect {
+  min-width: 150px;
+
+  :global(.ant-select-selector) {
+    height: 40px !important;
+    padding: 0 12px !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 9999px !important;
+    background: #fff !important;
+    box-shadow: none !important;
+  }
+
+  :global(.ant-select-selection-item),
+  :global(.ant-select-selection-placeholder) {
+    display: flex !important;
+    align-items: center !important;
+    padding-inline-end: 20px !important;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #374151;
+  }
+
+  :global(.ant-select-arrow) {
+    color: #6b7280;
+    font-size: 10px;
+    inset-inline-end: 12px;
+  }
+
+  :global(.ant-select-focused .ant-select-selector) {
+    border-color: #ff6600 !important;
+    box-shadow: 0 0 0 2px rgba(255, 102, 0, 0.12) !important;
+  }
+}
+
+.programDropdown {
+  :global(.ant-select-item-option-selected) {
+    background: #fff7ed !important;
+    color: #ff6600 !important;
+  }
+
+  :global(.ant-select-item-option-active) {
+    background: #fff7ed !important;
+  }
+}

@@ -30,8 +30,6 @@ function RouteComponent() {
 
     const {data: user} = useGetUser()
 
-
-
     const {mutate} = useMutation({
         mutationKey: ['courseUser'],
         mutationFn: async (payload: {course_id: string, user_id: string}) => {
@@ -58,7 +56,6 @@ function RouteComponent() {
             course_id: courseId,
             user_id: user?.user_id
         }
-        console.log(submitData)
         mutate(submitData)
     }
 
@@ -72,10 +69,6 @@ function RouteComponent() {
 
                 <div className={'py-10'}>
                     <BriefInfo />
-                </div>
-
-                <div className={'py-10'}>
-                    <Courses />
                 </div>
 
                 <div className={'py-10'}>

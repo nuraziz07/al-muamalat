@@ -1,0 +1,106 @@
+.get-in-touch {
+  display: grid;
+  grid-template-columns: 1fr;
+  max-width: 1280px;
+  margin: 0 auto;
+  border-radius: 24px;
+  overflow: hidden;
+
+  @media (min-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+    min-height: 620px;
+  }
+}
+
+.get-in-touch__form-side {
+  background-color: #fdf1ee;
+  padding: 56px 48px;
+
+  @media (max-width: 640px) {
+    padding: 40px 24px;
+  }
+}
+
+.get-in-touch__title {
+  font-size: 34px;
+  font-weight: 800;
+  color: #1f2937;
+  margin-bottom: 32px;
+}
+
+.get-in-touch__form {
+  :global(.ant-form-item) {
+    margin-bottom: 20px;
+  }
+}
+
+.get-in-touch__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0 20px;
+
+  @media (min-width: 640px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.get-in-touch__field {
+  margin-bottom: 20px;
+}
+
+/* Ant Design inputlarini rasmdagi kabi oq, soyasiz, yumshoq border qilish */
+.get-in-touch__form {
+  :global(.ant-input),
+  :global(.ant-input-affix-wrapper) {
+    background-color: #fff;
+    border: 1px solid #f0e0da;
+    border-radius: 10px;
+    color: #374151;
+
+    &::placeholder {
+      color: #9ca3af;
+    }
+
+    &:hover,
+    &:focus {
+      border-color: #f97316;
+      box-shadow: none;
+    }
+  }
+}
+
+.get-in-touch__submit-wrap {
+  margin-bottom: 0 !important;
+  margin-top: 12px;
+}
+
+.get-in-touch__submit {
+  background-color: #ec6b4d !important;
+  border: none !important;
+  border-radius: 10px !important;
+  height: 48px;
+  padding: 0 32px;
+  font-weight: 600;
+  box-shadow: none !important;
+
+  &:hover {
+    background-color: #e05a3a !important;
+  }
+}
+
+.get-in-touch__image-side {
+  position: relative;
+  min-height: 320px;
+
+  @media (min-width: 1024px) {
+    min-height: 100%;
+  }
+}
+
+.get-in-touch__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

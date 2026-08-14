@@ -1,17 +1,18 @@
 import React, {ReactNode} from 'react';
 import SectionHead from "@/components/SectionHead";
-import {StepForward} from "lucide-react";
+import {ChevronDown} from "lucide-react";
 
 type BriefInfoProps = {
     id: number;
     title: string;
     description: string;
-    icon: ReactNode
+    icon: ReactNode;
 }
 
 type BriefInfoCardProps = {
-    modules: BriefInfoProps[]
+    modules: BriefInfoProps[];
 }
+
 const BriefInfo = () => {
 
     const modules: BriefInfoProps[] = [
@@ -20,20 +21,21 @@ const BriefInfo = () => {
             title: "Videodarslar",
             description:
                 "Lessons are posted on the platform in the form of videos, which can be viewed anytime and anywhere. Video lessons are updated.",
-            icon: <StepForward />,
+            icon: <ChevronDown/>,
         },
         {
             id: 2,
             title: "Tasks",
             description:
                 "Test tasks are given at the end of the module. Only students who successfully pass the test will be able to access the lessons in the next module.",
-            icon: <StepForward />,
+            icon: <ChevronDown/>,
         },
     ];
+
     return (
         <section>
-             <SectionHead title={'Brief information about the course'} />
-             <BriefInfoCard modules={modules} />
+            <SectionHead title={'Brief information about the course'}/>
+            <BriefInfoCard modules={modules}/>
         </section>
     );
 };
@@ -41,18 +43,17 @@ const BriefInfo = () => {
 export default BriefInfo;
 
 
-
 function BriefInfoCard({modules}: BriefInfoCardProps) {
     return (
-        <div className={'flex px-30 gap-3 justify-center items-center'}>
+        <div className={'grid grid-cols-1 gap-10 px-6 md:grid-cols-2 md:gap-16 md:px-40'}>
             {modules.map((item) => {
                 return (
-                    <div key={item.id} className={'flex px-10 flex-col gap-2'}>
-                        <div className={'flex gap-2 items-center'}>
-                            <h1 className={'text-[#009688] font-[500] text-[32px]'}>{item.title}</h1>
-                            <div className={'text-[#009688]'}>{item.icon}</div>
+                    <div key={item.id} className={'flex flex-col gap-3'}>
+                        <div className={'flex items-center gap-1.5'}>
+                            <h3 className={'text-2xl font-semibold text-[#3b8570]'}>{item.title}</h3>
+                            <span className={'text-[#3b8570]'}>{item.icon}</span>
                         </div>
-                        <p className={'font-[400] text-[27px] text-[#152032]'}>{item.description}</p>
+                        <p className={'text-lg leading-relaxed text-[#152032]'}>{item.description}</p>
                     </div>
                 )
             })}

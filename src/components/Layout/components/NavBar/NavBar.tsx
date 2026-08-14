@@ -1,7 +1,7 @@
 import {Logo} from "@/assets/Images/Svg";
 import {Link, useNavigate} from "@tanstack/react-router";
 import {useTranslation} from "react-i18next";
-import {Dropdown} from "antd";
+import {Dropdown, Select} from "antd";
 import type {MenuProps} from "antd";
 import {useQuery} from "@tanstack/react-query";
 import {request} from "@/Services/api/interceptor.ts";
@@ -80,6 +80,32 @@ export const NavBar = () => {
         setMobileOpen(false);
     };
 
+
+    const {data} = useQuery({
+        queryKey: ['courses'],
+        queryFn: async () => {
+            const response = await request.get('/courses/main')
+            return response?.data?.data ?? []
+        }
+    })
+
+    const selectItems = [
+        {
+            key: 0,
+            label: 'Online Courses',
+            value: 'online'
+        }
+    ]
+
+    const handleCourseChange = (value: string) => {
+        navigate({
+            to: '/programs',
+            params: {courseId: value}
+        })
+    }
+
+    console.log(data)
+
     return (
         <nav className={styles.navbar}>
             <div className={styles.inner}>
@@ -102,12 +128,9 @@ export const NavBar = () => {
                         </Link>
                     ))}
 
-                    {/*<Dropdown menu={{items: trainingMenuItems}} trigger={["hover"]} placement="bottom">*/}
-                    {/*    <span className={styles.navLink}>*/}
-                    {/*        {t("header.trainingPrograms")}*/}
-                    {/*        <ChevronDown size={14} />*/}
-                    {/*    </span>*/}
-                    {/*</Dropdown>*/}
+                    <Select classNames={{popup: {root: styles.programDropdown}}}
+                            className={styles.programSelect} onChange={handleCourseChange} placeholder={'Programs'}
+                            options={selectItems}/>
 
                     {navLinks.slice(2, 3).map((item) => (
                         <Link
@@ -118,13 +141,6 @@ export const NavBar = () => {
                             {item.label}
                         </Link>
                     ))}
-
-                    {/*<Dropdown menu={{items: teamMenuItems}} trigger={["hover"]} placement="bottom">*/}
-                    {/*    <span className={styles.navLink}>*/}
-                    {/*        {t("header.team")}*/}
-                    {/*        <ChevronDown size={14} />*/}
-                    {/*    </span>*/}
-                    {/*</Dropdown>*/}
 
                     {navLinks.slice(3).map((item) => (
                         <Link

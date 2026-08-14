@@ -16,6 +16,8 @@
 
 html {
     scroll-behavior: smooth;
+    scrollbar-color: orange;
+    scrollbar-width: thin;
 }
 
 body {
