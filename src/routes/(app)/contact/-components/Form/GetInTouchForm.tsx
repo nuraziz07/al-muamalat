@@ -18,7 +18,6 @@ const GetInTouchForm = () => {
     const [form] = Form.useForm<ContactFormValues>();
 
     const handleFinish = (values: ContactFormValues) => {
-        // bu yerda API'ga yuborish logikasi bo'ladi
         console.log('Contact form submitted:', values);
         form.resetFields();
     };

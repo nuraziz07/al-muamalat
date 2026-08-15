@@ -30,10 +30,10 @@ const ExtendedServiceCard = ({title, description, isDark = false}: ExtendedServi
                     {description}
                 </p>
 
-                <button type="button" onClick={() => navigate({to: '/contact'})} className={cls('inline-flex w-fit items-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-colors',
+                <button type="button" onClick={() => navigate({to: '/contact'})} className={cls('inline-flex group w-fit items-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-colors',
                         isDark ? 'bg-white text-gray-900 hover:bg-gray-100' : 'bg-[#4d7263] text-white hover:bg-[#3f5f52]')}>
                     Contact
-                    <ArrowRight className="h-4 w-4"/>
+                    <ArrowRight className="h-4 group-hover:translate-x-1 transition-all duration-300 w-5"/>
                 </button>
             </div>
         </div>

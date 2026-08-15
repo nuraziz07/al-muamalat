@@ -1,6 +1,11 @@
 import {Quote_Icon, QuoteBannerImg as backgroundImage} from "@/assets/Images/Png";
+import {memo} from "react";
 
-const QuoteBanner = () => {
+interface QuoteBannerProps {
+    decription: string;
+}
+
+const QuoteBanner = ({decription}: QuoteBannerProps) => {
     return (
         <section
             className="relative flex min-h-[75vh] items-center justify-center bg-cover bg-center bg-no-repeat"
@@ -19,10 +24,7 @@ const QuoteBanner = () => {
                 </div>
 
                 <blockquote className="text-left text-xl font-normal leading-relaxed text-white md:text-2xl md:leading-relaxed lg:text-[1.75rem] lg:leading-[1.6]">
-                    &lsquo;The time has come to create a legal framework for the introduction of
-                    Islamic financial services in Uzbekistan. Experts from the Islamic Development
-                    Bank and other international financial organizations will be involved in this
-                    process.&rsquo;
+                    &lsquo;{decription}&lsquo;
                 </blockquote>
 
                 <div className="mt-12 flex items-start gap-5 md:mt-16">
@@ -49,4 +51,4 @@ const QuoteBanner = () => {
     );
 };
 
-export default QuoteBanner;
+export default memo(QuoteBanner);

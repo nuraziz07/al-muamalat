@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 
 export interface SectionHeadProps {
     title: string;
@@ -11,11 +11,11 @@ const SectionHead = ({title, subtitle}: SectionHeadProps) => {
             <h2 className="mb-4 text-4xl font-extrabold text-[#1B4D3E] sm:text-5xl">
                 {title}
             </h2>
-            <p className="text-lg leading-relaxed text-gray-500">
+            <p className="text-lg leading-relaxed text-[#414d41]">
                 {subtitle}
             </p>
         </div>
     );
 };
 
-export default SectionHead;
+export default memo(SectionHead);

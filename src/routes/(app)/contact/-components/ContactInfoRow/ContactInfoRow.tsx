@@ -1,23 +1,6 @@
 import React from 'react';
-import {MapPin, Mail, Phone} from 'lucide-react';
+import {contactInfo} from "@/Constants";
 
-const contactInfo = [
-    {
-        icon: MapPin,
-        text: 'Tashkent city, Mirzo Ulugbek district, Lashkarbegi MFY, 59 Independence',
-        href: undefined,
-    },
-    {
-        icon: Mail,
-        text: 'info@al-muamalat.uz',
-        href: 'mailto:info@al-muamalat.uz',
-    },
-    {
-        icon: Phone,
-        text: '+998 93 073 08 54',
-        href: 'tel:+998930730854',
-    },
-];
 
 const ContactInfoRow = () => {
     return (

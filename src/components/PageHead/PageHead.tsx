@@ -1,41 +1,19 @@
-import {useTranslation} from "react-i18next";
+import React from "react";
 
 interface PageHeadProps {
-    courseName: {
-        name_en: string;
-        name_uz: string;
-    };
-    courseDescription: {
-        description_en: string;
-        description_uz: string;
-    };
+    title: string;
+     description?: string;
 }
 
-const PageHead = ({courseName, courseDescription}: PageHeadProps) => {
-    const {i18n} = useTranslation();
-
-    const isEn = i18n.language?.startsWith("en");
-
-    const title = isEn
-        ? courseName?.name_en
-        : courseName?.name_uz;
-
-    const description = isEn
-        ? courseDescription?.description_en
-        : courseDescription?.description_uz;
+const PageHead = ({title}: PageHeadProps) => {
 
     return (
-        <div className="mx-auto max-w-6xl pb-5">
-            {/* Title */}
-            <h1 className="text-center text-[32px] font-semibold leading-tight  text-[#152032] sm:text-[36px] lg:text-[40px]">
+        <div className="mx-auto flex max-w-6xl flex-col items-center pb-5">
+            <h1 className="text-center text-[32px] font-semibold leading-tight text-[#152032] sm:text-[36px] lg:text-[40px]">
                 {title}
             </h1>
 
-            <div className="text-[16px] mt-10 leading-[2.55] text-[#566174] sm:text-[17px]lg:text-[18px]"
-                dangerouslySetInnerHTML={{
-                    __html: description?.replace(/\\n/g, "")
-                }}
-            />
+            <div className="mt-4 h-1 w-24 rounded-full bg-gradient-to-r from-orange-400 to-[#1f3d33]" />
         </div>
     );
 };

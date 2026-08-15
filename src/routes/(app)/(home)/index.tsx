@@ -20,7 +20,7 @@ function RouteComponent() {
   return (
       <main>
           <Hero />
-          <QuoteBanner />
+          <QuoteBanner decription={'The time has come to create a legal framework for the introduction of\n' + 'Islamic financial services in Uzbekistan. Experts from the Islamic Development\n' + 'Bank and other international financial organizations will be involved in this\n' + 'process.'} />
           <Services />
           <Team />
           <Partners />

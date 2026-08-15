@@ -1,20 +1,11 @@
-import React, {useEffect, useRef} from 'react';
-import BrandRow from "@/components/Sections/Partners/components/BrandRow.tsx";
+import React from 'react';
 import SectionHead from "@/components/SectionHead";
 import {Swiper, SwiperSlide} from "swiper/react";
-import {Partner_American, Partner_Klarna, Partner_Skrill, Partner_West, Amazon} from "@/assets/Images/Png";
 import BrandCard from "@/components/Cards/BrandCard";
 import {Autoplay, FreeMode} from "swiper/modules";
+import {brands} from "@/Constants";
 
 const Partners = () => {
-
-    const brands = [
-        {name: "Stripe", logoSrc: Partner_Skrill},
-        {name: "American Express", logoSrc: Partner_American},
-        {name: "Western Union", logoSrc: Partner_West},
-        {name: "Klarna", logoSrc: Partner_Klarna},
-        {name: "Amazon", logoSrc: Amazon},
-    ];
 
     const loopBrands = [...brands, ...brands]
 

@@ -1,19 +1,20 @@
 import {createFileRoute} from '@tanstack/react-router'
 import {useMutation, useQuery} from "@tanstack/react-query";
 import {request} from "@/Services/api/interceptor.ts";
-import LearningPoints from "@/routes/(app)/programs/-sections/LearningPoints";
-import BriefInfo from "@/components/Sections/BriefInformation";
-import Courses from "@/routes/(app)/programs/-sections/Courses";
-import Payment from './components'
-import Services from "@/routes/(app)/programs/-sections/Services";
-import ConsultationForm from "@/components/ConsultationForm";
-import PageHead from "@/components/PageHead";
 import {useGetUser} from "@/hooks/custom/useAuth.ts";
 import {message} from "antd";
+import {lazy} from "react";
 
 export const Route = createFileRoute('/(app)/programs/$courseId')({
   component: RouteComponent,
 })
+
+const LearningPoints = lazy(() => import('@/routes/(app)/programs/-sections/LearningPoints'))
+const BriefInfo = lazy(() => import('@/components/Sections/BriefInformation'))
+const Payment = lazy(() => import('./components'))
+const ConsultationForm = lazy(() => import('@/components/ConsultationForm'))
+const PageHead = lazy(() => import('@/components/PageHead'))
+const Description = lazy(() => import('@/routes/(app)/programs/components/Description'))
 
 function RouteComponent() {
     const {courseId} = Route.useParams()
@@ -26,7 +27,6 @@ function RouteComponent() {
         },
         enabled: !!courseId,
     })
-
 
     const {data: user} = useGetUser()
 
@@ -62,7 +62,11 @@ function RouteComponent() {
     return (
         <section className={'mt-20 w-full bg-white'}>
             <div className={'mx-auto flex flex-col gap-20'}>
-                <PageHead courseName={course} courseDescription={course} />
+                <PageHead title={course?.name_uz} />
+                <div className={'px-50'}>
+                    <Description description={course?.description_uz} />
+                </div>
+
                 <div className={'py-10'}>
                     <LearningPoints />
                 </div>
@@ -73,10 +77,6 @@ function RouteComponent() {
 
                 <div className={'py-10'}>
                     <Payment onSubmit={onSubmit} />
-                </div>
-
-                <div className={'py-10'}>
-                    <Services />
                 </div>
 
                 <div className={'pt-10 pb-40'}>

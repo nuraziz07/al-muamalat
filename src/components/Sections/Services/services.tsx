@@ -4,23 +4,10 @@ import { Navigation, Autoplay } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper/types';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import {
-    Landmark,
-    TrendingUp,
-    ShieldCheck,
-    HandCoins,
-    Handshake,
-    GraduationCap,
-    FileSpreadsheet,
-    ShoppingCart,
-    ScrollText,
-    ChevronLeft,
-    ChevronRight,
-} from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import SectionHead from '@/components/SectionHead';
 import ServiceCard from '@/components/Cards/ServiceCard';
 import {services} from "@/Constants";
-
 
 const Services = () => {
     const swiperRef = useRef<SwiperType | null>(null);
@@ -32,10 +19,7 @@ const Services = () => {
 
     return (
         <section className="mt-15">
-        <SectionHead
-            title="Our services"
-            subtitle="Expert guidance for managing funds in alignment with Islamic principles, helping you make informed, halal investment decisions."
-        />
+        <SectionHead title="Our services" subtitle="Expert guidance for managing funds in alignment with Islamic principles, helping you make informed, halal investment decisions."/>
 
         <div className="relative px-30 pb-15">
             <Swiper

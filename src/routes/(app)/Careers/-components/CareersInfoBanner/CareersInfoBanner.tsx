@@ -1,17 +1,19 @@
 import React from 'react';
 
-const CareersInfoBanner = () => {
+interface CareersInfoBannerProps {
+    title: string;
+    description: string;
+}
+
+const CareersInfoBanner = ({title, description}: CareersInfoBannerProps) => {
     return (
         <div className="mx-auto max-w-5xl rounded-2xl border border-gray-100 bg-white p-8 shadow-sm md:p-10">
             <p className="mb-4 text-lg font-semibold leading-relaxed text-gray-900">
-                Within the framework of establishing Islamic banking windows, there is
-                a need for qualified specialists. Therefore, we invite experienced
-                candidates with relevant knowledge to apply!
+                {title}
             </p>
 
             <p className="text-base leading-relaxed text-gray-600">
-                Candidates with higher education and a diploma or certificate in
-                Islamic finance are requested to send their CV (resume) to{' '}
+                {description}
                 <a
                     href="https://t.me/almuamalat_education"
                     target="_blank"

@@ -21,8 +21,6 @@ const VideoCard = ({poster, videoSrc, title}: VideoCardProps) => {
         });
     };
 
-    console.log(videoRef.current?.paused)
-
     const handleToggle = () => {
         const video = videoRef.current;
         if (!video) return;

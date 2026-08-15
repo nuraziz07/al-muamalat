@@ -11,7 +11,7 @@ interface VerifyCodeProps {
     loading: boolean;
     handleResendOTP: () => void,
     resendLoading: boolean;
-    resendStep: boolean
+    resendStep: booleana
 }
 
 const VerifyCode = ({handleVerifyOTP, loading, handleResendOTP, resendLoading, resendStep}: VerifyCodeProps) => {
