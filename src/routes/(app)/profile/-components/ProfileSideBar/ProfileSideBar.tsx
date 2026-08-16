@@ -4,6 +4,7 @@ import {useForm} from 'react-hook-form';
 import {message, Modal, Spin} from 'antd';
 import {useAuth, useGetUser, useUpdateUser} from '@/hooks/custom/useAuth.ts';
 import UserIcon from '../../../../../components/Shared/UserIcon'
+import {useAuthStore} from "@/store/useAuthStore.ts";
 
 interface ProfileFormValues {
     full_name: string;
@@ -15,6 +16,9 @@ interface ProfileFormValues {
 const ProfileSidebar = () => {
     const {data: user} = useGetUser();
     const [updatedUser, setUpdatedUser] = useState(null)
+
+    const value = useAuthStore((state) => state.user);
+
 
     const {register, handleSubmit} = useForm<ProfileFormValues>();
 

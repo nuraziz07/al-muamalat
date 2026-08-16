@@ -8,6 +8,7 @@ import {useTranslation} from "react-i18next";
 import {LoadingOutlined} from "@ant-design/icons";
 import {message} from "antd";
 import ForgotPassword from "@/components/Form/Auth_Form/components/Forgot_Password";
+import AuthFormHead from "@/routes/(auth)/(signin)/-components/AuthFormHead";
 
 interface SignInFormValues {
     email: string;
@@ -81,14 +82,7 @@ const SignInForm = () => {
 
     return (
         <div className="w-full max-w-md rounded-3xl bg-white p-10 shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
-            <div className="mb-8 text-center">
-                <h1 className="mb-2 text-3xl font-bold text-gray-900">
-                    {t('login.title') || 'Login'}
-                </h1>
-                <p className="text-sm text-gray-500">
-                    {t('login.description') || 'Enter your email below to login to your account'}
-                </p>
-            </div>
+             <AuthFormHead title={t('login.title') || 'Login'} description={t('login.description') || 'Enter your email below to login to your account'} />
 
             <form onSubmit={handleSubmit(handleLogin)} className="flex flex-col gap-6">
                 <div>
