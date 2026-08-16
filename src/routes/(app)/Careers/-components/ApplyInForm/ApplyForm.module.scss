@@ -12,10 +12,20 @@
 
 .apply-now__title {
   text-align: center;
-  font-size: 34px;
+  font-size: 24px;
   font-weight: 800;
   color: #2e4a3d;
-  margin-bottom: 36px;
+  margin-bottom: 24px;
+
+  @media (min-width: 640px) {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 34px;
+    margin-bottom: 36px;
+  }
 }
 
 .apply-now__form {

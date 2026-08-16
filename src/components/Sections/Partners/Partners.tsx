@@ -55,7 +55,7 @@ const Partners = () => {
                     pauseOnMouseEnter: true,
                 }}
                 allowTouchMove={false}
-                className={'mt-20'}
+                className={'mt-8 sm:mt-12 md:mt-20'}
             >
                 {loopBrands?.reverse().map((item) => {
                     return (

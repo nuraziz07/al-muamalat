@@ -1,0 +1,41 @@
+// ─── Breakpoint Variables ──────────────────────
+$mobile: 480px;
+$mobile-lg: 767px;
+$tablet: 1024px;
+$laptop: 1439px;
+
+// ─── Respond Mixin (mobile-first: min-width) ───
+// Usage:
+//   @include respond(mobile)    → min-width: 481px
+//   @include respond(mobile-lg) → min-width: 768px
+//   @include respond(tablet)    → min-width: 1025px
+//   @include respond(laptop)    → min-width: 1440px
+//
+//   @include respond-down(mobile)    → max-width: 480px
+//   @include respond-down(mobile-lg) → max-width: 767px
+//   @include respond-down(tablet)    → max-width: 1024px
+//   @include respond-down(laptop)    → max-width: 1439px
+
+@mixin respond($breakpoint) {
+  @if $breakpoint == mobile {
+    @media (min-width: #{$mobile + 1}) { @content; }
+  } @else if $breakpoint == mobile-lg {
+    @media (min-width: #{$mobile-lg + 1}) { @content; }
+  } @else if $breakpoint == tablet {
+    @media (min-width: #{$tablet + 1}) { @content; }
+  } @else if $breakpoint == laptop {
+    @media (min-width: #{$laptop + 1}) { @content; }
+  }
+}
+
+@mixin respond-down($breakpoint) {
+  @if $breakpoint == mobile {
+    @media (max-width: $mobile) { @content; }
+  } @else if $breakpoint == mobile-lg {
+    @media (max-width: $mobile-lg) { @content; }
+  } @else if $breakpoint == tablet {
+    @media (max-width: $tablet) { @content; }
+  } @else if $breakpoint == laptop {
+    @media (max-width: $laptop) { @content; }
+  }
+}

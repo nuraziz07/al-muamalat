@@ -17,11 +17,11 @@ export const HeroContent = () => {
                     Islamic Finance
                 </h1>
 
-                <p className="mt-8 max-w-3xl text-lg tracking-wide text-white/80 md:text-3xl">
+                <p className="mt-4 max-w-3xl text-base tracking-wide text-white/80 sm:mt-6 sm:text-lg md:mt-8 md:text-2xl lg:text-3xl">
                     Strategic Solutions. Ethical Excellence, Global Impact.
                 </p>
 
-                <div className="mt-14 flex flex-col gap-6 md:flex-row">
+                <div className="mt-8 flex flex-col gap-4 sm:mt-10 sm:gap-5 md:mt-14 md:flex-row md:gap-6">
                     <button className={cls(classes.request_button)}>
                         Request for Consultation
                     </button>
@@ -31,7 +31,7 @@ export const HeroContent = () => {
                     </button>
                 </div>
 
-                <div className="mt-14 flex flex-col items-center gap-4">
+                <div className="mt-8 flex flex-col items-center gap-3 sm:mt-10 md:mt-14 md:gap-4">
                         <span className="text-sm uppercase tracking-[0.2em] text-white/60">
                             Lower It Down.
                         </span>

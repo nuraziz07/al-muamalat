@@ -64,20 +64,20 @@ const ConsultationForm = () => {
     const [active, setActive] = useState(0);
 
     return (
-        <section className="mx-auto pb-15 max-w-7xl overflow-hidden rounded-2xl shadow-xl">
+        <section className="mx-auto pb-8 max-w-7xl overflow-hidden rounded-2xl shadow-xl sm:pb-10 md:pb-15">
             <div className="grid lg:grid-cols-5">
 
                 {/* Left */}
-                <div className="bg-[#FDF0DB] px-16 py-14 lg:col-span-3">
-                    <h2 className="text-[32px] font-bold text-[#D28527]">
+                <div className="bg-[#FDF0DB] px-5 py-8 sm:px-8 sm:py-10 md:px-12 lg:col-span-3 lg:px-16 lg:py-14">
+                    <h2 className="text-xl font-bold text-[#D28527] sm:text-2xl lg:text-[32px]">
                         {workshops[active].title}
                     </h2>
 
-                    <p className="mt-8 max-w-4xl text-[22px] leading-relaxed text-[#D28527]">
+                    <p className="mt-4 max-w-4xl text-base leading-relaxed text-[#D28527] sm:mt-6 sm:text-lg md:text-xl lg:mt-8 lg:text-[22px]">
                         {workshops[active].description}
                     </p>
 
-                    <div className="mt-52 flex justify-center gap-4">
+                    <div className="mt-10 flex justify-center gap-3 sm:mt-16 md:mt-28 lg:mt-52 lg:gap-4">
                         {workshops.map((_, index) => (
                             <button
                                 key={index}
@@ -93,8 +93,8 @@ const ConsultationForm = () => {
                 </div>
 
                 {/* Right */}
-                <div className="bg-[#F8F7F4] px-12 py-14 lg:col-span-2">
-                    <h2 className="text-[30px] font-bold">
+                <div className="bg-[#F8F7F4] px-5 py-8 sm:px-8 sm:py-10 md:px-12 md:py-14 lg:col-span-2">
+                    <h2 className="text-xl font-bold sm:text-2xl lg:text-[30px]">
                         Free consultation
                     </h2>
 
@@ -103,7 +103,7 @@ const ConsultationForm = () => {
                         with complete information about our courses.
                     </p>
 
-                    <form className="mt-10 space-y-6">
+                    <form className="mt-6 space-y-5 sm:mt-8 sm:space-y-6 md:mt-10">
                         <input
                             type="text"
                             placeholder="Name"

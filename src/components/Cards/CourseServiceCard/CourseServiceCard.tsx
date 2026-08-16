@@ -12,7 +12,7 @@ const CourseServiceCard = ({ course }: CourseServiceCardProps) => {
                 {course?.map((item, index) => (
                     <div
                         key={index}
-                        className="w-[420px] rounded-3xl bg-white shadow-lg overflow-hidden"
+                        className="w-full max-w-[420px] rounded-3xl bg-white shadow-lg overflow-hidden"
                     >
                         {/* Image */}
                         <div className="relative">

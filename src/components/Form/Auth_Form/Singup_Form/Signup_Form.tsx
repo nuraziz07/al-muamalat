@@ -83,9 +83,9 @@ const SignUpForm = () => {
     }
 
     return (
-        <div className="w-full max-w-md rounded-3xl bg-white p-10 shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
-            <div className="mb-8 text-center">
-                <h1 className="mb-2 text-3xl font-bold text-gray-900">
+        <div className="w-full max-w-md rounded-3xl bg-white p-6 shadow-[0_20px_60px_rgba(0,0,0,0.06)] sm:p-8 md:p-10">
+            <div className="mb-6 text-center sm:mb-8">
+                <h1 className="mb-2 text-2xl font-bold text-gray-900 sm:text-3xl">
                     {t('register.title') || 'Sign Up'}
                 </h1>
                 <p className="text-sm text-gray-500">
@@ -93,8 +93,8 @@ const SignUpForm = () => {
                 </p>
             </div>
 
-            <form onSubmit={handleSubmit(handleRegister)} className="flex flex-col gap-6">
-                <div className="grid grid-cols-2 gap-4">
+            <form onSubmit={handleSubmit(handleRegister)} className="flex flex-col gap-5 sm:gap-6">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div>
                         <label className="mb-2 block text-sm font-semibold text-gray-900">
                             {t('register.firstName') || 'First Name'}

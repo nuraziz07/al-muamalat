@@ -1,11 +1,13 @@
 import React from 'react';
 import {Check, Circle} from "lucide-react";
+import {LoadingOutlined} from "@ant-design/icons";
 
 interface PaymentProps {
     onSubmit: () => void
+    isPending
 }
 
-const Payment = ({onSubmit}: PaymentProps) => {
+const Payment = ({onSubmit, isPending}: PaymentProps) => {
 
     const services = [
         {
@@ -80,8 +82,8 @@ const Payment = ({onSubmit}: PaymentProps) => {
                         ))}
                     </ul>
 
-                    <button type={'submit'} onClick={onSubmit} className="mt-16 rounded-xl bg-[#0B9B93] px-12 py-5 text-[18px] font-semibold text-white transition hover:opacity-90">
-                        Purchase Now
+                    <button type={'submit'} onClick={onSubmit} className="mt-16 rounded-xl bg-[#0B9B93] w-50 py-5 text-[18px] font-semibold text-white transition hover:opacity-90">
+                        {isPending ? <LoadingOutlined /> : 'Purchase Now'}
                     </button>
                 </div>
             </div>

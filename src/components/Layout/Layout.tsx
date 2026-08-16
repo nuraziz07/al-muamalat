@@ -9,7 +9,7 @@ export const Layout = ({children}: PropsWithChildren) => {
                 <OnlineStatus />
             </div>
             <NavBar />
-            <main className="flex-1 pt-[60px]">
+            <main className="flex-1 pt-[52px] sm:pt-[56px] lg:pt-[60px]">
                 <Suspense>
                     {children ?? <Outlet />}
                 </Suspense>

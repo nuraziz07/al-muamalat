@@ -81,7 +81,7 @@ const SignInForm = () => {
     }
 
     return (
-        <div className="w-full max-w-md rounded-3xl bg-white p-10 shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
+        <div className="w-full max-w-md rounded-3xl bg-white p-6 shadow-[0_20px_60px_rgba(0,0,0,0.06)] sm:p-8 md:p-10">
              <AuthFormHead title={t('login.title') || 'Login'} description={t('login.description') || 'Enter your email below to login to your account'} />
 
             <form onSubmit={handleSubmit(handleLogin)} className="flex flex-col gap-6">

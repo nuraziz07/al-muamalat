@@ -18,10 +18,10 @@ const Services = () => {
     const handleNext = () => swiperRef.current?.slideNext();
 
     return (
-        <section className="mt-15">
+        <section className="mt-8 sm:mt-10 md:mt-15">
         <SectionHead title="Our services" subtitle="Expert guidance for managing funds in alignment with Islamic principles, helping you make informed, halal investment decisions."/>
 
-        <div className="relative px-30 pb-15">
+        <div className="relative px-4 pb-8 sm:px-8 md:px-16 md:pb-10 lg:px-30 lg:pb-15">
             <Swiper
                 modules={[Autoplay]}
                 spaceBetween={28}
@@ -55,7 +55,7 @@ const Services = () => {
                 onClick={handlePrev}
                 disabled={!swiperRef.current?.params.loop && isBeginning}
                 aria-label="Previous"
-                className="absolute left-10 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 shadow-md transition hover:bg-gray-900 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+                className="absolute left-1 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 shadow-md transition hover:bg-gray-900 hover:text-white disabled:cursor-not-allowed disabled:opacity-40 sm:left-2 sm:h-10 sm:w-10 md:left-4 lg:left-10"
             >
                 <ChevronLeft className="h-5 w-5" />
             </button>
@@ -64,7 +64,7 @@ const Services = () => {
                 onClick={handleNext}
                 disabled={!swiperRef.current?.params.loop && isEnd}
                 aria-label="Next"
-                className="absolute right-10 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 shadow-md transition hover:bg-gray-900 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+                className="absolute right-1 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 shadow-md transition hover:bg-gray-900 hover:text-white disabled:cursor-not-allowed disabled:opacity-40 sm:right-2 sm:h-10 sm:w-10 md:right-4 lg:right-10"
             >
                 <ChevronRight className="h-5 w-5" />
             </button>

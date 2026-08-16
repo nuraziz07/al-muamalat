@@ -9,7 +9,7 @@ export interface ServiceCardProps {
 
 const ServiceCard = ({ icon, number, title, description }: ServiceCardProps) => {
     return (
-        <div className="relative group flex h-[260px] hover:shadow-md hover:scale-[1.03] transition-all duration-400 flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+        <div className="relative group flex h-auto min-h-[220px] sm:min-h-[240px] md:min-h-[260px] hover:shadow-md hover:scale-[1.03] transition-all duration-400 flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white p-5 shadow-sm sm:p-6">
             <div className="absolute -right-5 -top-5 h-16 w-16 group-hover:rotate-140 transition-all duration-300 rotate-45 bg-gray-100" />
 
             {number && (

@@ -6,7 +6,7 @@ import {HeroContent} from "@/components/Sections/Hero/components/HeroContent.tsx
 const Hero = () => {
 
     return (
-        <section className={cls(classes.hero_bg_img, `min-h-screen w-full flex justify-center items-center relative`)}>
+        <section className={cls(classes.hero_bg_img, `min-h-[80vh] sm:min-h-[85vh] md:min-h-screen w-full flex justify-center items-center relative`)}>
             <HeroContent />
         </section>
     );

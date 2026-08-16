@@ -30,7 +30,7 @@ function RouteComponent() {
 
     const {data: user} = useGetUser()
 
-    const {mutate} = useMutation({
+    const {mutate, isPending} = useMutation({
         mutationKey: ['courseUser'],
         mutationFn: async (payload: {course_id: string, user_id: string}) => {
              await request.post('/courses/user', payload).then((response) => {
@@ -60,10 +60,10 @@ function RouteComponent() {
     }
 
     return (
-        <section className={'mt-20 w-full bg-white'}>
-            <div className={'mx-auto flex flex-col gap-20'}>
+        <section className={'mt-10 w-full bg-white sm:mt-14 md:mt-20'}>
+            <div className={'mx-auto flex flex-col gap-10 sm:gap-14 md:gap-20'}>
                 <PageHead title={course?.name_uz} />
-                <div className={'px-50'}>
+                <div className={'px-4 sm:px-8 md:px-16 lg:px-32 xl:px-50'}>
                     <Description description={course?.description_uz} />
                 </div>
 
@@ -76,10 +76,10 @@ function RouteComponent() {
                 </div>
 
                 <div className={'py-10'}>
-                    <Payment onSubmit={onSubmit} />
+                    <Payment isPending={isPending} onSubmit={onSubmit} />
                 </div>
 
-                <div className={'pt-10 pb-40'}>
+                <div className={'pt-10 pb-20 sm:pb-28 md:pb-40'}>
                     <ConsultationForm  />
                 </div>
             </div>

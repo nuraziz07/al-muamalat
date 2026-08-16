@@ -151,4 +151,21 @@ body {
   html {
     @apply font-sans;
     }
+
+  /* ── Global Responsive Utilities ── */
+  img, video, svg {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Touch targets — mobile uchun kamida 44x44px */
+  @media (max-width: 767px) {
+    button,
+    a,
+    [role="button"],
+    input[type="submit"],
+    input[type="button"] {
+      min-height: 44px;
+    }
+  }
 }

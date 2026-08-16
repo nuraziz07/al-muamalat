@@ -15,7 +15,7 @@ function RouteComponent() {
           <div className={'mt-10'}>
               <PageHead title={'Services'} />
           </div>
-          <div className="mx-auto max-w-6xl flex flex-col gap-7">
+          <div className="mx-auto max-w-6xl flex flex-col gap-5 px-4 sm:gap-6 sm:px-6 md:gap-7 md:px-0">
               {services.map((item, index) => (
                   <ExtendedServiceCard
                       key={item.title}

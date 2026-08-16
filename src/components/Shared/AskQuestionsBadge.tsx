@@ -5,7 +5,7 @@ const AskQuestionsBadge = ({ name = "Diyor", avatarSrc = " " }) => {
     const {t} = useTranslation()
 
     return (
-        <div className={'relative'}>
+        <div className={'relative hidden lg:block'}>
             <div className="flex absolute items-center justify-between px-2 top-6 -left-40 bg-white rounded-r-[40px] w-80 z-[10] gap-10">
                 <div className="text-start">
                     <p className="text-[20px] font-normal text-[#8F8F8F]">{t('login.questions')}</p>

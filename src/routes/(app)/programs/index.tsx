@@ -30,14 +30,16 @@ function RouteComponent() {
         })
     }
 
+
+
   return (
       <section>
           <div className={'mt-10'}>
               <SectionHead title={'Online Courses'} subtitle={'Al Muamalat\'s international study programs offer an in-depth learning experience at leading Islamic financial institutions around the world.'} />
           </div>
-          <div className="flex justify-center items-center gap-12 px-20 pb-10">
+          <div className="grid grid-cols-1 justify-items-center gap-6 px-4 pb-10 sm:grid-cols-2 sm:px-6 sm:gap-8 lg:grid-cols-3 lg:px-20 lg:gap-12">
               {courses ? courses?.map((courseItem): ReactNode => (
-                  <CourseCard image={Service} onLearnMore={() => onLearnMore(courseItem.course_id)} title={courseItem.name_uz} price={0} key={courseItem.id}/>
+                  <CourseCard image={courseItem} onLearnMore={() => onLearnMore(courseItem.course_id)} title={courseItem.name_uz} price={0} key={courseItem.id}/>
               )) : <Empty />}
           </div>
       </section>

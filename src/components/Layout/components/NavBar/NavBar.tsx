@@ -9,7 +9,7 @@ import {useGetUser} from "@/hooks/custom/useAuth.ts";
 import Avatar_User from "@/components/Shared/Avatar";
 import LanguageSelect from "@/components/Layout/components/NavBar/components/LanguageSelect";
 import {ArrowRight, ChevronDown, Menu, X} from "lucide-react";
-import {useMemo, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import styles from "./NavBar.module.scss";
 
 interface CourseItem {
@@ -79,6 +79,18 @@ export const NavBar = () => {
         navigate({to: "/signin"});
         setMobileOpen(false);
     };
+
+    // Lock body scroll when mobile menu is open
+    useEffect(() => {
+        if (mobileOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [mobileOpen]);
 
 
     const {data} = useQuery({
@@ -176,51 +188,79 @@ export const NavBar = () => {
                 </button>
             </div>
 
+            {/* ── Mobile Drawer ── */}
             {mobileOpen && (
-                <div className={styles.mobileMenu}>
-                    {navLinks.map((item) => (
-                        <Link
-                            key={item.label}
-                            to={item.path}
-                            className={styles.mobileLink}
-                            onClick={() => setMobileOpen(false)}
-                        >
-                            {item.label}
-                        </Link>
-                    ))}
-
-                    <span className={styles.mobileLink}>{t("header.trainingPrograms")}</span>
-                    {(courses as CourseItem[]).slice(0, 5).map((course) => (
-                        <Link
-                            key={course.course_id}
-                            to="/programs/$courseId"
-                            params={{courseId: course.course_id}}
-                            className={`${styles.mobileLink} pl-4 text-sm text-gray-500`}
-                            onClick={() => setMobileOpen(false)}
-                        >
-                            {isUz ? course.name_uz : course.name_en}
-                        </Link>
-                    ))}
-
-                    <div className="mt-2">
-                        <LanguageSelect />
-                    </div>
-
-                    {user?.user_id ? (
-                        <div className="mt-2">
-                            <Avatar_User user={user} />
+                <>
+                    <div
+                        className={styles.mobileOverlay}
+                        onClick={() => setMobileOpen(false)}
+                    />
+                    <div className={styles.mobileMenu}>
+                        {/* Drawer Header */}
+                        <div className={styles.mobileMenuHeader}>
+                            <Link to="/" className={styles.logo} onClick={() => setMobileOpen(false)}>
+                                <img src={Logo} alt="Al Muamalat" className={styles.logoIcon} />
+                                <div className={styles.logoText}>
+                                    <span className={styles.logoTitle}>AL MUAMALAT</span>
+                                    <span className={styles.logoSubtitle}>{t("header.consulting")}</span>
+                                </div>
+                            </Link>
+                            <button
+                                type="button"
+                                className={styles.mobileMenuCloseBtn}
+                                onClick={() => setMobileOpen(false)}
+                                aria-label="Close menu"
+                            >
+                                <X size={24} />
+                            </button>
                         </div>
-                    ) : (
-                        <button
-                            type="button"
-                            className={`${styles.loginBtn} ${styles.mobileLogin}`}
-                            onClick={handleLogin}
-                        >
-                            {t("header.login")}
-                            <ArrowRight size={18} />
-                        </button>
-                    )}
-                </div>
+
+                        {/* Drawer Body */}
+                        <div className={styles.mobileMenuBody}>
+                            {navLinks.map((item) => (
+                                <Link
+                                    key={item.label}
+                                    to={item.path}
+                                    className={styles.mobileLink}
+                                    onClick={() => setMobileOpen(false)}
+                                >
+                                    {item.label}
+                                </Link>
+                            ))}
+
+                            <span className={styles.mobileLink}>{t("header.trainingPrograms")}</span>
+                            {(courses as CourseItem[]).slice(0, 5).map((course) => (
+                                <Link
+                                    key={course.course_id}
+                                    to="/programs/$courseId"
+                                    params={{courseId: course.course_id}}
+                                    className={styles.mobileLinkSub}
+                                    onClick={() => setMobileOpen(false)}
+                                >
+                                    {isUz ? course.name_uz : course.name_en}
+                                </Link>
+                            ))}
+                        </div>
+
+                        {/* Drawer Actions */}
+                        <div className={styles.mobileMenuActions}>
+                            <LanguageSelect />
+
+                            {user?.user_id ? (
+                                <Avatar_User user={user} />
+                            ) : (
+                                <button
+                                    type="button"
+                                    className={`${styles.loginBtn} ${styles.mobileLogin}`}
+                                    onClick={handleLogin}
+                                >
+                                    {t("header.login")}
+                                    <ArrowRight size={18} />
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                </>
             )}
         </nav>
     );

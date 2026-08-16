@@ -26,8 +26,8 @@ const contactInfo = [
 
 export const Footer = () => {
     return (
-        <footer className="w-full bg-[#0c2a20] px-6 py-16">
-            <div className="mx-auto max-w-7xl rounded-3xl bg-white/[0.03] px-10 py-12 md:px-14 md:py-14">
+        <footer className="w-full bg-[#0c2a20] px-4 py-10 sm:px-6 sm:py-12 md:py-16">
+            <div className="mx-auto max-w-7xl rounded-3xl bg-white/[0.03] px-5 py-8 sm:px-8 sm:py-10 md:px-14 md:py-14">
 
                 {/* Top: logo + description (left) / contact button (right) */}
                 <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-start">

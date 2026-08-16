@@ -60,7 +60,7 @@ const QuestionCard = () => {
 
 
     return (
-        <div className="columns-2 px-30 gap-6">
+        <div className="columns-1 px-4 gap-6 sm:px-6 md:columns-2 md:px-12 lg:px-30">
             <div className="mb-6 break-inside-avoid">
                 <Collapse size={'large'} style={{border: 24}} expandIcon={({isActive}) => <PlusOutlined rotate={isActive ? 135 : 0} />} items={collapce1} />
             </div>
