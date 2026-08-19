@@ -1,15 +1,14 @@
 import {Logo} from "@/assets/Images/Svg";
 import {Link, useNavigate} from "@tanstack/react-router";
 import {useTranslation} from "react-i18next";
-import {Dropdown, Select} from "antd";
-import type {MenuProps} from "antd";
+import {Select} from "antd";
 import {useQuery} from "@tanstack/react-query";
 import {request} from "@/Services/api/interceptor.ts";
 import {useGetUser} from "@/hooks/custom/useAuth.ts";
 import Avatar_User from "@/components/Shared/Avatar";
 import LanguageSelect from "@/components/Layout/components/NavBar/components/LanguageSelect";
-import {ArrowRight, ChevronDown, Menu, X} from "lucide-react";
-import {useEffect, useMemo, useState} from "react";
+import {ArrowRight, Menu, X} from "lucide-react";
+import {useEffect, useState} from "react";
 import styles from "./NavBar.module.scss";
 
 interface CourseItem {
@@ -35,37 +34,6 @@ export const NavBar = () => {
 
     const isUz = i18n.language?.startsWith("uz");
 
-    // const trainingMenuItems: MenuProps["items"] = useMemo(
-    //     () =>
-    //         (courses as CourseItem[]).map((course) => ({
-    //             key: course.course_id,
-    //             label: isUz ? course.name_uz : course.name_en,
-    //             onClick: () => {
-    //                 navigate({to: "/programs/$courseId", params: {courseId: course.course_id}});
-    //                 setMobileOpen(false);
-    //             },
-    //         })),
-    //     [courses, isUz, navigate],
-    // );
-
-    // const teamMenuItems: MenuProps["items"] = [
-    //     {
-    //         key: "team",
-    //         label: t("header.ourTeam"),
-    //         onClick: () => {
-    //             navigate({to: "/"});
-    //             setMobileOpen(false);
-    //         },
-    //     },
-    //     {
-    //         key: "partners",
-    //         label: t("header.partners"),
-    //         onClick: () => {
-    //             navigate({to: "/"});
-    //             setMobileOpen(false);
-    //         },
-    //     },
-    // ];
 
     const navLinks = [
         {label: t("header.home"), path: "/"},
