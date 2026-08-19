@@ -9,7 +9,7 @@ export const authApi = {
     login: (params: LoginParams) =>
         request.post(URL.signin_init, params),
 
-    verifyRegisterOTP: (params: VerifyRegisterParams) =>
+    verifyRegisterOTP: (params: VerifyRegisterParams)   =>
         request.post(URL.register_verify, params),
 
     verifyLoginOTP: (params: VerifyRegisterParams) =>
@@ -24,12 +24,12 @@ export const authApi = {
     updateUser: (params: any, id: any) =>
         request.put(`/users/${id}`, params),
 
-    forgotPassword: (params) =>
+    forgotPassword: (params: any) =>
         request.post(URL.forgotPassword_init, params),
 
-    forgotPasswordConfirm: (params) =>
+    forgotPasswordConfirm: (params: any) =>
         request.post(URL.forgotPassword_confirm, params),
 
-    forgorPasswordVerify: (params) =>
+    forgorPasswordVerify: (params: any) =>
         request.post(URL.forgotPassword_verify)
 }
