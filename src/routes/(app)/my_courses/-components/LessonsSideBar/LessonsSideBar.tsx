@@ -18,7 +18,7 @@ const LessonsSideBar = ({ lessons, setActiveLesson, activeLesson }: LessonsSideB
                         key={lesson.id}
                         lesson={lesson}
                         // isActive={activeId === lesson.id}
-                        isCompleted={i < 2}
+                        isCompleted={i < 3}
                         onClick={() => setActiveLesson(lesson)}
                     />
                 ))}

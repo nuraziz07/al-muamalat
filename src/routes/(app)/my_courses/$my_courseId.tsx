@@ -46,7 +46,26 @@ function RouteComponent() {
 
     const filteredData = course?.find((item: Course) => item.course_id === my_courseId)?.courses as CourseItem[] | undefined
 
+    const activeIndex = lessons?.findIndex((l) => l.id === activeLesson?.id) ?? -1
 
+
+
+
+    // const handlePrev = () => {
+    //     if (activeIndex > 0) setActiveLesson(lessons![activeIndex - 1])
+    // }
+    //
+    // const handleNext = () => {
+    //     if (lessons && activeIndex < lessons.length - 1) setActiveLesson(lessons[activeIndex + 1])
+    // }
+
+    const handlePrev = () => {
+        if(activeIndex > 0) setActiveLesson(lessons![activeIndex - 1])
+    }
+
+    const handleNext = () => {
+        if(lessons && activeIndex < lessons.length - 1) setActiveLesson(lessons![activeIndex + 1])
+    }
     return (
         <section className={'px-40'}>
 
@@ -61,7 +80,7 @@ function RouteComponent() {
                 <LessonsSideBar activeLesson={activeLesson} setActiveLesson={(lessonId => setActiveLesson(lessonId))} lessons={lessons ?? []}/>
 
                 <div className={'flex-1 flex flex-col gap-4'}>
-                    <VideoPlayer selectedLesson={activeLesson} />
+                    <VideoPlayer lessons={lessons} activeIndex={activeIndex} selectedLesson={activeLesson} onPrev={handlePrev} onNext={handleNext} />
 
                     <Divider className={'bg-gray-200'} />
 

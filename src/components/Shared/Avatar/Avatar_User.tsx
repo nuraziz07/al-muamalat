@@ -20,7 +20,7 @@ const Avatar_User = ({user}: AvatarProps) => {
     const content = (
         <div className="min-w-[250px]">
             <div className="flex items-center gap-3">
-                <Avatar style={{backgroundColor: "#ff6600"}} shape="square" size={48}>
+                <Avatar style={{backgroundColor: "#261da1"}} shape="square" size={48}>
                     {user?.full_name?.[0]?.toUpperCase()}
                 </Avatar>
 
@@ -49,7 +49,7 @@ const Avatar_User = ({user}: AvatarProps) => {
 
     return (
         <Popover content={content}>
-            <Avatar onClick={() => navigate({to: '/profile'})} style={{backgroundColor: "#ff6600"}}
+            <Avatar onClick={() => navigate({to: '/profile'})} style={{backgroundColor: "#261da1"}}
                     shape={'square'} size={40}>{user?.full_name?.[0] ?? '?'}</Avatar></Popover>
     );
 };

@@ -4,7 +4,7 @@ import {Progress} from "antd";
 const ProgressionBar = () => {
     return (
         <div>
-            <Progress percent={12} size={'middle'} className={'w-full'} status="active" />
+            <Progress strokeColor={'#FE5D37'} percent={12} size={'middle'} className={'w-full'} />
         </div>
     );
 };
