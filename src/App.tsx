@@ -5,6 +5,7 @@ import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import {AuthProvider} from "@/Context/AuthContext";
 import PageLoader from "@/components/Shared/PageLoader/PageLoader.tsx";
 import {App as AntApp} from 'antd'
+import dayjs from 'dayjs'
 
 const App = () => {
 

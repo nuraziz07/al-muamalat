@@ -1,33 +1,28 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 import {useNavigate} from '@tanstack/react-router';
 import {useQuery} from '@tanstack/react-query';
 import {request} from '@/Services/api/interceptor.ts';
-import {useAuth} from '@/hooks/custom/useAuth.ts';
-import CourseStatusCard from './CoursestatusCard.tsx';
+import PurchasedCourseCard from "@/routes/(app)/profile/-components/PurchasedCourses/-components/PurchasedCourseCard";
+import {Course} from "@/routes/(app)/my_courses/$my_courseId.tsx";
 
-interface PurchasedCourse {
-    id: string;
-    title: string;
-    image: string;
-    is_paid: boolean;
-}
 
 const PurchasedCourses = () => {
     const navigate = useNavigate();
-    const {user} = useAuth();
 
-    const {data: courses = []} = useQuery<PurchasedCourse[]>({
-        queryKey: ['purchased-courses', user?.user_id],
+    const {data: purchasedCourses} = useQuery({
+        queryKey: ['my-course'],
         queryFn: async () => {
-            const response = await request.get(`/courses/user/${user?.user_id}`);
-            return response?.data?.data ?? [];
-        },
-        enabled: !!user?.user_id,
-    });
+            const response = await request.get('/courses/my')
+            return response?.data?.data?.courses ?? []
+        }
+    })
 
-    const handlePay = (courseId: string) => {
-        navigate({to: '/programs/$courseId', params: {courseId}});
-    };
+    const handleLearnMore = (myCourseId: string) => {
+        navigate({
+            to: '/my_courses/$my_courseId',
+            params: {'my_courseId': myCourseId}
+        })
+    }
 
     return (
         <div className="rounded-3xl bg-white p-8 shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
@@ -46,14 +41,13 @@ const PurchasedCourses = () => {
             <div className="mb-6 h-px w-full bg-gray-100"/>
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                {courses.map((course) => (
-                    <CourseStatusCard
+                {purchasedCourses?.map((course: Course): ReactNode => (
+                    <PurchasedCourseCard
                         key={course.id}
-                        id={course.id}
-                        title={course.title}
-                        image={course.image}
-                        isPaid={course.is_paid}
-                        onPay={() => handlePay(course.id)}
+                        id={course.course_id}
+                        isPaid={course.purchase_status}
+                        course={course.courses}
+                        onLearnMore={() => handleLearnMore(course.course_id)}
                     />
                 ))}
             </div>

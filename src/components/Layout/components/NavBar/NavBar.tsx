@@ -1,14 +1,14 @@
-import {Logo} from "@/assets/Images/Svg";
-import {Link, useNavigate} from "@tanstack/react-router";
-import {useTranslation} from "react-i18next";
-import {Select} from "antd";
-import {useQuery} from "@tanstack/react-query";
-import {request} from "@/Services/api/interceptor.ts";
-import {useGetUser} from "@/hooks/custom/useAuth.ts";
+import { Logo } from "@/assets/Images/Svg";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
+import { Select } from "antd";
+import { useQuery } from "@tanstack/react-query";
+import { request } from "@/Services/api/interceptor.ts";
+import { useGetUser } from "@/hooks/custom/useAuth.ts";
 import Avatar_User from "@/components/Shared/Avatar";
 import LanguageSelect from "@/components/Layout/components/NavBar/components/LanguageSelect";
-import {ArrowRight, Menu, X} from "lucide-react";
-import {useEffect, useState} from "react";
+import { ArrowRight, Indent, Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
 import styles from "./NavBar.module.scss";
 
 interface CourseItem {
@@ -17,14 +17,16 @@ interface CourseItem {
     name_en: string;
 }
 
+
 export const NavBar = () => {
-    const {t, i18n} = useTranslation();
+    const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const [mobileOpen, setMobileOpen] = useState(false);
 
-    const {data: user} = useGetUser();
 
-    const {data: courses = []} = useQuery({
+    const { data: user } = useGetUser();
+
+    const { data: courses = [] } = useQuery({
         queryKey: ["courses"],
         queryFn: async () => {
             const response = await request.get("/courses/main");
@@ -32,19 +34,22 @@ export const NavBar = () => {
         },
     });
 
+    
+
     const isUz = i18n.language?.startsWith("uz");
 
 
+
     const navLinks = [
-        {label: t("header.home"), path: "/"},
-        {label: t("header.services"), path: "/services"},
+        { label: t("header.home"), path: "/" },
+        { label: t("header.services"), path: "/services" },
         // {label: t("header.islamicFinance"), path: "/finance"},
-        {label: t("header.careers"), path: "/careers"},
-        {label: t("header.contact"), path: "/contact"},
+        { label: t("header.careers"), path: "/careers" },
+        { label: t("header.contact"), path: "/contact" },
     ];
 
     const handleLogin = () => {
-        navigate({to: "/signin"});
+        navigate({ to: "/signin" });
         setMobileOpen(false);
     };
 
@@ -61,7 +66,7 @@ export const NavBar = () => {
     }, [mobileOpen]);
 
 
-    const {data} = useQuery({
+    const { data } = useQuery({
         queryKey: ['courses'],
         queryFn: async () => {
             const response = await request.get('/courses/main')
@@ -80,11 +85,9 @@ export const NavBar = () => {
     const handleCourseChange = (value: string) => {
         navigate({
             to: '/programs',
-            params: {courseId: value}
+            params: { courseId: value }
         })
     }
-
-    console.log(data)
 
     return (
         <nav className={styles.navbar}>
@@ -108,9 +111,9 @@ export const NavBar = () => {
                         </Link>
                     ))}
 
-                    <Select classNames={{popup: {root: styles.programDropdown}}}
-                            className={styles.programSelect} onChange={handleCourseChange} placeholder={'Programs'}
-                            options={selectItems}/>
+                    <Select classNames={{ popup: { root: styles.programDropdown } }}
+                        className={styles.programSelect} onChange={handleCourseChange} placeholder={'Programs'}
+                        options={selectItems} />
 
                     {navLinks.slice(2, 3).map((item) => (
                         <Link
@@ -201,7 +204,7 @@ export const NavBar = () => {
                                 <Link
                                     key={course.course_id}
                                     to="/programs/$courseId"
-                                    params={{courseId: course.course_id}}
+                                    params={{ courseId: course.course_id }}
                                     className={styles.mobileLinkSub}
                                     onClick={() => setMobileOpen(false)}
                                 >

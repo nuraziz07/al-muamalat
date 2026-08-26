@@ -19,6 +19,8 @@ const Description = lazy(() => import('@/routes/(app)/programs/components/Descri
 function RouteComponent() {
     const {courseId} = Route.useParams()
 
+    console.log(courseId)
+
     const {data: course, isLoading} = useQuery({
         queryKey: ['course', courseId],
         queryFn: async () => {

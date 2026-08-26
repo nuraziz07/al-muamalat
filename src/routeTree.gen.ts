@@ -15,6 +15,7 @@ import { Route as apphomeRouteRouteImport } from './routes/(app)/(home)/route'
 import { Route as appCareersRouteRouteImport } from './routes/(app)/Careers/route'
 import { Route as appContactRouteRouteImport } from './routes/(app)/contact/route'
 import { Route as appFinanceRouteRouteImport } from './routes/(app)/finance/route'
+import { Route as appMy_coursesRouteRouteImport } from './routes/(app)/my_courses/route'
 import { Route as appProfileRouteRouteImport } from './routes/(app)/profile/route'
 import { Route as appProgramsRouteRouteImport } from './routes/(app)/programs/route'
 import { Route as appServicesRouteRouteImport } from './routes/(app)/services/route'
@@ -24,6 +25,7 @@ import { Route as apphomeIndexRouteImport } from './routes/(app)/(home)/index'
 import { Route as appCareersIndexRouteImport } from './routes/(app)/Careers/index'
 import { Route as appContactIndexRouteImport } from './routes/(app)/contact/index'
 import { Route as appFinanceIndexRouteImport } from './routes/(app)/finance/index'
+import { Route as appMy_coursesMy_courseIdRouteImport } from './routes/(app)/my_courses/$my_courseId'
 import { Route as appProfileIndexRouteImport } from './routes/(app)/profile/index'
 import { Route as appProgramsIndexRouteImport } from './routes/(app)/programs/index'
 import { Route as appProgramsCourseIdRouteImport } from './routes/(app)/programs/$courseId'
@@ -56,6 +58,11 @@ const appContactRouteRoute = appContactRouteRouteImport.update({
 const appFinanceRouteRoute = appFinanceRouteRouteImport.update({
   id: '/finance',
   path: '/finance',
+  getParentRoute: () => appRouteRoute,
+} as any)
+const appMy_coursesRouteRoute = appMy_coursesRouteRouteImport.update({
+  id: '/my_courses',
+  path: '/my_courses',
   getParentRoute: () => appRouteRoute,
 } as any)
 const appProfileRouteRoute = appProfileRouteRouteImport.update({
@@ -101,6 +108,12 @@ const appFinanceIndexRoute = appFinanceIndexRouteImport.update({
   path: '/',
   getParentRoute: () => appFinanceRouteRoute,
 } as any)
+const appMy_coursesMy_courseIdRoute =
+  appMy_coursesMy_courseIdRouteImport.update({
+    id: '/$my_courseId',
+    path: '/$my_courseId',
+    getParentRoute: () => appMy_coursesRouteRoute,
+  } as any)
 const appProfileIndexRoute = appProfileIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -136,9 +149,11 @@ export interface FileRoutesByFullPath {
   '/Careers': typeof appCareersRouteRouteWithChildren
   '/contact': typeof appContactRouteRouteWithChildren
   '/finance': typeof appFinanceRouteRouteWithChildren
+  '/my_courses': typeof appMy_coursesRouteRouteWithChildren
   '/profile': typeof appProfileRouteRouteWithChildren
   '/programs': typeof appProgramsRouteRouteWithChildren
   '/services': typeof appServicesRouteRouteWithChildren
+  '/my_courses/$my_courseId': typeof appMy_coursesMy_courseIdRoute
   '/programs/$courseId': typeof appProgramsCourseIdRoute
   '/signin': typeof authsigninSigninRoute
   '/signup': typeof authsignupSignupRoute
@@ -151,6 +166,8 @@ export interface FileRoutesByFullPath {
   '/services/': typeof appServicesIndexRoute
 }
 export interface FileRoutesByTo {
+  '/my_courses': typeof appMy_coursesRouteRouteWithChildren
+  '/my_courses/$my_courseId': typeof appMy_coursesMy_courseIdRoute
   '/programs/$courseId': typeof appProgramsCourseIdRoute
   '/signin': typeof authsigninSigninRoute
   '/signup': typeof authsignupSignupRoute
@@ -170,11 +187,13 @@ export interface FileRoutesById {
   '/(app)/Careers': typeof appCareersRouteRouteWithChildren
   '/(app)/contact': typeof appContactRouteRouteWithChildren
   '/(app)/finance': typeof appFinanceRouteRouteWithChildren
+  '/(app)/my_courses': typeof appMy_coursesRouteRouteWithChildren
   '/(app)/profile': typeof appProfileRouteRouteWithChildren
   '/(app)/programs': typeof appProgramsRouteRouteWithChildren
   '/(app)/services': typeof appServicesRouteRouteWithChildren
   '/(auth)/(signin)': typeof authsigninRouteRouteWithChildren
   '/(auth)/(signup)': typeof authsignupRouteRouteWithChildren
+  '/(app)/my_courses/$my_courseId': typeof appMy_coursesMy_courseIdRoute
   '/(app)/programs/$courseId': typeof appProgramsCourseIdRoute
   '/(auth)/(signin)/signin': typeof authsigninSigninRoute
   '/(auth)/(signup)/signup': typeof authsignupSignupRoute
@@ -192,9 +211,11 @@ export interface FileRouteTypes {
     | '/Careers'
     | '/contact'
     | '/finance'
+    | '/my_courses'
     | '/profile'
     | '/programs'
     | '/services'
+    | '/my_courses/$my_courseId'
     | '/programs/$courseId'
     | '/signin'
     | '/signup'
@@ -207,6 +228,8 @@ export interface FileRouteTypes {
     | '/services/'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/my_courses'
+    | '/my_courses/$my_courseId'
     | '/programs/$courseId'
     | '/signin'
     | '/signup'
@@ -225,11 +248,13 @@ export interface FileRouteTypes {
     | '/(app)/Careers'
     | '/(app)/contact'
     | '/(app)/finance'
+    | '/(app)/my_courses'
     | '/(app)/profile'
     | '/(app)/programs'
     | '/(app)/services'
     | '/(auth)/(signin)'
     | '/(auth)/(signup)'
+    | '/(app)/my_courses/$my_courseId'
     | '/(app)/programs/$courseId'
     | '/(auth)/(signin)/signin'
     | '/(auth)/(signup)/signup'
@@ -289,6 +314,13 @@ declare module '@tanstack/react-router' {
       path: '/finance'
       fullPath: '/finance'
       preLoaderRoute: typeof appFinanceRouteRouteImport
+      parentRoute: typeof appRouteRoute
+    }
+    '/(app)/my_courses': {
+      id: '/(app)/my_courses'
+      path: '/my_courses'
+      fullPath: '/my_courses'
+      preLoaderRoute: typeof appMy_coursesRouteRouteImport
       parentRoute: typeof appRouteRoute
     }
     '/(app)/profile': {
@@ -353,6 +385,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/finance/'
       preLoaderRoute: typeof appFinanceIndexRouteImport
       parentRoute: typeof appFinanceRouteRoute
+    }
+    '/(app)/my_courses/$my_courseId': {
+      id: '/(app)/my_courses/$my_courseId'
+      path: '/$my_courseId'
+      fullPath: '/my_courses/$my_courseId'
+      preLoaderRoute: typeof appMy_coursesMy_courseIdRouteImport
+      parentRoute: typeof appMy_coursesRouteRoute
     }
     '/(app)/profile/': {
       id: '/(app)/profile/'
@@ -447,6 +486,17 @@ const appFinanceRouteRouteWithChildren = appFinanceRouteRoute._addFileChildren(
   appFinanceRouteRouteChildren,
 )
 
+interface appMy_coursesRouteRouteChildren {
+  appMy_coursesMy_courseIdRoute: typeof appMy_coursesMy_courseIdRoute
+}
+
+const appMy_coursesRouteRouteChildren: appMy_coursesRouteRouteChildren = {
+  appMy_coursesMy_courseIdRoute: appMy_coursesMy_courseIdRoute,
+}
+
+const appMy_coursesRouteRouteWithChildren =
+  appMy_coursesRouteRoute._addFileChildren(appMy_coursesRouteRouteChildren)
+
 interface appProfileRouteRouteChildren {
   appProfileIndexRoute: typeof appProfileIndexRoute
 }
@@ -488,6 +538,7 @@ interface appRouteRouteChildren {
   appCareersRouteRoute: typeof appCareersRouteRouteWithChildren
   appContactRouteRoute: typeof appContactRouteRouteWithChildren
   appFinanceRouteRoute: typeof appFinanceRouteRouteWithChildren
+  appMy_coursesRouteRoute: typeof appMy_coursesRouteRouteWithChildren
   appProfileRouteRoute: typeof appProfileRouteRouteWithChildren
   appProgramsRouteRoute: typeof appProgramsRouteRouteWithChildren
   appServicesRouteRoute: typeof appServicesRouteRouteWithChildren
@@ -498,6 +549,7 @@ const appRouteRouteChildren: appRouteRouteChildren = {
   appCareersRouteRoute: appCareersRouteRouteWithChildren,
   appContactRouteRoute: appContactRouteRouteWithChildren,
   appFinanceRouteRoute: appFinanceRouteRouteWithChildren,
+  appMy_coursesRouteRoute: appMy_coursesRouteRouteWithChildren,
   appProfileRouteRoute: appProfileRouteRouteWithChildren,
   appProgramsRouteRoute: appProgramsRouteRouteWithChildren,
   appServicesRouteRoute: appServicesRouteRouteWithChildren,

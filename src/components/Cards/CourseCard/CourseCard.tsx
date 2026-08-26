@@ -9,8 +9,6 @@ interface CourseCardProps {
 
 const CourseCard = ({image, title, price, onLearnMore}: CourseCardProps) => {
 
-    // console.log(image?.images?.[0]?.src)
-
     return (
         <div className="w-full max-w-[525px] overflow-hidden rounded-[14px] border border-[#d9e0e8] bg-white">
             {/* Image */}

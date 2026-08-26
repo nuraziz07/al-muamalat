@@ -169,3 +169,22 @@ body {
     }
   }
 }
+
+/* ── Orange Scrollbar ── */
+.scrollbar-orange {
+  scrollbar-width: thin;
+  scrollbar-color: #ff6600 transparent;
+}
+
+.scrollbar-orange::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollbar-orange::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-orange::-webkit-scrollbar-thumb {
+  background-color: #ff6600;
+  border-radius: 9999px;
+}
