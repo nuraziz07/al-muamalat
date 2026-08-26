@@ -60,12 +60,12 @@ export const Footer = () => {
                         </div>
                     </div>
 
-                    <a
-                        href="/contact"
+                    <Link
+                        to={'/contact'}
                         className="shrink-0 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 px-7 py-3 text-sm font-semibold !text-white shadow-lg shadow-orange-900/30 transition hover:brightness-110"
                     >
                         Contact
-                    </a>
+                    </Link>
                 </div>
 
                 {/* Divider */}

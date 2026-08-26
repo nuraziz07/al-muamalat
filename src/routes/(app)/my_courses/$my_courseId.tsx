@@ -7,6 +7,8 @@ import {LessonsSideBar} from "@/routes/(app)/my_courses/-components/LessonsSideB
 import type {Lesson} from "@/routes/(app)/my_courses/-components/LessonsSideBar";
 import { Divider } from 'antd';
 import VideoPlayer from './-components/VideoPlayer';
+import {useState} from "react";
+import AdditionalInfo from "@/routes/(app)/my_courses/-components/AdditionalInformation";
 
 export const Route = createFileRoute('/(app)/my_courses/$my_courseId')({
     component: RouteComponent,
@@ -24,6 +26,7 @@ export type Course = {
 function RouteComponent() {
 
     const {my_courseId} = Route.useParams()
+    const [activeLesson, setActiveLesson] = useState<Lesson | null>(null)
 
     const {data: lessons} = useQuery<Lesson[]>({
         queryKey: ['my_courseId_lesson'],
@@ -43,7 +46,7 @@ function RouteComponent() {
 
     const filteredData = course?.find((item: Course) => item.course_id === my_courseId)?.courses as CourseItem[] | undefined
 
-    
+
     return (
         <section className={'px-40'}>
 
@@ -55,10 +58,16 @@ function RouteComponent() {
             <Divider className={'bg-gray-200'} />
 
             <div className={'mt-10 flex gap-6 pb-10 items-start'}>
-                <LessonsSideBar lessons={lessons ?? []}/>
+                <LessonsSideBar activeLesson={activeLesson} setActiveLesson={(lessonId => setActiveLesson(lessonId))} lessons={lessons ?? []}/>
 
-                <div className={'flex-1 rounded-xl overflow-hidden bg-black aspect-video'}>
-                    <VideoPlayer />
+                <div className={'flex-1 flex flex-col gap-4'}>
+                    <VideoPlayer selectedLesson={activeLesson} />
+
+                    <Divider className={'bg-gray-200'} />
+
+                    <div>
+                        <AdditionalInfo selectedLesson={activeLesson} />
+                    </div>
                 </div>
             </div>
 

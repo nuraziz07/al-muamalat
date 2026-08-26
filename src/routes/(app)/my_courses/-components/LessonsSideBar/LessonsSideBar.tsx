@@ -4,10 +4,11 @@ import type { Lesson } from './LessonsSideBarItem';
 
 type LessonsSideBarProps = {
     lessons: Lesson[];
+    activeLesson: Lesson | null;
+    setActiveLesson: () => void;
 };
 
-const LessonsSideBar = ({ lessons }: LessonsSideBarProps) => {
-    const [activeId, setActiveId] = useState<string | null>(lessons?.[0]?.id ?? null);
+const LessonsSideBar = ({ lessons, setActiveLesson, activeLesson }: LessonsSideBarProps) => {
 
     return (
         <div className="w-72 shadow-md shrink-0 bg-white rounded-2xl border border-gray-100 sticky top-32 h-fit max-h-[680px] flex flex-col overflow-hidden">
@@ -16,9 +17,9 @@ const LessonsSideBar = ({ lessons }: LessonsSideBarProps) => {
                     <LessonsSideBarItem
                         key={lesson.id}
                         lesson={lesson}
-                        isActive={activeId === lesson.id}
+                        // isActive={activeId === lesson.id}
                         isCompleted={i < 2}
-                        onClick={(l) => setActiveId(l.id)}
+                        onClick={() => setActiveLesson(lesson)}
                     />
                 ))}
             </div>
