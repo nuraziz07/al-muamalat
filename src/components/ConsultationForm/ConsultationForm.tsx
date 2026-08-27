@@ -1,144 +1,216 @@
-import React, {useState} from 'react';
-import {message, Select} from "antd";
-import {USA} from '@/assets/Images/Png/Flags'
-import axios from "axios";
+import React, { useState } from 'react';
+import { Input, Button } from 'antd';
+import { Contact_Banner } from '../../../../../assets/Images/Png';
+import styles from '../../contact.module.scss';
+import axios from 'axios';
 
+const { TextArea } = Input;
 
-const ConsultationForm = () => {
+interface ContactFormValues {
+    firstName: string;
+    lastName: string;
+    email: string;
+    organization: string;
+    phone: string;
+    message: string;
+}
 
-    const workshops = [
-        {
-            id: 1,
-            title: "Workshops and Spiritual Development",
-            description:
-                "Participate in our weekly workshops focused on Islamic studies and spiritual growth. These sessions are designed to help you strengthen your connection with faith and acquire essential skills for daily life.",
-        },
-        {
-            id: 1,
-            title: "Workshops and Spiritual Development",
-            description:
-                "Participate in our weekly workshops focused on Islamic studies and spiritual growth. These sessions are designed to help you strengthen your connection with faith and acquire essential skills for daily life.",
-        },
-        {
-            id: 1,
-            title: "Workshops and Spiritual Development",
-            description:
-                "Participate in our weekly workshops focused on Islamic studies and spiritual growth. These sessions are designed to help you strengthen your connection with faith and acquire essential skills for daily life.",
-        },
-    ];
+const TELEGRAM_BOT_TOKEN = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
+const TELEGRAM_CHAT_ID = import.meta.env.VITE_TELEGRAM_CHAT_ID;
 
-    const items = [
-        {
-            key: 1,
-            label: <div className={'flex items-center gap-2'}>
-                <img className={'w-6 h-6'} src={USA} alt="Usa"/>
-                <span>+998</span>
-            </div>,
-            value: '+998'
-        },
-        {
-            key: 2,
-            label: <div className={'flex items-center gap-2'}>
-                <img className={'w-6 h-6'} src={USA} alt="Usa"/>
-                <span>+432</span>
-            </div>,
-            value: '+432'
-        },
-        {
-            key: 3,
-            label: <div className={'flex items-center gap-2'}>
-                <img className={'w-6 h-6'} src={USA} alt="Usa"/>
-                <span>+242</span>
-            </div>,
-            value: '+242'
-        },
-        {
-            key: 4,
-            label: <div className={'flex items-center gap-2'}>
-                <img className={'w-6 h-6'} src={USA} alt="Usa"/>
-                <span>+7</span>
-            </div>,
-            value: '+7'
-        },
-    ]
+const initialFormData: ContactFormValues = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    organization: '',
+    phone: '',
+    message: '',
+};
 
-    const [active, setActive] = useState(0);
+const GetInTouchForm = () => {
+    const [formData, setFormData] = useState<ContactFormValues>(initialFormData);
+    const [errors, setErrors] = useState<Partial<Record<keyof ContactFormValues, string>>>({});
+    const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
+
+        // foydalanuvchi qayta yoza boshlasa, shu maydondagi xatolikni tozalaymiz
+        if (errors[name as keyof ContactFormValues]) {
+            setErrors((prev) => ({ ...prev, [name]: undefined }));
+        }
+    };
+
+    const validate = (): boolean => {
+        const newErrors: Partial<Record<keyof ContactFormValues, string>> = {};
+
+        if (!formData.firstName.trim()) newErrors.firstName = 'Please enter your name';
+        if (!formData.lastName.trim()) newErrors.lastName = 'Please enter your surname';
+
+        if (!formData.email.trim()) {
+            newErrors.email = 'Please enter your email';
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+            newErrors.email = 'Enter a valid email address';
+        }
+
+        if (!formData.phone.trim()) newErrors.phone = 'Please enter your phone number';
+        if (!formData.message.trim()) newErrors.message = 'Please enter your message';
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (!validate()) return;
+
+        setStatus('loading');
+
+        const text = `
+📩 Yangi murojaat!
+👤 Ism: ${formData.firstName}
+👤 Familya: ${formData.lastName}
+📧 Email: ${formData.email}
+🏢 Tashkilot: ${formData.organization || '-'}
+📞 Telefon: ${formData.phone}
+💬 Xabar: ${formData.message}
+        `;
+
+        try {
+            await axios.post(
+                `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
+                {
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text,
+                    parse_mode: 'HTML',
+                }
+            );
+            setStatus('success');
+            setFormData(initialFormData);
+        } catch (error) {
+            console.error('Telegramga yuborishda xatolik:', error);
+            setStatus('error');
+        }
+    };
 
     return (
-        <section className="mx-auto pb-8 max-w-7xl overflow-hidden rounded-2xl shadow-xl sm:pb-10 md:pb-15">
-            <div className="grid lg:grid-cols-5">
+        <div className={styles['get-in-touch']}>
+            <div className={styles['get-in-touch__form-side']}>
+                <h2 className={styles['get-in-touch__title']}>Get in Touch</h2>
 
-                {/* Left */}
-                <div className="bg-[#FDF0DB] px-5 py-8 sm:px-8 sm:py-10 md:px-12 lg:col-span-3 lg:px-16 lg:py-14">
-                    <h2 className="text-xl font-bold text-[#D28527] sm:text-2xl lg:text-[32px]">
-                        {workshops[active].title}
-                    </h2>
-
-                    <p className="mt-4 max-w-4xl text-base leading-relaxed text-[#D28527] sm:mt-6 sm:text-lg md:text-xl lg:mt-8 lg:text-[22px]">
-                        {workshops[active].description}
-                    </p>
-
-                    <div className="mt-10 flex justify-center gap-3 sm:mt-16 md:mt-28 lg:mt-52 lg:gap-4">
-                        {workshops.map((_, index) => (
-                            <button
-                                key={index}
-                                onClick={() => setActive(index)}
-                                className={`h-4 rounded-full transition-all ${
-                                    active === index
-                                        ? "w-14 bg-[#0A9B93]"
-                                        : "w-4 bg-white"
-                                }`}
+                <form className={styles['get-in-touch__form']} onSubmit={handleSubmit} noValidate>
+                    <div className={styles['get-in-touch__row']}>
+                        <div className={styles['get-in-touch__field']}>
+                            <Input
+                                name="firstName"
+                                value={formData.firstName}
+                                onChange={handleChange}
+                                placeholder="Your Name"
+                                size="large"
+                                status={errors.firstName ? 'error' : ''}
                             />
-                        ))}
-                    </div>
-                </div>
-
-                {/* Right */}
-                <div className="bg-[#F8F7F4] px-5 py-8 sm:px-8 sm:py-10 md:px-12 md:py-14 lg:col-span-2">
-                    <h2 className="text-xl font-bold sm:text-2xl lg:text-[30px]">
-                        Free consultation
-                    </h2>
-
-                    <p className="mt-4 text-[16px] text-[#152032]">
-                        Leave your phone number, and we will reach out to provide you
-                        with complete information about our courses.
-                    </p>
-
-                    <form className="mt-6 space-y-5 sm:mt-8 sm:space-y-6 md:mt-10">
-                        <input
-                            type="text"
-                            placeholder="Name"
-                            className="w-full rounded-2xl border px-5 py-4 outline-none" />
-
-                        <div className="flex items-center rounded-xl border px-5 py-4">
-
-                            <Select className={'w-[100px]'} bordered={false} options={items} defaultValue={'+998'} />
-
-                            <input
-                                type="number" minLength={2}
-                                placeholder="Phone number"
-                                className="ml-4 flex-1 outline-none" />
+                            {errors.firstName && (
+                                <span className={styles['get-in-touch__error']}>{errors.firstName}</span>
+                            )}
                         </div>
 
-                        <label className="flex items-start gap-3">
-                            <input type="checkbox" className="mt-1 h-5 w-5" />
+                        <div className={styles['get-in-touch__field']}>
+                            <Input
+                                name="lastName"
+                                value={formData.lastName}
+                                onChange={handleChange}
+                                placeholder="Your Surname"
+                                size="large"
+                                status={errors.lastName ? 'error' : ''}
+                            />
+                            {errors.lastName && (
+                                <span className={styles['get-in-touch__error']}>{errors.lastName}</span>
+                            )}
+                        </div>
+                    </div>
 
-                            <span className="text-[14px] text-[#152032]">I agree to the use of my personal information forconsultation purposes.</span>
-                        </label>
+                    <div className={styles['get-in-touch__row']}>
+                        <div className={styles['get-in-touch__field']}>
+                            <Input
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                placeholder="Your Email Address"
+                                size="large"
+                                status={errors.email ? 'error' : ''}
+                            />
+                            {errors.email && (
+                                <span className={styles['get-in-touch__error']}>{errors.email}</span>
+                            )}
+                        </div>
 
-                        <button
-                            onClick={() => message.success('Thank you for your submission!')}
-                            type="button"
-                            className="w-full rounded-xl bg-[#0A9B93] py-4 text-[20px] font-semibold text-white hover:opacity-90"
+                        <div className={styles['get-in-touch__field']}>
+                            <Input
+                                name="organization"
+                                value={formData.organization}
+                                onChange={handleChange}
+                                placeholder="Your organization"
+                                size="large"
+                            />
+                        </div>
+                    </div>
+
+                    <div className={styles['get-in-touch__field']}>
+                        <Input
+                            name="phone"
+                            value={formData.phone}
+                            onChange={handleChange}
+                            placeholder="Your phone number"
+                            size="large"
+                            status={errors.phone ? 'error' : ''}
+                        />
+                        {errors.phone && (
+                            <span className={styles['get-in-touch__error']}>{errors.phone}</span>
+                        )}
+                    </div>
+
+                    <div className={styles['get-in-touch__field']}>
+                        <TextArea
+                            name="message"
+                            value={formData.message}
+                            onChange={handleChange}
+                            placeholder="Your message / comment..."
+                            autoSize={{ minRows: 4, maxRows: 8 }}
+                            status={errors.message ? 'error' : ''}
+                        />
+                        {errors.message && (
+                            <span className={styles['get-in-touch__error']}>{errors.message}</span>
+                        )}
+                    </div>
+
+                    <div className={styles['get-in-touch__submit-wrap']}>
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                            size="large"
+                            loading={status === 'loading'}
+                            className={styles['get-in-touch__submit']}
                         >
                             Submit
-                        </button>
-                    </form>
-                </div>
+                        </Button>
+                    </div>
+
+                    {status === 'success' && (
+                        <p className={styles['get-in-touch__success']}>✅ Xabar yuborildi!</p>
+                    )}
+                    {status === 'error' && (
+                        <p className={styles['get-in-touch__error-msg']}>❌ Xatolik yuz berdi, qayta urinib ko'ring</p>
+                    )}
+                </form>
             </div>
-        </section>
+
+            <div className={styles['get-in-touch__image-side']}>
+                <img src={Contact_Banner} alt="Get in touch" className={styles['get-in-touch__image']} />
+            </div>
+        </div>
     );
 };
 
-export default ConsultationForm;
+export default GetInTouchForm;
