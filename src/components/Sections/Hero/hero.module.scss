@@ -42,10 +42,12 @@
 }
 
 .request_button {
+  display: flex;
+  align-items: center;
   border-radius: 9999px;
   background-color: #047857;
-  padding: 14px 20px;
-  font-size: 11px;
+  padding: 10px 20px;
+  font-size: 10px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -64,4 +66,23 @@
   &:hover {
     background-color: #065f46;
   }
+
+  .up-down-animation {
+    transition: all 0.2s ease;
+    animation: up-down 2s ease-in-out infinite;
+  }
+}
+
+
+
+@keyframes up-down {
+   0% {
+    transform: translateY(0);
+   }
+  50% {
+    transform: translateY(-10px);
+   }
+   100% {
+     transform: translateY(0);
+   }
 }

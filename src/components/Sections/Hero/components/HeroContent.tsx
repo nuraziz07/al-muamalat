@@ -2,11 +2,11 @@ import {useTranslation} from "react-i18next";
 import React from "react";
 import classes from '../hero.module.scss'
 import cls from 'classnames'
+import {Link} from "@tanstack/react-router";
+import {ChevronDown} from "lucide-react";
 
 
 export const HeroContent = () => {
-
-    const {t} = useTranslation()
 
     return (
         <div className="container mx-auto px-4">
@@ -22,13 +22,13 @@ export const HeroContent = () => {
                 </p>
 
                 <div className="mt-8 flex flex-col gap-4 sm:mt-10 sm:gap-5 md:mt-14 md:flex-row md:gap-6">
-                    <button className={cls(classes.request_button)}>
+                    <Link to={'/contact'} className={cls(classes.request_button)}>
                         Request for Consultation
-                    </button>
+                    </Link>
 
-                    <button className={cls(classes['button'])}>
+                    <Link to={'/services'} className={cls(classes['button'])}>
                         Explore Services
-                    </button>
+                    </Link>
                 </div>
 
                 <div className="mt-8 flex flex-col items-center gap-3 sm:mt-10 md:mt-14 md:gap-4">
@@ -36,7 +36,7 @@ export const HeroContent = () => {
                             Lower It Down.
                         </span>
 
-                    <span className="text-4xl  animate-jump-down text-white/70">↓</span>
+                    <span className={cls('text-4xl text-white/70', classes.upDownAnimation)}><ChevronDown /></span>
                 </div>
             </div>
         </div>

@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import {Dropdown, Input, Select} from "antd";
+import {message, Select} from "antd";
 import {USA} from '@/assets/Images/Png/Flags'
+import axios from "axios";
 
 
 const ConsultationForm = () => {
@@ -62,6 +63,7 @@ const ConsultationForm = () => {
     ]
 
     const [active, setActive] = useState(0);
+
 
     return (
         <section className="mx-auto pb-8 max-w-7xl overflow-hidden rounded-2xl shadow-xl sm:pb-10 md:pb-15">
@@ -126,7 +128,8 @@ const ConsultationForm = () => {
                         </label>
 
                         <button
-                            type="submit"
+                            onClick={() => message.success('Thank you for your submission!')}
+                            type="button"
                             className="w-full rounded-xl bg-[#0A9B93] py-4 text-[20px] font-semibold text-white hover:opacity-90"
                         >
                             Submit

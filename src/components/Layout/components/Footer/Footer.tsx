@@ -2,11 +2,11 @@ import React from 'react';
 import { Send, Phone, MapPin, Mail} from "lucide-react";
 import {Logo} from '@/assets/Images/Svg';
 import {Link} from "@tanstack/react-router";
+import SocialMedia from "@/components/Shared/SocialMedia/SocialMedia.tsx";
 
 const quickLinks = [
-    {label: "AAOIFI Registration", href: "/aaoifi-registration"},
-    {label: "Training Courses", href: "/training"},
-    {label: "Online courses", href: "/online-courses"},
+    {label: "AAOIFI Registration", href: "/programs"},
+    {label: "Online courses", href: "/programs"},
     {label: "Services", href: "/services"},
     {label: "Contact", href: "/contact"},
 ];
@@ -46,18 +46,8 @@ export const Footer = () => {
                             partnerships!
                         </p>
 
-                        <div className="flex items-center gap-3">
-                            {socialLinks.map(({icon: Icon, href, label}) => (
-                                <a
-                                    key={label}
-                                    href={href}
-                                    aria-label={label}
-                                    className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 !text-white transition-colors hover:bg-white/20"
-                                >
-                                    <Icon className="h-4 w-4" strokeWidth={1.75} />
-                                </a>
-                            ))}
-                        </div>
+                        <SocialMedia located={'footer'} />
+
                     </div>
 
                     <Link
@@ -80,7 +70,7 @@ export const Footer = () => {
                                 <li key={label}>
                                     <a
                                         href={href}
-                                        className="!text-white/60 transition-colors hover:text-white"
+                                        className="!text-white/60 transition-all duration-300 hover:text-orange-400"
                                     >
                                         {label}
                                     </a>

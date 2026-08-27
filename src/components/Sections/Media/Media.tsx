@@ -10,7 +10,7 @@ const Media = () => {
             <SectionHead title={'Our Media'} subtitle={'Our team consists of seasoned professionals with extensive experience in Islamic finance and management. Each member brings a unique set of skills and expertise.'} />
 
             <div className={'w-full'}>
-                <div className={'grid w-full grid-cols-1 justify-items-center gap-5 px-4 pb-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-3 lg:px-8'}>
+                <div className={'grid w-full grid-cols-1 justify-items-center gap-2 px-4 pb-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-3 lg:px-8'}>
                     {videos?.map((item) => {
                         return (
                             <VideoCard key={item.key}

@@ -29,7 +29,7 @@ const TeamCard = ({name, bio, img}: Required<TeamCardProps>) => {
                     {bio}
                 </p>
  
-                <SocialMedia />
+                <SocialMedia located={'team-card'} />
             </div>
  
         </div>

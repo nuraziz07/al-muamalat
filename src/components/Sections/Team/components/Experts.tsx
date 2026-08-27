@@ -7,7 +7,6 @@ import 'swiper/css'
 import "swiper/css/effect-cube";
 import "swiper/css/effect-coverflow";
 import styles from '../Team.module.scss';
-import cls from 'classnames'
 import {experts} from "@/Constants";
 
 const Experts = () => {
