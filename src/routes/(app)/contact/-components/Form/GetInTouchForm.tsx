@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Input, Button } from 'antd';
+import {Input, Button, message} from 'antd';
 import { Contact_Banner } from '../../../../../assets/Images/Png';
 import styles from '../../contact.module.scss';
 import axios from 'axios';
-
+import {useMutation} from "@tanstack/react-query";
 const { TextArea } = Input;
 
 interface ContactFormValues {
@@ -30,7 +30,17 @@ const initialFormData: ContactFormValues = {
 const GetInTouchForm = () => {
     const [formData, setFormData] = useState<ContactFormValues>(initialFormData);
     const [errors, setErrors] = useState<Partial<Record<keyof ContactFormValues, string>>>({});
-    const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+
+    const text = `
+📩 Yangi murojaat!
+👤 Ism: ${formData.firstName}
+👤 Familya: ${formData.lastName}
+📧 Email: ${formData.email}
+🏢 Tashkilot: ${formData.organization || '-'}
+📞 Telefon: ${formData.phone}
+💬 Xabar: ${formData.message}
+        `;
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -46,13 +56,7 @@ const GetInTouchForm = () => {
 
         if (!formData.firstName.trim()) newErrors.firstName = 'Please enter your name';
         if (!formData.lastName.trim()) newErrors.lastName = 'Please enter your surname';
-
-        if (!formData.email.trim()) {
-            newErrors.email = 'Please enter your email';
-        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-            newErrors.email = 'Enter a valid email address';
-        }
-
+        if (!formData.email.trim()) newErrors.email = 'Please enter your email';
         if (!formData.phone.trim()) newErrors.phone = 'Please enter your phone number';
         if (!formData.message.trim()) newErrors.message = 'Please enter your message';
 
@@ -60,54 +64,43 @@ const GetInTouchForm = () => {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const mutationContactInfo = useMutation({
+        mutationKey: ['contact-form-info'],
+        mutationFn:  () => axios.post(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+            chat_id: TELEGRAM_CHAT_ID,
+            text: text,
+            parse_mode: 'HTML'
+        })
+    })
 
-        if (!validate()) return;
-
-        setStatus('loading');
-
-        const text = `
-📩 Yangi murojaat!
-👤 Ism: ${formData.firstName}
-👤 Familya: ${formData.lastName}
-📧 Email: ${formData.email}
-🏢 Tashkilot: ${formData.organization || '-'}
-📞 Telefon: ${formData.phone}
-💬 Xabar: ${formData.message}
-        `;
-
-        try {
-            await axios.post(
-                `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
-                {
-                    chat_id: TELEGRAM_CHAT_ID,
-                    text,
-                    parse_mode: 'HTML',
-                }
-            );
-            setStatus('success');
-            setFormData(initialFormData);
-        } catch (error) {
-            console.error('Telegramga yuborishda xatolik:', error);
-            setStatus('error');
-        }
-    };
+    const handleSubmitContactInfo = (data) => {
+        data.preventDefault()
+        if(!validate()) return;
+        mutationContactInfo.mutate(data, {
+            onSuccess: () => {
+                message.success('Xabar muvaffaqiyatli yuborildi!')
+                setFormData(initialFormData)
+            },
+            onError: (error: Error) => {
+                message.error(`Xabar yuborishda xatolik yuz berdi ${error}`)
+            }
+        })
+    }
 
     return (
         <div className={styles['get-in-touch']}>
             <div className={styles['get-in-touch__form-side']}>
                 <h2 className={styles['get-in-touch__title']}>Get in Touch</h2>
 
-                <form className={styles['get-in-touch__form']} onSubmit={handleSubmit} noValidate>
+                <form className={styles['get-in-touch__form']} onSubmit={handleSubmitContactInfo} noValidate>
                     <div className={styles['get-in-touch__row']}>
                         <div className={styles['get-in-touch__field']}>
                             <Input
                                 name="firstName"
                                 value={formData.firstName}
-                                onChange={handleChange}
                                 placeholder="Your Name"
                                 size="large"
+                                onChange={handleChange}
                                 status={errors.firstName ? 'error' : ''}
                             />
                             {errors.firstName && (
@@ -119,8 +112,8 @@ const GetInTouchForm = () => {
                             <Input
                                 name="lastName"
                                 value={formData.lastName}
-                                onChange={handleChange}
                                 placeholder="Your Surname"
+                                onChange={handleChange}
                                 size="large"
                                 status={errors.lastName ? 'error' : ''}
                             />
@@ -195,13 +188,6 @@ const GetInTouchForm = () => {
                             Submit
                         </Button>
                     </div>
-
-                    {status === 'success' && (
-                        <p className={styles['get-in-touch__success']}>✅ Xabar yuborildi!</p>
-                    )}
-                    {status === 'error' && (
-                        <p className={styles['get-in-touch__error-msg']}>❌ Xatolik yuz berdi, qayta urinib ko'ring</p>
-                    )}
                 </form>
             </div>
 
