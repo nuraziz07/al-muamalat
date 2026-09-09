@@ -1,5 +1,5 @@
 import {createFileRoute} from '@tanstack/react-router'
-import {lazy} from "react";
+import React, {lazy} from "react";
 import ContactInfoRow from "@/routes/(app)/contact/-components/ContactInfoRow";
 
 

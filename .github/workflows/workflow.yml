@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - name: Repo-ni checkout qilish
+        uses: actions/checkout@v4
+
+      - name: Node.js o'rnatish
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Dependency-larni o'rnatish
+        run: npm ci
+
+      - name: Lint qilish
+        run: npm run lint --if-present
+
+      - name: Test qilish
+        run: npm test -- --watchAll=false
+
+      - name: Build qilish
+        run: npm run build
