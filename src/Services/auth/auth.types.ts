@@ -6,6 +6,19 @@ export interface RegisterParams {
     phone_number: string
 }
 
-export type LoginParams = Extract<RegisterParams, 'email' | 'password'>
+export type LoginParams = Pick<RegisterParams, 'email' | 'password'>
 
-export type VerifyRegisterParams = Extract<RegisterParams, 'email'>
+export interface VerifyRegisterParams {
+    email: string
+    otp?: string
+}
+
+export interface ForgotPasswordParams {
+    email: string
+}
+
+export interface ForgotPasswordConfirmParams {
+    email: string
+    otp: string
+    newPassword: string
+}

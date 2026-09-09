@@ -61,10 +61,10 @@ const VerifyCode = ({handleVerifyOTP, loading, handleResendOTP, resendLoading, r
         <div className="w-full max-w-md rounded-3xl bg-white p-10 shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
             <div className="mb-8 text-center">
                 <h1 className="mb-2 text-3xl font-bold text-gray-900">
-                    {t('register.verifyTitle') || 'Verify Code'}
+                    {t('register.verify') || 'Verify Code'}
                 </h1>
                 <p className="text-sm text-gray-500">
-                    {t('register.verifyDescription') || 'Enter the 6-digit code sent to your email.'}
+                    {t('register.welcome') || 'Enter the 6-digit code sent to your email.'}
                 </p>
                 {email && (
                     <p className="mt-1 text-sm font-semibold text-gray-900">
@@ -78,7 +78,9 @@ const VerifyCode = ({handleVerifyOTP, loading, handleResendOTP, resendLoading, r
                     {Array.from({length: OTP_LENGTH}).map((_, index) => (
                         <input
                             key={index}
-                            ref={(el) => (inputsRef.current[index] = el)}
+                            ref={(el) => {
+                                inputsRef.current[index] = el
+                            }}
                             inputMode="numeric"
                             maxLength={1}
                             value={otpDigits[index]?.trim() ?? ''}

@@ -5,7 +5,7 @@ import type { Lesson } from './LessonsSideBarItem';
 type LessonsSideBarProps = {
     lessons: Lesson[];
     activeLesson: Lesson | null;
-    setActiveLesson: () => void;
+    setActiveLesson: (lesson: Lesson) => void;
 };
 
 const LessonsSideBar = ({ lessons, setActiveLesson, activeLesson }: LessonsSideBarProps) => {

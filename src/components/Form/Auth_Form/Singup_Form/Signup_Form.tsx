@@ -48,9 +48,10 @@ const SignUpForm = () => {
         })
     }
 
-    const handleVerifyRegisterOTP = () => {
+    const handleVerifyRegisterOTP = (data: { otp: string }) => {
         const submitData: VerifyRegisterParams = {
-            email: email,
+            email: email ?? '',
+            ...data,
         }
         return verifyRegisterOTP.mutate(submitData, {
             onSuccess: () => {
@@ -64,7 +65,7 @@ const SignUpForm = () => {
         const submitData = {
             email: email,
         }
-        resendMutation.mutate(submitData, {
+        resendMutation.mutate({email: email ?? ''}, {
             onSuccess: (res) => message.success(res?.data?.message),
             onError: (err: any) => message.error(err?.response?.data?.message ?? err?.message)
         })
@@ -89,7 +90,7 @@ const SignUpForm = () => {
                     {t('register.title') || 'Sign Up'}
                 </h1>
                 <p className="text-sm text-gray-500">
-                    {t('register.description') || 'Enter your details to create a new account'}
+                    {t('register.welcome') || 'Enter your details to create a new account'}
                 </p>
             </div>
 

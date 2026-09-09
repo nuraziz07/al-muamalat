@@ -52,7 +52,7 @@ const Courses = () => {
 
             <div className="flex justify-center items-center gap-4 px-20">
                 {courses.map((courseItem): ReactNode => (
-                    <CourseCard key={courseItem.id} course={courseItem}/>
+                    <CourseCard key={courseItem.id} image={courseItem.image} title={courseItem.title} price={courseItem.price}/>
                 ))}
             </div>
         </section>

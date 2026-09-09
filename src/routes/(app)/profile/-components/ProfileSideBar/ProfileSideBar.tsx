@@ -45,7 +45,13 @@ const ProfileSidebar = () => {
         );
     };
 
-    const fields = [
+    const fields: Array<{
+        name: keyof ProfileFormValues
+        label: string
+        placeholder: string
+        type: string
+        required: boolean
+    }> = [
         {
             name: 'full_name',
             label: 'Enter your name',

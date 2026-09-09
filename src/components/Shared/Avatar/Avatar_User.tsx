@@ -4,8 +4,13 @@ import {Button} from "@/components/ui/button.tsx";
 import {LogOut} from "lucide-react";
 import {useNavigate} from "@tanstack/react-router";
 
+interface AvatarUser {
+    full_name?: string
+    phone_number?: string
+}
+
 interface AvatarProps {
-    user: object
+    user: AvatarUser
 }
 
 const Avatar_User = ({user}: AvatarProps) => {

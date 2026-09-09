@@ -4,7 +4,7 @@ import {LoadingOutlined} from "@ant-design/icons";
 
 interface PaymentProps {
     onSubmit: () => void
-    isPending
+    isPending: boolean
 }
 
 const Payment = ({onSubmit, isPending}: PaymentProps) => {

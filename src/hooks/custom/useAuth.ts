@@ -3,6 +3,13 @@ import {AuthContext} from "@/Context/AuthContext.tsx";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {authApi} from "@/Services/auth/auth.api.ts";
 import {message} from "antd";
+import type {
+    ForgotPasswordConfirmParams,
+    ForgotPasswordParams,
+    LoginParams,
+    RegisterParams,
+    VerifyRegisterParams,
+} from "@/Services/auth/auth.types.ts";
 
 export const useAuth = () => useContext(AuthContext)
 
@@ -10,7 +17,7 @@ export const useAuth = () => useContext(AuthContext)
 export function useRegister() {
     return useMutation({
         mutationKey: ['register'],
-        mutationFn: (params) => authApi.register(params),
+        mutationFn: (params: RegisterParams) => authApi.register(params),
         onSuccess: (res) => message.success(res?.data?.message),
         onError: (err: any) => message.error(err?.response?.data?.message),
     })
@@ -18,7 +25,7 @@ export function useRegister() {
 
 export function useLogin() {
     return useMutation({
-        mutationFn: (params) => authApi.login(params),
+        mutationFn: (params: LoginParams) => authApi.login(params),
         onSuccess: (res) => {
             message.success(res?.data?.message)
         },
@@ -33,7 +40,7 @@ export function useVerifyRegisterOTP() {
 
     return useMutation({
         mutationKey: ['verify-otp-register'],
-        mutationFn: (params) => authApi.verifyRegisterOTP(params),
+        mutationFn: (params: VerifyRegisterParams) => authApi.verifyRegisterOTP(params),
         onSuccess: (res) => {
             window.localStorage.setItem("userToken", res?.data?.data?.tokens?.accessToken);
             queryClient.setQueryData(['currentUser'], res.data.user)
@@ -52,7 +59,7 @@ export function useVerifyLoginOTP() {
 
     return useMutation({
         mutationKey: ['verify-otp-login'],
-        mutationFn: (params) => authApi.verifyLoginOTP(params),
+        mutationFn: (params: VerifyRegisterParams) => authApi.verifyLoginOTP(params),
         onSuccess: (res) => {
             window.localStorage.setItem("userToken", res?.data?.data?.tokens?.accessToken);
             queryClient.setQueryData(['currentUser'], res.data.user)
@@ -69,7 +76,7 @@ export function useVerifyLoginOTP() {
 export function useResendOTP(type: 'signin' | 'signup') {
     return useMutation({
         mutationKey: ['resend-otp'],
-        mutationFn: (params) => authApi.resendOTP(type, params),
+        mutationFn: (params: VerifyRegisterParams) => authApi.resendOTP(type, params),
         onSuccess: (res) => {
             message.success(res?.data?.message)
             return res
@@ -114,7 +121,7 @@ export function useSubmitForgotEmail() {
 
     return useMutation({
         mutationKey: ['submit-forgot-email'],
-        mutationFn: (params) => authApi.forgotPassword(params),
+        mutationFn: (params: ForgotPasswordParams) => authApi.forgotPassword(params),
         onSuccess: (res) => {
             message.success(res?.data?.message)
         },
@@ -128,7 +135,7 @@ export function useConfirmForgotPassword() {
 
     return useMutation({
         mutationKey: ['confirm-forgot-password'],
-        mutationFn: (params) => authApi.forgotPasswordConfirm(params),
+        mutationFn: (params: ForgotPasswordConfirmParams) => authApi.forgotPasswordConfirm(params),
         onSuccess: (res) => {
             window.localStorage.setItem("userToken", res?.data?.data?.tokens?.accessToken);
             message.success(res?.data?.message);

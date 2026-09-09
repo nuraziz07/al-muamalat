@@ -48,7 +48,10 @@ const SignInForm = () => {
             email: email,
             ...data
         }
-        verifyMutation.mutate(submitData, {
+        verifyMutation.mutate({
+            email: email ?? '',
+            ...data,
+        }, {
             onSuccess: (res) => {
                 if (res) navigate({to: '/'})
             }
@@ -59,13 +62,13 @@ const SignInForm = () => {
         const submitData = {
             email: email,
         }
-        resendMutation.mutate(submitData, {
+        resendMutation.mutate({email: email ?? ''}, {
             onSuccess: (res) => message.success(res?.data?.message),
         })
     }
 
     if (step === 'forgot') {
-        return <ForgotPassword onSuccess={() => setStep('login')}/>
+        return <ForgotPassword onSuccess={() => setStep('login')} onGoBack={() => setStep('login')}/>
     }
 
     if (step === 'verify') {
@@ -87,7 +90,7 @@ const SignInForm = () => {
             <form onSubmit={handleSubmit(handleLogin)} className="flex flex-col gap-6">
                 <div>
                     <label className="mb-2 block text-sm font-semibold text-gray-900">
-                        {t('login.emailLabel') || 'Email'}
+                        {t('login.email') || 'Email'}
                     </label>
                     <input
                         {...register('email', {required: true})}
@@ -100,7 +103,7 @@ const SignInForm = () => {
                 <div>
                     <div className="mb-2 flex items-center justify-between">
                         <label className="text-sm font-semibold text-gray-900">
-                            {t('login.passwordLabel') || 'Password'}
+                            {t('login.password') || 'Password'}
                         </label>
                         <button
                             type="button"

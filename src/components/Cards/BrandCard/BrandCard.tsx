@@ -1,17 +1,10 @@
 import React from 'react';
-import cls from "classnames";
-
-interface BrandRowProps {
-    name: string;
-    logoSrc: string
-}
 
 type BrandCardProps = {
    img: string;
-   key: string | number
 }
 
-const BrandCard = ({img, key}: BrandCardProps) => {
+const BrandCard = ({img}: BrandCardProps) => {
 
     return (
         <div

@@ -77,10 +77,10 @@ function RouteComponent() {
             <Divider className={'bg-gray-200'} />
 
             <div className={'mt-10 flex gap-6 pb-10 items-start'}>
-                <LessonsSideBar activeLesson={activeLesson} setActiveLesson={(lessonId => setActiveLesson(lessonId))} lessons={lessons ?? []}/>
+                <LessonsSideBar activeLesson={activeLesson} setActiveLesson={setActiveLesson} lessons={lessons ?? []}/>
 
                 <div className={'flex-1 flex flex-col gap-4'}>
-                    <VideoPlayer lessons={lessons} activeIndex={activeIndex} selectedLesson={activeLesson} onPrev={handlePrev} onNext={handleNext} />
+                    <VideoPlayer lessons={lessons ?? []} activeIndex={activeIndex} selectedLesson={activeLesson} onPrev={handlePrev} onNext={handleNext} />
 
                     <Divider className={'bg-gray-200'} />
 

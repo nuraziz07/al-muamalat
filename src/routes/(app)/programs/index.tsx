@@ -23,7 +23,7 @@ function RouteComponent() {
         }
     })
 
-    const onLearnMore = (courseId) => {
+    const onLearnMore = (courseId: string) => {
         navigate({
             to: '/programs/$courseId',
             params: {courseId: courseId}
@@ -38,8 +38,8 @@ function RouteComponent() {
               <SectionHead title={'Online Courses'} subtitle={'Al Muamalat\'s international study programs offer an in-depth learning experience at leading Islamic financial institutions around the world.'} />
           </div>
           <div className="grid grid-cols-1 justify-items-center gap-6 px-4 pb-10 sm:grid-cols-2 sm:px-6 sm:gap-8 lg:grid-cols-3 lg:px-20 lg:gap-12">
-              {courses ? courses?.map((courseItem): ReactNode => (
-                  <CourseCard image={courseItem} onLearnMore={() => onLearnMore(courseItem.course_id)} title={courseItem.name_uz} price={0} key={courseItem.id}/>
+              {courses ? courses?.map((courseItem: {id: string | number; course_id: string; name_uz: string}): ReactNode => (
+                  <CourseCard image={Service} onLearnMore={() => onLearnMore(courseItem.course_id)} title={courseItem.name_uz} price={0} key={courseItem.id}/>
               )) : <Empty />}
           </div>
       </section>

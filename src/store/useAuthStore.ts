@@ -1,6 +1,10 @@
 import {create} from "zustand";
 
-export const useAuthStore = create((set, get) => ({
-    user: 0,
+type AuthState = {
+    user: unknown
+}
+
+export const useAuthStore = create<AuthState>(() => ({
+    user: null,
 }))
 

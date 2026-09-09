@@ -15,8 +15,16 @@ const BrandRow = () => {
 
     return (
         <div className={'flex flex-col gap-6'}>
-            <BrandCard brands={brands} direction={'left'} duration={30}  />
-            <BrandCard brands={brands} direction={'right'} duration={30}  />
+            <div className="flex gap-4 overflow-hidden">
+                {brands.map((brand) => (
+                    <BrandCard key={brand.name} img={brand.logoSrc} />
+                ))}
+            </div>
+            <div className="flex gap-4 overflow-hidden">
+                {brands.map((brand) => (
+                    <BrandCard key={`${brand.name}-alt`} img={brand.logoSrc} />
+                ))}
+            </div>
         </div>
     );
 };

@@ -1,5 +1,5 @@
 import {request} from "@/Services/api/interceptor.ts";
-import {LoginParams, RegisterParams, VerifyRegisterParams} from "@/Services/auth/auth.types.ts";
+import {ForgotPasswordConfirmParams, ForgotPasswordParams, LoginParams, RegisterParams, VerifyRegisterParams} from "@/Services/auth/auth.types.ts";
 import {URL} from "@/Constants/url.ts";
 
 export const authApi = {
@@ -24,12 +24,12 @@ export const authApi = {
     updateUser: (params: any, id: any) =>
         request.put(`/users/${id}`, params),
 
-    forgotPassword: (params) =>
+    forgotPassword: (params: ForgotPasswordParams) =>
         request.post(URL.forgotPassword_init, params),
 
-    forgotPasswordConfirm: (params) =>
+    forgotPasswordConfirm: (params: ForgotPasswordConfirmParams) =>
         request.post(URL.forgotPassword_confirm, params),
 
-    forgorPasswordVerify: (params) =>
-        request.post(URL.forgotPassword_verify)
+    forgorPasswordVerify: (params: ForgotPasswordParams) =>
+        request.post(URL.forgotPassword_verify, params)
 }

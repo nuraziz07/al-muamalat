@@ -7,7 +7,7 @@ import {useConfirmForgotPassword, useSubmitForgotEmail} from "@/hooks/custom/use
 
 interface ForgotPasswordProps {
     onSuccess: () => void;
-    onGoBack: () => void;
+    onGoBack?: () => void;
 }
 
 interface ForgotEmailValues {
@@ -49,7 +49,10 @@ const ForgotPassword = ({onSuccess, onGoBack}: ForgotPasswordProps) => {
             email: email,
             ...data
         }
-        return forgotPasConfirmMutation.mutate(submitData, {
+        return forgotPasConfirmMutation.mutate({
+            email: email ?? '',
+            ...data,
+        }, {
             onSuccess: (res: any) => {
                 onSuccess?.()
                 message.success(res?.data?.message)
