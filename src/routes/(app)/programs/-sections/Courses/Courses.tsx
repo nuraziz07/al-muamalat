@@ -50,7 +50,7 @@ const Courses = () => {
         <section>
             <SectionHead title={'Most Popular Course'} subtitle={'Expert guidance for managing funds in alignment with Islamic principles, helping you make informed, halal investment decisions.'}/>
 
-            <div className="flex justify-center items-center gap-4 px-20">
+            <div className="grid grid-cols-1 justify-items-center gap-6 px-4 sm:grid-cols-2 sm:px-8 lg:grid-cols-3 lg:px-20">
                 {courses.map((courseItem): ReactNode => (
                     <CourseCard key={courseItem.id} image={courseItem.image} title={courseItem.title} price={courseItem.price}/>
                 ))}

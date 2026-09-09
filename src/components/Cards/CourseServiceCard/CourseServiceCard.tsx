@@ -7,8 +7,8 @@ interface CourseServiceCardProps {
 
 const CourseServiceCard = ({ course }: CourseServiceCardProps) => {
     return (
-        <div className="w-full flex justify-center">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="w-full flex justify-center px-4 sm:px-6 md:px-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                 {course?.map((item, index) => (
                     <div
                         key={index}

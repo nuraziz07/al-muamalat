@@ -12,7 +12,7 @@ const AdditionalInfo = ({ selectedLesson }: AdditionalInfoProps) => {
 
     return (
         <div className="flex flex-col gap-4">
-            <h2 className="text-[29px] font-bold text-gray-900 leading-snug">
+            <h2 className="text-[22px] sm:text-[25px] md:text-[29px] font-bold text-gray-900 leading-snug">
                 {selectedLesson.title_uz}
             </h2>
 

@@ -44,20 +44,20 @@ const Payment = ({onSubmit, isPending}: PaymentProps) => {
         <section className="mx-auto max-w-6xl rounded-lg shadow-gray-400 shadow-xl">
             <div className="grid lg:grid-cols-2">
                 {/* Left */}
-                <div className="bg-[#0B9B93] px-16 py-20 text-white">
-                    <h2 className="mb-16 text-[36px] font-bold">Our Services</h2>
+                <div className="bg-[#0B9B93] px-6 py-10 sm:px-10 sm:py-14 md:px-14 md:py-16 lg:px-16 lg:py-20 text-white">
+                    <h2 className="mb-8 sm:mb-10 md:mb-14 lg:mb-16 text-[26px] sm:text-[30px] md:text-[36px] font-bold">Our Services</h2>
 
                     <div className="space-y-4">
                         {services.map((item) => (
-                            <div key={item.id} className="flex gap-5">
-                                <Check className="mt-1 shrink-0" size={30} />
+                            <div key={item.id} className="flex gap-4 sm:gap-5">
+                                <Check className="mt-1 shrink-0" size={24} />
 
                                 <div>
-                                    <h3 className="text-[22px] font-[600]">
+                                    <h3 className="text-[18px] sm:text-[20px] md:text-[22px] font-[600]">
                                         {item.title}
                                     </h3>
 
-                                    <p className="leading-9 text-[16px] font-[400] text-white/95">
+                                    <p className="leading-7 sm:leading-9 text-[14px] sm:text-[15px] md:text-[16px] font-[400] text-white/95">
                                         {item.description}
                                     </p>
                                 </div>
@@ -67,22 +67,22 @@ const Payment = ({onSubmit, isPending}: PaymentProps) => {
                 </div>
 
                 {/* Right */}
-                <div className="bg-white px-16 py-20">
-                    <h2 className="mb-12 text-[36px] font-semibold">Payment</h2>
+                <div className="bg-white px-6 py-10 sm:px-10 sm:py-14 md:px-14 md:py-16 lg:px-16 lg:py-20">
+                    <h2 className="mb-8 sm:mb-10 md:mb-12 text-[26px] sm:text-[30px] md:text-[36px] font-semibold">Payment</h2>
 
-                    <ul className="space-y-5">
+                    <ul className="space-y-4 sm:space-y-5">
                         {paymentFeatures.map((item, index) => (
-                            <li key={index} className="flex items-center gap-4">
+                            <li key={index} className="flex items-center gap-3 sm:gap-4">
                                 <Circle
                                     size={10}
                                     className="fill-[#0B9B93] text-[#0B9B93]"
                                 />
-                                <span className="text-[18px] font-normal">{item}</span>
+                                <span className="text-[16px] sm:text-[17px] md:text-[18px] font-normal">{item}</span>
                             </li>
                         ))}
                     </ul>
 
-                    <button type={'submit'} onClick={onSubmit} className="mt-16 rounded-xl bg-[#0B9B93] w-50 py-5 text-[18px] font-semibold text-white transition hover:opacity-90">
+                    <button type={'submit'} onClick={onSubmit} className="mt-10 sm:mt-14 md:mt-16 rounded-xl bg-[#0B9B93] w-full sm:w-50 py-4 sm:py-5 text-[16px] sm:text-[17px] md:text-[18px] font-semibold text-white transition hover:opacity-90">
                         {isPending ? <LoadingOutlined /> : 'Purchase Now'}
                     </button>
                 </div>

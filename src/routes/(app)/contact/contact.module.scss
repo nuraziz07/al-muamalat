@@ -14,18 +14,31 @@
 
 .get-in-touch__form-side {
   background-color: #fdf1ee;
-  padding: 56px 48px;
+  padding: 32px 20px;
 
-  @media (max-width: 640px) {
-    padding: 40px 24px;
+  @media (min-width: 480px) {
+    padding: 40px 28px;
+  }
+
+  @media (min-width: 640px) {
+    padding: 48px 36px;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 56px 48px;
   }
 }
 
 .get-in-touch__title {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 800;
   color: #1f2937;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
+
+  @media (min-width: 480px) {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
 
   @media (min-width: 640px) {
     font-size: 28px;
@@ -100,7 +113,11 @@
 
 .get-in-touch__image-side {
   position: relative;
-  min-height: 320px;
+  min-height: 240px;
+
+  @media (min-width: 640px) {
+    min-height: 320px;
+  }
 
   @media (min-width: 1024px) {
     min-height: 100%;

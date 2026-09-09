@@ -25,14 +25,14 @@ const PurchasedCourses = () => {
     }
 
     return (
-        <div className="rounded-3xl bg-white p-8 shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
-            <div className="mb-6 flex items-center justify-between">
-                <h3 className="text-2xl font-bold text-gray-900">Courses purchased</h3>
+        <div className="rounded-3xl bg-white p-5 sm:p-7 md:p-8 shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
+            <div className="mb-5 sm:mb-6 flex items-center justify-between gap-4">
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Courses purchased</h3>
 
                 <button
                     type="button"
                     onClick={() => navigate({to: '/programs'})}
-                    className="rounded-full bg-orange-500 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-600"
+                    className="shrink-0 rounded-full bg-orange-500 px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-white transition hover:bg-orange-600"
                 >
                     All courses
                 </button>
@@ -40,7 +40,7 @@ const PurchasedCourses = () => {
 
             <div className="mb-6 h-px w-full bg-gray-100"/>
 
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2">
                 {purchasedCourses?.map((course: Course): ReactNode => (
                     <PurchasedCourseCard
                         key={course.id}

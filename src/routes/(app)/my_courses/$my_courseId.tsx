@@ -67,16 +67,16 @@ function RouteComponent() {
         if(lessons && activeIndex < lessons.length - 1) setActiveLesson(lessons![activeIndex + 1])
     }
     return (
-        <section className={'px-40'}>
+        <section className={'px-4 sm:px-8 md:px-16 lg:px-28 xl:px-40'}>
 
             <div className={'mt-7 gap-4 flex-col flex'}>
-                <h1 className={'text-[34px] font-medium'}>{filteredData?.map((item) => item.name_uz)}</h1>
+                <h1 className={'text-[24px] sm:text-[28px] md:text-[34px] font-medium'}>{filteredData?.map((item) => item.name_uz)}</h1>
                 <ProgressionBar/>
             </div>
 
             <Divider className={'bg-gray-200'} />
 
-            <div className={'mt-10 flex gap-6 pb-10 items-start'}>
+            <div className={'mt-10 flex flex-col gap-6 pb-10 lg:flex-row lg:items-start'}>
                 <LessonsSideBar activeLesson={activeLesson} setActiveLesson={setActiveLesson} lessons={lessons ?? []}/>
 
                 <div className={'flex-1 flex flex-col gap-4'}>

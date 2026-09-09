@@ -79,7 +79,7 @@ const ConsultationForm = () => {
                         {workshops[active].description}
                     </p>
 
-                    <div className="mt-10 flex justify-center gap-3 sm:mt-16 md:mt-28 lg:mt-52 lg:gap-4">
+                    <div className="mt-10 flex justify-center gap-3 sm:mt-12 md:mt-20 lg:mt-52 lg:gap-4">
                         {workshops.map((_, index) => (
                             <button
                                 key={index}

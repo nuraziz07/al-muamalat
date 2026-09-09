@@ -7,12 +7,12 @@ interface CareersInfoBannerProps {
 
 const CareersInfoBanner = ({title, description}: CareersInfoBannerProps) => {
     return (
-        <div className="mx-auto max-w-5xl rounded-2xl border border-gray-100 bg-white p-8 shadow-sm md:p-10">
-            <p className="mb-4 text-lg font-semibold leading-relaxed text-gray-900">
+        <div className="mx-auto max-w-5xl rounded-2xl border border-gray-100 bg-white p-5 sm:p-7 md:p-10 shadow-sm">
+            <p className="mb-3 sm:mb-4 text-base sm:text-lg font-semibold leading-relaxed text-gray-900">
                 {title}
             </p>
 
-            <p className="text-base leading-relaxed text-gray-600">
+            <p className="text-sm sm:text-base leading-relaxed text-gray-600">
                 {description}
                 <a
                     href="https://t.me/almuamalat_education"

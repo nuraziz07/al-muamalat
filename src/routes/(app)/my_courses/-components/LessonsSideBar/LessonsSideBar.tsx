@@ -11,7 +11,7 @@ type LessonsSideBarProps = {
 const LessonsSideBar = ({ lessons, setActiveLesson, activeLesson }: LessonsSideBarProps) => {
 
     return (
-        <div className="w-72 shadow-md shrink-0 bg-white rounded-2xl border border-gray-100 sticky top-32 h-fit max-h-[680px] flex flex-col overflow-hidden">
+        <div className="w-full lg:w-72 shadow-md shrink-0 bg-white rounded-2xl border border-gray-100 lg:sticky lg:top-32 h-fit max-h-[680px] flex flex-col overflow-hidden">
             <div className="overflow-y-auto flex-1 scrollbar-orange py-2">
                 {lessons?.map((lesson, i) => (
                     <LessonsSideBarItem

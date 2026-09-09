@@ -35,11 +35,11 @@ const PurchasedCourseCard = ({ image, isPaid, onPay, title, onLearnMore, course}
                 </h4>
             </div>
 
-            <div className={'flex items-center justify-between'}>
+            <div className={'flex items-center justify-between px-5 pb-5'}>
                 <div className="flex items-center gap-3">
                     <span
                         className={cls(
-                            'rounded-lg px-4 py-2 text-sm font-semibold text-white',
+                            'rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-white',
                             isPaid === 'paid' ? 'bg-emerald-600' : 'bg-red-500'
                         )}
                     >
@@ -52,14 +52,14 @@ const PurchasedCourseCard = ({ image, isPaid, onPay, title, onLearnMore, course}
                     <button
                         type="button"
                         onClick={onPay}
-                        className="rounded-lg bg-[#3b8570] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#2f6b5a]"
+                        className="rounded-lg bg-[#3b8570] px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-white transition hover:bg-[#2f6b5a]"
                     >
                         Make a payment
                     </button>
                 ) || <button
                     type="button"
                     onClick={onLearnMore}
-                    className="rounded-lg bg-[#3b8570] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#2f6b5a]"
+                    className="rounded-lg bg-[#3b8570] px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-white transition hover:bg-[#2f6b5a]"
                 >
                     Learn more
                 </button>}

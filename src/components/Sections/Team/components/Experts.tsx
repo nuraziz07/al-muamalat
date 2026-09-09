@@ -18,8 +18,8 @@ const Experts = () => {
     };
  
     return (
-        <section className={'mt-15'}>
-            <div className={'w-full mt-10'}>
+        <section className={'mt-8 sm:mt-10 md:mt-15'}>
+            <div className={'w-full mt-6 sm:mt-8 md:mt-10'}>
                 <Swiper
                     modules={[Navigation, Pagination, Autoplay, EffectCoverflow]}
                     effect="coverflow"

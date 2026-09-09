@@ -30,13 +30,13 @@ const LearningPointsCard = () => {
     ];
 
     return (
-        <div className="flex flex-col gap-10 justify-center lg:flex-row">
+        <div className="flex flex-col gap-6 justify-center px-4 sm:px-6 md:px-8 lg:flex-row lg:px-0">
             {courseCards.map((card) => (
                 <div
                     key={card.title}
-                    className="flex-1 rounded-2xl bg-[#F3F8FF] px-10 py-10 lg:max-w-[560px]"
+                    className="flex-1 rounded-2xl bg-[#F3F8FF] px-6 py-8 sm:px-8 sm:py-10 lg:max-w-[560px] lg:px-10 lg:py-10"
                 >
-                    <h2 className="mb-6 text-xl font-semibold leading-snug text-slate-900">
+                    <h2 className="mb-6 text-lg sm:text-xl font-semibold leading-snug text-slate-900">
                         {card.title}
                     </h2>
 
@@ -49,7 +49,7 @@ const LearningPointsCard = () => {
                                     <Circle className="mt-1.5 h-2 w-2 shrink-0 fill-slate-900 text-slate-900"/>
                                 )}
 
-                                <p className="text-base leading-relaxed text-slate-700">
+                                <p className="text-sm sm:text-base leading-relaxed text-slate-700">
                                     {text}
                                 </p>
                             </div>

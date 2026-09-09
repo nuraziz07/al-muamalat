@@ -90,9 +90,9 @@ const ProfileSidebar = () => {
     return (
         <form
             onSubmit={handleSubmit(handleUpdateUser)}
-            className="rounded-3xl bg-white p-8 shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
+            className="rounded-3xl bg-white p-5 sm:p-7 md:p-8 shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
             {/* Avatar + name */}
-            <div className="mb-8 flex flex-col items-center text-center">
+            <div className="mb-6 sm:mb-8 flex flex-col items-center text-center">
 
                 <UserIcon userIcon={user?.img_src} />
 

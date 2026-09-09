@@ -3,10 +3,18 @@
   margin: 0 auto;
   background-color: #fdf1ee;
   border-radius: 24px;
-  padding: 56px 48px;
+  padding: 32px 20px;
 
-  @media (max-width: 640px) {
-    padding: 40px 24px;
+  @media (min-width: 480px) {
+    padding: 40px 28px;
+  }
+
+  @media (min-width: 640px) {
+    padding: 48px 36px;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 56px 48px;
   }
 }
 
